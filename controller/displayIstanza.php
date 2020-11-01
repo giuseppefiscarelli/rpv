@@ -9,9 +9,14 @@ if(!empty($_SESSION['message'])){
     unset($_SESSION['message'],$_SESSION['success']);
   }
                   
+  $id = getParam('id',0);
  
+  if($id){
+      $i = getIstanza($id);
+  }else{
     $utente= $_SESSION['userData']['email'];
     $i = getIstanzaUser($utente);
+}
   // var_dump($i);
   
   
