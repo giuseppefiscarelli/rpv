@@ -32,7 +32,10 @@ require_once 'headerInclude.php';
     require_once 'view/template/footer.php';
 ?>
 <script type="text/javascript">
-
+     var myVar= $('[id^=nav-vertical-tab-bg]').find("active")
+     
+      console.log(myVar[1]);
+     
 </script>
 </body>
 </html>    

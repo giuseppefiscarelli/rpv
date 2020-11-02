@@ -21,3 +21,5 @@ if(!empty($_SESSION['message'])){
   
   
          require_once 'view/istanze/istanza_page.php';
+
+         ?>

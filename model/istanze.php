@@ -149,4 +149,61 @@ function countIstanze( array $params = []){
 
     return $totalUser;
 
+}
+
+function getCatInc(){
+  
+    /**
+     * @var $conn mysqli
+     */
+
+    $conn = $GLOBALS['mysqli'];
+
+    $sql = 'SELECT * FROM categoria_incentivo';
+    
+    
+    $records = [];
+
+    $res = $conn->query($sql);
+    if($res) {
+
+      while( $row = $res->fetch_assoc()) {
+          $records[] = $row;
+          
+      }
+
+    }
+
+   return $records;
+
+
+
+}
+function getTipoVei(){
+  
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+
+  $sql = 'SELECT * FROM tipo_veicolo';
+  
+  
+  $records = [];
+
+  $res = $conn->query($sql);
+  if($res) {
+
+    while( $row = $res->fetch_assoc()) {
+        $records[] = $row;
+        
+    }
+
   }
+
+ return $records;
+
+
+
+}
