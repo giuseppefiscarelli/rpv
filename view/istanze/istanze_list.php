@@ -68,7 +68,7 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
            
             <small style="float: right;">Totale Istanze <b><?=$totalUsers?></b><br> Pagina <b><?=$page?></b> di <b><?=$numPages?></b></small>
             <br>
-                <div class="table-responsive">
+                <div class="table-responsive" style="font-size:15px;">
                     <table class="table table-striped">
                         <thead>
                             <tr>

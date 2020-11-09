@@ -1,9 +1,9 @@
-        <div class="it-header-navbar-wrapper">
-          <div class="container">
-            <div class="row">
-              <div class="col-12">
+        <div class="it-header-navbar-wrapper affix-top" style="z-index:1;">
+          <div class="container ">
+            <div class="row ">
+              <div class="col-12 ">
                 <!--start nav-->
-                <nav class="navbar navbar-expand-lg has-megamenu">
+                <nav class="navbar navbar-expand-lg has-megamenu " >
                   <button class="custom-navbar-toggler" type="button" aria-controls="nav1" aria-expanded="false" aria-label="Toggle navigation" data-target="#nav1">
                     <svg class="icon">
                       <use xlink:href="svg/sprite.svg#it-burger"></use>

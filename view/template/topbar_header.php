@@ -1,5 +1,5 @@
 
-  <body>
+  <body class="affix-parent">
         <div class="it-header-slim-wrapper">
             <div class="container">
               <div class="row">

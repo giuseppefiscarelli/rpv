@@ -4,7 +4,7 @@ require_once 'functions.php';
 
 if(!isUserLoggedin()){
 
-  header('Location:login.php');
+  header('Location:index.php');
   exit;
 }
 
@@ -14,7 +14,7 @@ $deleteUrl = 'controller/updateIstanze.php';
 require_once 'headerInclude.php';
 ?>
 
-<div class="container my-4" style="max-width:80%">
+<div class="container my-4" style="max-width:90%">
  
 
     

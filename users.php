@@ -4,7 +4,7 @@ require_once 'functions.php';
 
 if(!isUserLoggedin()){
 
-  header('Location:login.php');
+  header('Location:index.php');
   exit;
 }
 
