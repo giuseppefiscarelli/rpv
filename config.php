@@ -13,7 +13,8 @@ return [
         'admin','user','suadmin'
 
     ],
-        'numLinkNavigator' => 4
+    'numLinkNavigator' => 4,
+    $pathAlle = "/inv2020/allegati/"
 ]
     
 ;

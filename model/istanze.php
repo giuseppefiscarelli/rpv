@@ -422,28 +422,78 @@ function getRowVeicolo($tipo,$id_RAM){
 
 
 }
-function getTipoDocumento(){
+function getTipoDocumento($cod){
   /**
    * @var $conn mysqli
    */
 
   $conn = $GLOBALS['mysqli'];
 
-  $sql = 'SELECT * FROM tipo_documento';
+  $sql = 'SELECT * FROM tv_td where codice_tipo_veicolo='.$cod;
   //echo $sql;
   $records = [];
-
+ 
   $res = $conn->query($sql);
   if($res) {
 
     while( $row = $res->fetch_assoc()) {
         $records[] = $row;
-        
+       
+       
+             
     }
 
   }
+    
+  
 
  return $records;
+
+
+}
+function getTipDocumento($tipo_documento){
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+
+  $sql = 'SELECT * FROM tipo_documento where tdoc_codice='.$tipo_documento;
+  //echo $sql;
+  $records = [];
+
+  $res = $conn->query($sql);
+        if($res) {
+
+          while( $row = $res->fetch_assoc()) {
+              $records[] = $row;
+              
+          }
+
+        }
+
+    return $records;
+
+
+}
+function getTipDoc($tipo_documento){
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+
+  $sql = 'SELECT tdoc_descrizione as descrizione FROM tipo_documento where tdoc_codice='.$tipo_documento;
+  //echo $sql;
+  $des = 0;
+
+  $res = $conn->query($sql);
+      if($res) {
+
+       $row = $res->fetch_assoc();
+       $des = $row['descrizione'];
+      }
+      return $des;
 
 
 }
@@ -499,6 +549,28 @@ function getAllegato($tipo_documento,$id_RAM,$id_veicolo){
 
 
 }
+function getAllegatoID($id){
+  /**
+  * @var $conn mysqli
+  */
+
+$conn = $GLOBALS['mysqli'];
+
+$sql = 'SELECT * FROM allegato WHERE id ='.$id;
+//echo $sql;
+$result = [];
+
+$res = $conn->query($sql);
+      
+      if($res && $res->num_rows){
+        $result = $res->fetch_assoc();
+        
+      }
+    return $result;
+
+
+
+}
 function getAllegati($id_RAM,$id_veicolo){
   /**
   * @var $conn mysqli
@@ -506,7 +578,7 @@ function getAllegati($id_RAM,$id_veicolo){
 
   $conn = $GLOBALS['mysqli'];
   
-  $sql = 'SELECT * FROM allegato WHERE id_ram ='.$id_RAM.' and id_veicolo ='.$id_veicolo;
+  $sql = 'SELECT * FROM allegato WHERE id_ram ='.$id_RAM.' and id_veicolo ='.$id_veicolo.' and attivo="s" ';
   //echo $sql;
   $records = [];
 
@@ -563,7 +635,7 @@ function upVeicolo($data){
 
 
 }
-function newAllegato($data,$file){
+function newAllegato($data,$file,$pathAlle){
   /**
    * @var $conn mysqli
    */
@@ -574,14 +646,17 @@ function newAllegato($data,$file){
   $id_veicolo = $conn->escape_string($data['doc_idvei']);
   $tipo_documento = $conn->escape_string($data['tipo_documento']);
   $docu_nome_file_origine =  $conn->escape_string($file['name']);
-  $docu_id_file_archivio = $conn->escape_string($file['name']);
+  $path_parts = pathinfo($docu_nome_file_origine);
+  $docu_id_file_archivio = $id_ram."_".$id_veicolo."_".strtotime("now").".".$path_parts['extension'];
   $data_allegato = array_key_exists('data_allegato', $data)? $data['data_allegato']:'';
-  $importo_allegato = array_key_exists('importo_allegato', $data)? $data['importo_allegato']:null;
+  $data_allegato = DateTime::createFromFormat('d/m/Y', $data_allegato);
+  $data_allegato= $data_allegato->format('Y-m-d');
+  $importo_allegato = array_key_exists('importo_allegato', $data)? $data['importo_allegato']:'NULL';
   $testo_allegato = array_key_exists('testo_allegato', $data)? $data['testo_allegato']:'';
   $numero_allegato = array_key_exists('numero_allegato', $data)? $data['numero_allegato']:'';
   $note = array_key_exists('note_allegato', $data)? $data['note_allegato']:'';
   $attivo ="s";
-  $user = $_SESSION['userData']['username'];
+  $user = $_SESSION['userData']['email'];
 
   $result=0;
   $sql ='INSERT INTO allegato (id,id_ram,id_veicolo,tipo_documento,docu_nome_file_origine,docu_id_file_archivio,data_allegato,importo_allegato,testo_allegato,numero_allegato,note,attivo,user) ';
@@ -592,11 +667,14 @@ function newAllegato($data,$file){
   
   if($res ){
     $result =  $conn->affected_rows;
+    move_uploaded_file($file['tmp_name'],$pathAlle.$docu_id_file_archivio);
+
+    $last_id= mysqli_insert_id($conn);
     
   }else{
-    $result -1;  
+    $last_id=0;  
   }
-return $result;
+  return $last_id;
 
 
 

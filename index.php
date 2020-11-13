@@ -239,12 +239,21 @@ require_once 'view/template/top.php';
       
       <div class="container my-4">
         <h1>Lorem Ipsum</h1>
-        <p>Ab illo tempore, ab est sed immemorabili.<br/>
-          Ullamco laboris nisi ut aliquid ex ea commodi consequat.<br/>
-          Quis aute iure reprehenderit in voluptate velit esse.<br/>
-          Petierunt uti sibi concilium totius Galliae in diem certam indicere.</p>
-        <p>Pellentesque habitant morbi tristique senectus et netus.</p>
-  
+        <?php
+$filename = $pathAlle.'test.jpg';
+
+if (file_exists($filename)) {
+    echo "The file $filename exists";
+} else {
+    echo "The file $filename does not exist";
+}
+
+$path_parts = pathinfo($filename);
+
+
+echo $path_parts['extension'], "\n";
+
+?>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <a class="nav-item nav-link active" id="nav-tab1-tab" data-toggle="tab" href="#nav-tab1" role="tab" aria-controls="nav-tab1" aria-selected="true">Tab 1</a>
           <a class="nav-item nav-link" id="nav-tab2-tab" data-toggle="tab" href="#nav-tab2" role="tab" aria-controls="nav-tab2" aria-selected="false">Tab 2</a>

@@ -81,32 +81,56 @@
                                             </div>    
                                             <div class="row">   
                                                    <div class="col-lg-12">
-                                                        <table class="table table-borderless">
-                                                            <caption style="font-size: 25px;caption-side: top;">Documenti Veicolo</caption>
-                                                            <thead>
-                                                                <tr >
-                                                                <th>
-                                                                    <button type="button" class="btn btn-success btn-sm"onclick="docmodal(<?=$rv['id']?>);" ><i class="fa fa-upload" aria-hidden="true"></i> Carica documento</button>
-                                                                
-                                                                    </th></tr>   
-                                                            </thead>
-                                                            <tbody>
-                                                                    <?php
-                                                                    $allegati=getAllegati($i['id_RAM'],$rv['id']);
-                                                                    if($allegati){
-                                                                        foreach ($allegati as $alle) {?>
-                                                                        
-                                                                        <?php
-                                                                        }
-                                                                    }else{?>
+                                                        <div class="card">   
+               
+                                                            <table class="table table-borderless" id="tab_doc_<?=$rv['id']?>">
+                                                                <caption style="font-size: 25px;caption-side: top;">Documenti Veicolo</caption>
 
-                                                                    <tr><td>Non ci sono Documenti Caricati</td></tr> 
-                                                                    <?php
-                                                                    }?>
-                                                        </tbody>
-                                                        </table>
+                                                                <thead>
+                                                                <tr><th colspan="5">                                                                <button type="button" class="btn btn-success btn-sm" onclick="docmodal(<?=$rv['id']?>,<?=$rv['tipo_veicolo']?>);" ><i class="fa fa-upload" aria-hidden="true"></i> Carica documento</button>
+</th>
+                                                                
+                                                                </tr>
+                                                                    <tr style="font-size:15px;">
+                                                                        <th>Tipo Documento</th>
+                                                                        <th>Data Upload</th>
+                                                                        
+                                                                        <th>Note</th>
+                                                                        <th></th>
+                                                                    </tr>   
+                                                                </thead>
+                                                                <tbody style="font-size:15px;">
+                                                                        <?php
+                                                                        $allegati=getAllegati($i['id_RAM'],$rv['id']);
+                                                                        if($allegati){
+                                                                            foreach ($allegati as $alle) {
+                                                                                $tipoDoc = getTipDoc($alle['tipo_documento']);
+                                                                                $campoDoc = getCampoDoc($alle['tipo_documento']);
+                                                                                //var_dump($campoDoc);
+                                                                                
+
+                                                                                ?>
+                                                                            <tr>
+                                                                                <td><?=$tipoDoc?></td>
+                                                                                <td><?=date("d/m/Y H:i", strtotime($alle['data_agg']))?></td>
+                                                                                <td><?=$alle['note']?></td>
+                                                                                <td><button type="button" href="<?=$pathAlle.$alle['docu_id_file_archivio']?>" download title="Scarica Documento"class="btn btn-primary "><i class="fa fa-download" aria-hidden="true"></i> </button>
+                                                                                    <button type="button" onclick="getAlle(<?=$alle['id']?>)"title="Vedi Documento"class="btn btn-danger "><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></td>
+                                                                            </tr>
+                                                                            <?php
+                                                                            }
+                                                                        }else{?>
+
+                                                                        <tr><td>Non ci sono Documenti Caricati</td></tr> 
+                                                                        <?php
+                                                                        }?>
+                                                                </tbody>
+                                                            </table>
+                                                                            
+                                                        </div>                     
                                                    </div>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     

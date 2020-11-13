@@ -213,17 +213,10 @@
                                                      <input type="hidden" name="id_RAM" value="<?=$i['id_RAM']?>">
                                                       <input type="hidden" name="doc_idvei" id="doc_idvei" value="">
                                                         <div class="bootstrap-select-wrapper">
-                                                          <label>Tipo Documento</label>
-                                                          <select id="tipo_documento" name="tipo_documento"title="Scegli un tipo di documento">
-                                                           <?php
-                                                                  $tipDoc = getTipoDocumento();
-                                                                  foreach($tipDoc as $td){
-                                                                   // $campo=getCampoDoc($td['tdoc_codice']);?>
-                                                                      <option value="<?=$td['tdoc_codice']?>"><?=$td['tdoc_descrizione']?></option>
-                                                                    <br>
-                                                                <?php
-                                                                }?>
-                                                       </select>
+                                                            <label>Tipo Documento</label>
+                                                            <select id="tipo_documento" name="tipo_documento"title="Scegli un tipo di documento">
+                                                          
+                                                          </select>
                                                         </div>
                                                         <div id="campi_allegati" style="margin-top:50px;">
                                                         </div>

@@ -77,7 +77,7 @@ require_once 'headerInclude.php';
                                           alert+='Dati Veicolo Aggiornati</div></div>'  
                                           $( ".container" ).append(alert);
                                           $("#message2").delay(6000).slideUp(200, function() {
-                                                $(".alert").alert('close')
+                                                $("#almsg").alert('close')
                                           });
     
 
@@ -181,38 +181,74 @@ require_once 'headerInclude.php';
 
 
       });
-      $('#form_allegato').on('submit', function(event){
+      $('#form_allegato').submit(function(event){
             event.preventDefault();
+            tipo=$('#tipo_documento option:selected').text()
+            console.log(tipo)
+            formData = new FormData(this);
+            //alert("ok")
                   $.ajax({
                         url: "controller/updateIstanze.php?action=newAllegato",
                         type:"POST",
-                        data: new FormData(this),
+                        data: formData,
                         dataType: 'json',
                         contentType: false,
                         cache: false,
                         processData:false,
+                        success: function(data){
+                              console.log(data)
+                              data_ins=convData(data.data_agg)
+                              id_table= formData.get('doc_idvei')
+                              $('#docModal').modal('toggle');
+                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td>col4</td></tr>'
+                              $('#tab_doc_'+id_table+' > tbody:last-child').append(row);
+                        }
                   })
 
       });
-      
-         
+      $('#docModal').on('hidden.bs.modal', function (e) {
+            $('#campi_allegati').empty();
+      }) 
       
      
-     function infomodal(id){
-
-           //alert(id);
-           $("#infoModal").modal("toggle");
-           $("#info_idvei").val(id);
-
-     } 
-     function docmodal(id){
+      function infomodal(id){
 
             //alert(id);
-            $("#docModal").modal("toggle");
+            $("#infoModal").modal("toggle");
+            $("#info_idvei").val(id);
 
+      } 
+      function docmodal(id,tipdoc){
+            //$('#tipo_documento').remove();
+            $(".bootstrap-select-wrapper option").remove();
+            $('.bootstrap-select-wrapper select').selectpicker('refresh')
+            //alert(id);
+            $("#docModal").modal("toggle");
+            $("#doc_idvei").val(id);
+                  $.ajax({
+                        type: "POST",
+                        url: "controller/updateIstanze.php?action=getDocVei",
+                        data: {tipdoc:tipdoc},
+                        dataType: "json",
+                        success: function(data){
+                              //console.log(data)
+                              $.each(data, function(k,v){
+                                    console.log(v.codice_tipo_documento)
+                                    tip=v.codice_tipo_documento
+                                    tipoDoc(tip)
+
+
+                              })
+                                                          
+                        }
+                  })
+                
+                
+
+                  
       }
-     function tipDoc(tip){
-      $('#row_doc').empty();
+      function tipDoc(tip){
+       $('#row_doc').empty();
 
            
            $.ajax({
@@ -286,7 +322,52 @@ require_once 'headerInclude.php';
                  }
            })
       }
-    
+      function tipoDoc(tipo){
+            $.ajax({
+                        type: "POST",
+                        url: "controller/updateIstanze.php?action=getTipoDoc",
+                        data: {tipo:tipo},
+                        dataType: "json",
+                        success: function(data){
+                              $.each(data, function(k,v){
+                                    console.log(v.tdoc_descrizione)
+                                    $('#tipo_documento').append('<option value="' + v.tdoc_codice + '">' + v.tdoc_descrizione + '</option>');
+                                    $('.bootstrap-select-wrapper select').selectpicker('refresh')
+                              })
+
+                              }
+                                                          
+                        
+                  })
+                  
+
+
+      
+      }
+      function getAlle(id){
+            $.ajax({
+                        type: "POST",
+                        url: "controller/updateIstanze.php?action=getAllegato",
+                        data: {id:id},
+                        dataType: "json",
+                      
+                  })
+
+
+      }
+      function convData(isodata){
+            newdata = new Date(isodata);
+            newgiorno =newdata.getDate()
+            if(newgiorno<10){
+                  newgiorno="0"+newgiorno
+            }
+            newmese=newdata.getMonth()+1;
+            if(newmese<10){
+                  newmese="0"+newmese
+            }
+            newanno=newdata.getFullYear();
+            return newgiorno+'/'+newmese+'/'+newanno;
+      }
 </script>
 
 </body>
