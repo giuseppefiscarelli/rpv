@@ -114,8 +114,8 @@
                                                                                 <td><?=$tipoDoc?></td>
                                                                                 <td><?=date("d/m/Y H:i", strtotime($alle['data_agg']))?></td>
                                                                                 <td><?=$alle['note']?></td>
-                                                                                <td><button type="button" href="<?=$pathAlle.$alle['docu_id_file_archivio']?>" download title="Scarica Documento"class="btn btn-primary "><i class="fa fa-download" aria-hidden="true"></i> </button>
-                                                                                    <button type="button" onclick="getAlle(<?=$alle['id']?>)"title="Vedi Documento"class="btn btn-danger "><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></td>
+                                                                                <td><a type="button" href="download.php?id=<?=$alle['id']?>" download title="Scarica Documento"class="btn btn-primary "><i class="fa fa-download" aria-hidden="true"></i> </a>
+                                                                                    <button type="button" onclick="window.open('allegato.php?id=<?=$alle['id']?>', '_blank')"title="Vedi Documento"class="btn btn-danger "><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></td>
                                                                             </tr>
                                                                             <?php
                                                                             }

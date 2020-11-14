@@ -50,28 +50,5 @@ switch ($action){
       echo json_encode($res);
     break;  
       
-    case 'getAllegato':
-
-      $id=$_POST['id'];
-
-      $res =getAllegatoID($id);
-     // var_dump($res);
-       
-              // Store the file name into variable 
-            $file = $pathAlle.$res['docu_id_file_archivio']; 
-            $filename = $res['docu_nome_file_origine']; 
-                    
-           /* header('Content-type: application/pdf');
-            header('Content-Disposition: inline; filename="' . $filename . '"');
-            header('Content-Transfer-Encoding: binary');
-            header('Content-Length: ' . filesize($file));
-            header('Accept-Ranges: bytes');
-            */
-            //@readfile($file);
-           // echo file_get_contents($file);
-           //exit();
-          var_dump($file);
-
-    break;
-
+ 
    }

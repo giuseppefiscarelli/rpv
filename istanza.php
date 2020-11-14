@@ -200,7 +200,9 @@ require_once 'headerInclude.php';
                               data_ins=convData(data.data_agg)
                               id_table= formData.get('doc_idvei')
                               $('#docModal').modal('toggle');
-                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td>col4</td></tr>'
+                              button='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-primary "><i class="fa fa-download" aria-hidden="true"></i></a>'
+                              buttonb='<button type="button" onclick="window.open(\'allegato.php?id='+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-danger "><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
+                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td>'+button+''+buttonb+'</td></tr>'
                               $('#tab_doc_'+id_table+' > tbody:last-child').append(row);
                         }
                   })
@@ -344,17 +346,7 @@ require_once 'headerInclude.php';
 
       
       }
-      function getAlle(id){
-            $.ajax({
-                        type: "POST",
-                        url: "controller/updateIstanze.php?action=getAllegato",
-                        data: {id:id},
-                        dataType: "json",
-                      
-                  })
-
-
-      }
+      
       function convData(isodata){
             newdata = new Date(isodata);
             newgiorno =newdata.getDate()
