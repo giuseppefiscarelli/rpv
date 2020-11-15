@@ -46,6 +46,11 @@
                                                                     </th></tr>   
                                                             </thead>
                                                             <tbody style="font-size:15px;">
+                                                            <tr>
+                                                                    <td>Targa</td>
+                                                                    <td id="targa_<?=$rv['id']?>"><?=$rv['targa']?$rv['targa']:'Non Presente'?></td>
+                                                               
+                                                                </tr>
                                                                 <tr>
                                                                     <td>Marca</td>
                                                                     <td id="marca_<?=$rv['id']?>"><?=$rv['marca']?$rv['marca']:'Non Presente'?></td>
@@ -54,11 +59,7 @@
                                                                     <td>Modello</td>
                                                                     <td id="modello_<?=$rv['id']?>"><?=$rv['modello']?$rv['modello']:'Non Presente'?></td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td>Targa</td>
-                                                                    <td id="targa_<?=$rv['id']?>"><?=$rv['targa']?$rv['targa']:'Non Presente'?></td>
-                                                               
-                                                                </tr>
+                                                                
                                                                 <tr>
                                                                     <td>Tipo Acquisizione</td>
                                                                     <td id="tipo_acquisizione_<?=$rv['id']?>"><?php if($rv['tipo_acquisizione']){
@@ -115,7 +116,8 @@
                                                                                 <td><?=date("d/m/Y H:i", strtotime($alle['data_agg']))?></td>
                                                                                 <td><?=$alle['note']?></td>
                                                                                 <td><a type="button" href="download.php?id=<?=$alle['id']?>" download title="Scarica Documento"class="btn btn-primary "><i class="fa fa-download" aria-hidden="true"></i> </a>
-                                                                                    <button type="button" onclick="window.open('allegato.php?id=<?=$alle['id']?>', '_blank')"title="Vedi Documento"class="btn btn-danger "><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></td>
+                                                                                    <button type="button" onclick="window.open('allegato.php?id=<?=$alle['id']?>', '_blank')"title="Vedi Documento"class="btn btn-success "><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                                                                                    <button type="button" title="Elimina Documento"class="btn btn-danger "><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                                                                             </tr>
                                                                             <?php
                                                                             }

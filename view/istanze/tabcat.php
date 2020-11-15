@@ -3,7 +3,7 @@
                        Categoria <?=$ca['ctgi_categoria']?><br> <small><?=$ca['ctgi_descrizione']?></small>
                     </button>
                   </div>
-                  <div id="collapse1-sc<?=$ca['ctgi_codice']?>" class="collapse <?=$ca['ctgi_codice']==1?'show':''?>" role="tabpanel" aria-labelledby="heading1-sc<?=$ca['ctgi_codice']?>" data-parent="#collapseDiv1-sc1">
+                  <div id="collapse1-sc<?=$ca['ctgi_codice']?>" class="collapse" role="tabpanel" aria-labelledby="heading1-sc<?=$ca['ctgi_codice']?>" data-parent="#collapseDiv1-sc1">
                     <div class="collapse-body">
 
                         <div class="bd-example-tabs">

@@ -1,11 +1,11 @@
-<h3 class="card-title">Istanza n° <?=$i['id']?></h3>
+<h3 class="card-title">Istanza n° <?=date("Y")?>/<?=$i['id_RAM']?></h3>
 
 
 
   <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-tab1-tab" data-toggle="tab" href="#nav-tab1" role="tab" aria-controls="nav-tab1" aria-selected="true">Dati Richiedente / Dati Impresa</a>
-      <a class="nav-item nav-link" id="nav-tab2-tab" data-toggle="tab" href="#nav-tab2" role="tab" aria-controls="nav-tab2" aria-selected="false">Tab 2</a>
+      <a class="nav-item nav-link active" id="nav-tab1-tab" data-toggle="tab" href="#nav-tab1" role="tab" aria-controls="nav-tab1" aria-selected="true">Dati della Domanda</a>
+      <a class="nav-item nav-link" id="nav-tab2-tab" data-toggle="tab" href="#nav-tab2" role="tab" aria-controls="nav-tab2" aria-selected="false">Investimento /rendicontazione</a>
       <a class="nav-item nav-link" id="nav-tab3-tab" data-toggle="tab" href="#nav-tab3" role="tab" aria-controls="nav-tab3" aria-selected="false">Tab 3</a>
     </div>
   </nav>
@@ -170,7 +170,9 @@
     <div class="tab-pane p-4 fade" id="nav-tab2" role="tabpanel" aria-labelledby="nav-tab2-tab">
                     
 
-        
+        <div class="row">
+        <button type="button" class="btn btn-primary"></button>
+        </div>
         <div class="row">
           <div class="col-12">
             <div id="collapseDiv1-sc1" class="collapse-div collapse-background-active " role="tablist">
@@ -294,3 +296,24 @@
                                                   </div>
                                                 </div>
                                               </div> 
+                                              <div class="modal fade" tabindex="-1" role="dialog" id="spinModal" >
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title">dialog header
+                                                      </h5>
+                                                    </div>
+                                                    <div class="modal-body" >
+                                                    <div class="text-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+                                                     
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button class="btn btn-primary btn-sm" data-dismiss="modal" type="button">Close</button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
