@@ -266,7 +266,7 @@ $(window).on( 'scroll', function(){
         Swal.fire({ 
                 html:true,
                 title: "Upload in Corso",
-                text:htmltext,
+                html:htmltext,
                 type: "info",
                 showLoaderOnConfirm: true,
                 showCancelButton: false,
