@@ -43,9 +43,7 @@ require_once 'headerInclude.php';
             outputFormat: 'dd/MM/yyyy',
       });
       
-      $('#header_menu').on('affixed.bs.affix', function(){
-            alert('The navigation menu is about to be affixed - The .affix-top class has been replaced with the .affix class');
-      });
+      
       });
     
 $(window).on( 'scroll', function(){
@@ -318,7 +316,7 @@ $(window).on( 'scroll', function(){
                               $('#data_'+tipo).html(data_ins)
                               $('#upload_'+tipo).hide()
                               $('#download_'+tipo).show()
-                              $('#open_'+tipo).attr("onclick","window.open('allegato.php?id="+data.id+"', '_blank')'");
+                              $('#open_'+tipo).attr("onclick","window.open('allegato.php?id="+data.id+"', '_blank')");
                               $('#del_'+tipo).attr("onclick","delAlle("+data.id+",this);");
                               $('#down_'+tipo).attr("href","download.php?id="+data.id)
                               //id_table= formData.get('doc_idvei')
