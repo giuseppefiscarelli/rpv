@@ -248,10 +248,11 @@ $(window).on( 'scroll', function(){
                              
                               data_ins=convData(data.data_agg)
                               id_table= formData.get('doc_idvei')
-                            
-                              button='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-primary "><i class="fa fa-download" aria-hidden="true"></i></a>'
-                              buttonb='<button type="button" onclick="window.open(\'allegato.php?id='+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-danger "><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
-                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td>'+button+''+buttonb+'</td></tr>'
+                              
+                              button='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-xs btn-success "  style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i></a>'
+                              buttonb='<button type="button" onclick="window.open(\'allegato.php?id='+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-primary "  style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
+                              buttonc='<button type="button" title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>'
+                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td><div  class="btn-group btn-group-sm" role="group">'+buttonb+''+button+''+buttonc+'</div></td></tr>'
                               $('#tab_doc_'+id_table+' > tbody:last-child').append(row);
                              
                         }

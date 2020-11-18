@@ -87,16 +87,22 @@ var_dump($test);
                                                 <tr>
                                                     <td id="tipo_magg_pmi">Dichiarazione sostitutiva dell’atto di notorietà attestante il numero delle unità lavorative (ULA) ed il volume del fatturato conseguito nell’ultimo esercizio fiscale.</td>
                                                     <td id="data_pmi"><?=$data_pmi?$data_pmi:'Allegato non Caricato'?></td>
-                                                    <td>
+                                                    <td> <?php
+                                                            if(!isUserAdmin()){?> 
 
                                                         <div id="upload_pmi"style="display:<?=$data_pmi?'none':''?>" class="btn-group btn-group-sm" role="group">
                                                             <button type="button" onclick="docmagmodal('pmi');"class="btn btn-primary btn-xs" title="Carica Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Carica Allegato</button>
                                                         </div>
-
+                                                        <?php
+                                                        }?>
                                                         <div id="download_pmi"style="display:<?=$file_pmi?'':'none'?>"class="btn-group btn-group-sm" role="group">
                                                             <button id="open_pmi"type="button" onclick="window.open('allegato.php?id=<?=$id_alle_pmi?>', '_blank')"class="btn btn-primary btn-xs" title="Visualizza Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i></button>
                                                             <a d="down_pmi"type="button" href="download.php?id=<?=$id_alle_pmi?>" download class="btn btn-success btn-xs" title="Download Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                            <?php
+                                                            if(!isUserAdmin()){?> 
                                                             <button id="del_pmi" type="button" onclick="delAlle(<?=$id_alle_pmi?>,this);"class="btn btn-danger btn-xs" title="Elimina Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                            <?php
+                                                        }?>
                                                         </div>
 
                                                     </td>
@@ -108,15 +114,22 @@ var_dump($test);
                                                 <td id="tipo_magg_rete">Copia del contratto di rete redatto nelle forme di cui all’art. 3, comma 4 ter del decreto legge 10 febbraio 2009, n. 5, convertito con legge 9 aprile 2009, n. 33</td>
                                                     <td id="data_rete"><?=$data_rete?$data_rete:'Allegato non Caricato'?></td>
                                                     <td >
+                                                    <?php
+                                                            if(!isUserAdmin()){?> 
                                                         <div id="upload_rete"style="display:<?=$file_rete?'none':''?>"class="btn-group btn-group-sm" role="group">
                                                         <button type="button" onclick="docmagmodal('rete');" class="btn btn-primary btn-xs" title="Carica Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Carica Allegato</button>
 
                                                         </div>
-
+                                                        <?php
+                                                        }?>
                                                         <div id="download_rete"style="display:<?=$file_rete?'':'none'?>"class="btn-group btn-group-sm" role="group">
                                                             <button id="open_rete" type="button" onclick="window.open('allegato.php?id=<?=$id_alle_rete?>', '_blank')"class="btn btn-primary btn-xs" title="Visualizza Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i></button>
                                                             <a id="down_rete"type="button" href="download.php?id=<?=$id_alle_rete?>" download class="btn btn-success btn-xs" title="Download Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                            <?php
+                                                            if(!isUserAdmin()){?> 
                                                             <button id="del_rete"type="button" onclick="delAlle(<?=$id_alle_rete?>,this);"class="btn btn-danger btn-xs" title="Elimina Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                            <?php
+                                                        }?>
                                                         </div>
 
                                                     </td>
@@ -129,16 +142,22 @@ var_dump($test);
                                                     <td id="tipo_magg_ampl">Dichiarazione di ampliamento dello stabilimento</td>
                                                     <td id="data_ampl"><?=$data_ampl?$data_ampl:'Allegato non Caricato'?></td>
                                                     <td>
-
+                                                        <?php
+                                                            if(!isUserAdmin()){?>    
                                                         <div id="upload_ampl"style="display:<?=$file_ampl?'none':''?>"class="btn-group btn-group-sm" role="group">
                                                             <button type="button" onclick="docmagmodal('ampl');" class="btn btn-primary btn-xs" title="Carica Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Carica Allegato</button>
 
                                                         </div>
-
+                                                        <?php
+                                                        }?>
                                                         <div id="download_ampl" style="display:<?=$file_ampl?'':'none'?>"class="btn-group btn-group-sm" role="group">
                                                             <button id="open_ampl"type="button" onclick="window.open('allegato.php?id=<?=$id_alle_ampl?>', '_blank')"class="btn btn-primary btn-xs" title="Visualizza Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i></button>
                                                             <a id="down_ampl"type="button" href="download.php?id=<?=$id_alle_ampl?>" download class="btn btn-success btn-xs" title="Download Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                            <?php
+                                                            if(!isUserAdmin()){?>  
                                                             <button id="del_ampl"type="button" onclick="delAlle(<?=$id_alle_ampl?>,this);"class="btn btn-danger btn-xs" title="Elimina Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                            <?php
+                                                        }?>    
                                                         </div>
 
                                                     </td>

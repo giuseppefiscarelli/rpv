@@ -84,7 +84,7 @@ function getIstanze( array $params = []){
 
         $sql = 'SELECT * FROM istanza';
         if ($search1){
-          $sql .=" WHERE email_richiedente LIKE '%$search1%' ";
+          $sql .=" WHERE pec_impr LIKE '%$search1%' ";
           
         }
         if ($search2){
@@ -92,7 +92,7 @@ function getIstanze( array $params = []){
             
           }
         $sql .= " ORDER BY $orderBy $orderDir LIMIT $start, $limit";
-        
+        //echo $sql;
 
         $res = $conn->query($sql);
         if($res) {
@@ -131,7 +131,7 @@ function countIstanze( array $params = []){
 
         $sql = 'SELECT COUNT(*) as totalUser FROM istanza';
         if ($search1){
-            $sql .=" WHERE email_richiedente LIKE '%$search1%' ";
+            $sql .=" WHERE pec_impr LIKE '%$search1%' ";
             
           }
           if ($search2){

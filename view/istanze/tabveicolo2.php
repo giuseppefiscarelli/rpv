@@ -66,6 +66,8 @@
                                                                         <tr >
                                                                         <th>
                                                                         <?php
+                                                                            if(!isUserAdmin()){
+                                                                        
                                                                                 if(!$rv['targa']&&!$rv['marca']&&!$rv['modello']&&!$rv['tipo_acquisizione']&&!$rv['costo']){?>
                                                                             <button type="button" class="btn btn-success btn-sm" onclick="infomodal(<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Inserisci dati veicolo</button>
 
@@ -75,7 +77,8 @@
                                                                             <button type="button" class="btn btn-success btn-sm" onclick="infomodalup(<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Aggiorna dati veicolo</button>
 
 
-                                                                            <?php }?>
+                                                                            <?php }
+                                                                            }?>
                                                                         
                                                                             </th></tr>   
                                                                     </thead>
@@ -122,12 +125,17 @@
                                                                         <caption style="font-size: 25px;caption-side: top;">Documenti Veicolo</caption>
 
                                                                         <thead>
+                                                                        <?php
+                                                                            if(!isUserAdmin()){?> 
                                                                         <tr>
                                                                             <th colspan="5">
                                                                                 <button type="button" class="btn btn-success btn-sm" onclick="docmodal(<?=$rv['id']?>,<?=$rv['tipo_veicolo']?>);" ><i class="fa fa-upload" aria-hidden="true"></i> Carica documento</button>
                                                                             </th>
                                                                         
                                                                         </tr>
+                                                                        <?php
+                                                                            }
+                                                                            ?>
                                                                             <tr style="font-size:15px;">
                                                                                 <th>Tipo Documento</th>
                                                                                 <th>Data Upload</th>
@@ -151,9 +159,17 @@
                                                                                         <td><?=$tipoDoc?></td>
                                                                                         <td><?=date("d/m/Y H:i", strtotime($alle['data_agg']))?></td>
                                                                                         <td><?=$alle['note']?></td>
-                                                                                        <td><a type="button" href="download.php?id=<?=$alle['id']?>" download title="Scarica Documento"class="btn btn-sm btn-primary "><i class="fa fa-download" aria-hidden="true"></i> </a>
-                                                                                            <button type="button" onclick="window.open('allegato.php?id=<?=$alle['id']?>', '_blank')"title="Vedi Documento"class="btn btn-sm btn-success "><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
-                                                                                            <button type="button" title="Elimina Documento"class="btn btn-sm btn-danger "><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                                                                                        <td><div  class="btn-group btn-group-sm" role="group">
+                                                                                       
+                                                                                            <button type="button" onclick="window.open('allegato.php?id=<?=$alle['id']?>', '_blank')"title="Vedi Documento"class="btn btn-xs btn-primary " style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                                                                                            <a type="button" href="download.php?id=<?=$alle['id']?>" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>
+                                                                                            <?php
+                                                                                            if(!isUserAdmin()){?> 
+                                                                                            <button type="button" title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                                                            <?php
+                                                                                            }
+                                                                                            ?>
+                                                                                            </div></td>
                                                                                     </tr>
                                                                                     <?php
                                                                                     }

@@ -43,13 +43,17 @@ $countdocIstanzaInfo=countDocIstanzaInfo($i['id_RAM']);
                 
                 </div>
             </div>
-          
+            <?php
+              if(!isUserAdmin()){?> 
           <div class="it-header-slim-right-zone">
             
             <div class="it-access-top-wrapper">
               <a class="btn btn-primary btn-sm" href="#">Chiudi Rendicontazione</a>
             </div>
           </div>
+              <?php
+                }
+              ?>
         </div>
       </div>
     </div>

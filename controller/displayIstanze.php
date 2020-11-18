@@ -26,9 +26,21 @@ if(!empty($_SESSION['message'])){
           $orderByQueryString = http_build_query($orderByParams,'&amp;');
           $navOrderByQueryString = http_build_query($orderByNavigatorParams,'&amp;');
 
+         
+          //var_dump($users);
+         
+         if(isUserUser()){
+           $params['search1']= $_SESSION['userData']['email'];
           $totalUsers= countIstanze($params);
           $numPages= ceil($totalUsers/$recordsPerPage);
 
           $istanze = getIstanze($params);
-          //var_dump($users);
-         require_once 'view/istanze/istanze_list.php';
+          //var_dump($istanze);
+          require_once 'view/istanze/istanze_listUser.php';
+         }else{
+          $totalUsers= countIstanze($params);
+          $numPages= ceil($totalUsers/$recordsPerPage);
+
+          $istanze = getIstanze($params);
+          require_once 'view/istanze/istanze_list.php';
+         }

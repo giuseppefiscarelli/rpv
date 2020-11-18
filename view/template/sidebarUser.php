@@ -1,4 +1,4 @@
-<div class="it-header-navbar-wrapper affix-top" style="z-index:1;">
+<div id="header_menu"class="it-header-navbar-wrapper affix-top" style="z-index:1;">
           <div class="container">
             <div class="row">
               <div class="col-12">
@@ -16,81 +16,20 @@
                     </div>
                     <div class="menu-wrapper">
                       <ul class="navbar-nav">
-                        <li class="nav-item active"><a class="nav-link active" href="home.php"><span><i class="fa fa-home" aria-hidden="true"></i> Home</span><span class="sr-only">current</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="istanza.php"><span>La mia Istanza </span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="comunicazioni.php"><span>Comunicazioni</span></a></li>
-                        <!--
-                        <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <span>Gestione Utenti</span>
-                            <svg class="icon icon-xs">
-                              <use xlink:href="svg/sprite.svg#it-expand"></use>
-                            </svg>
-                          </a>
-                          <div class="dropdown-menu">
-                            <div class="link-list-wrapper">
-                              <ul class="link-list">
-                                <li>
-                                  <h3 class="no_toc" id="heading-es-1">Heading</h3>
-                                </li>
-                                <li><a class="list-item" href="#"><span>Nuovo Utente</span></a></li>
-                                <li><a class="list-item" href="#" disabled><span>Link list 2</span></a></li>
-                                <li><a class="list-item" href="#"><span>Link list 3</span></a></li>
-                                <li><span class="divider"></span></li>
-                                <li><a class="list-item" href="users.php"><span>Gestione Utenti</span></a></li>
-                              </ul>
-                            </div>
+                      
+                      <li id="li_logo" style="display:none;">
+                          <div class="row">
+                            <img src="images/logo.svg" alt="Home" style="max-height: 50px;    padding: 7px;">
+                              <div class="it-brand-text">
+                                <b class="no_toc" style="color:white;">Ministero</b>
+                                <b class="no_toc d-none d-md-block" style="color:white;font-size: 11px;">delle Infrastrutture e dei Trasporti</b>
+                              </div>
                           </div>
                         </li>
-                        <li class="nav-item dropdown megamenu">
-                          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <span>Megamenu Label</span>
-                            <svg class="icon icon-xs">
-                              <use xlink:href="svg/sprite.svg#it-expand"></use>
-                            </svg>
-                          </a>
-                          <div class="dropdown-menu">
-                            <div class="row">
-                              <div class="col-12 col-lg-4">
-                                <div class="link-list-wrapper">
-                                  <ul class="link-list">
-                                    <li>
-                                      <h3 class="no_toc">Heading 1</h3>
-                                    </li>
-                                    <li><a class="list-item" href="#"><span>Link list 1 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 2 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 3 </span></a></li>
-                                  </ul>
-                                </div>
-                              </div>
-                              <div class="col-12 col-lg-4">
-                                <div class="link-list-wrapper">
-                                  <ul class="link-list">
-                                    <li>
-                                      <h3 class="no_toc">Heading 2</h3>
-                                    </li>
-                                    <li><a class="list-item" href="#"><span>Link list 1 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 2 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 3 </span></a></li>
-                                  </ul>
-                                </div>
-                              </div>
-                              <div class="col-12 col-lg-4">
-                                <div class="link-list-wrapper">
-                                  <ul class="link-list">
-                                    <li>
-                                      <h3 class="no_toc">Heading 3</h3>
-                                    </li>
-                                    <li><a class="list-item" href="#"><span>Link list 1 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 2 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 3</span></a></li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        -->
+                        <li class="nav-item active"><a class="nav-link <?=basename($_SERVER["PHP_SELF"])=='home.php'?'active':''?>" href="home.php"><span><i class="fa fa-home" aria-hidden="true"></i> Home</span><span class="sr-only">current</span></a></li>
+                        <li class="nav-item"><a class="nav-link <?=basename($_SERVER["PHP_SELF"])=='istanze.php'?'active':''?>" href="istanze.php"><span>La mie Istanze </span></a></li>
+                        <li class="nav-item"><a class="nav-link <?=basename($_SERVER["PHP_SELF"])=='comunicazioni.php'?'active':''?>" href="comunicazioni.php"><span>Comunicazioni</span></a></li>
+                        
                       </ul>
                     </div>
                   </div>
