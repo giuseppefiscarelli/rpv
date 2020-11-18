@@ -1,4 +1,4 @@
-<div class="it-header-navbar-wrapper">
+<div class="it-header-navbar-wrapper affix-top" style="z-index:1;">
           <div class="container">
             <div class="row">
               <div class="col-12">
@@ -18,7 +18,7 @@
                       <ul class="navbar-nav">
                         <li class="nav-item active"><a class="nav-link active" href="home.php"><span><i class="fa fa-home" aria-hidden="true"></i> Home</span><span class="sr-only">current</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="istanza.php"><span>La mia Istanza </span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><span>link 4</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="comunicazioni.php"><span>Comunicazioni</span></a></li>
                         <!--
                         <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">

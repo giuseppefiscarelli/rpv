@@ -37,12 +37,7 @@ require_once 'view/template/top.php';
                                     <use xlink:href="svg/sprite.svg#it-expand"></use>
                                 </svg>
                               </a>
-                              <div class="link-list-wrapper collapse" id="menu1">
-                                <ul class="link-list">
-                                    <li><a class="list-item" href="#">Link 1</a></li>
-                                    <li><a class="list-item active" href="#">Link 2 Active</a></li>
-                                </ul>
-                              </div>
+                              
                           </nav>
                         </div>
                         <div class="it-header-slim-right-zone">
@@ -136,170 +131,129 @@ require_once 'view/template/top.php';
               </div>
             </div>
         </div>
-        <div class="it-header-navbar-wrapper">
-          <div class="container">
-            <div class="row">
-              <div class="col-12">
-                <!--start nav-->
-                <nav class="navbar navbar-expand-lg has-megamenu">
-                  <button class="custom-navbar-toggler" type="button" aria-controls="nav1" aria-expanded="false" aria-label="Toggle navigation" data-target="#nav1">
-                    <svg class="icon">
-                      <use xlink:href="svg/sprite.svg#it-burger"></use>
-                    </svg>
-                  </button>
-                  <div class="navbar-collapsable" id="nav1" style="display: none;">
-                    <div class="overlay" style="display: none;"></div>
-                    <div class="close-div sr-only">
-                      <button class="btn close-menu" type="button"><span class="it-close"></span>close</button>
-                    </div>
-                    <div class="menu-wrapper">
-                      <ul class="navbar-nav">
-                        <li class="nav-item active"><a class="nav-link active" href="#"><span>link 1 active </span><span class="sr-only">current</span></a></li>
-                        <li class="nav-item"><a class="nav-link disabled" href="#"><span>link 2 </span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><span>link 3 </span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><span>link 4</span></a></li>
-                        <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <span>Dropdown item</span>
-                            <svg class="icon icon-xs">
-                              <use xlink:href="svg/sprite.svg#it-expand"></use>
-                            </svg>
-                          </a>
-                          <div class="dropdown-menu">
-                            <div class="link-list-wrapper">
-                              <ul class="link-list">
-                                <li>
-                                  <h3 class="no_toc" id="heading-es-1">Heading</h3>
-                                </li>
-                                <li><a class="list-item" href="#"><span>Link list 1</span></a></li>
-                                <li><a class="list-item" href="#"><span>Link list 2</span></a></li>
-                                <li><a class="list-item" href="#"><span>Link list 3</span></a></li>
-                                <li><span class="divider"></span></li>
-                                <li><a class="list-item" href="#"><span>Link list 4</span></a></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="nav-item dropdown megamenu">
-                          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <span>Megamenu Label</span>
-                            <svg class="icon icon-xs">
-                              <use xlink:href="svg/sprite.svg#it-expand"></use>
-                            </svg>
-                          </a>
-                          <div class="dropdown-menu">
-                            <div class="row">
-                              <div class="col-12 col-lg-4">
-                                <div class="link-list-wrapper">
-                                  <ul class="link-list">
-                                    <li>
-                                      <h3 class="no_toc">Heading 1</h3>
-                                    </li>
-                                    <li><a class="list-item" href="#"><span>Link list 1 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 2 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 3 </span></a></li>
-                                  </ul>
-                                </div>
-                              </div>
-                              <div class="col-12 col-lg-4">
-                                <div class="link-list-wrapper">
-                                  <ul class="link-list">
-                                    <li>
-                                      <h3 class="no_toc">Heading 2</h3>
-                                    </li>
-                                    <li><a class="list-item" href="#"><span>Link list 1 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 2 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 3 </span></a></li>
-                                  </ul>
-                                </div>
-                              </div>
-                              <div class="col-12 col-lg-4">
-                                <div class="link-list-wrapper">
-                                  <ul class="link-list">
-                                    <li>
-                                      <h3 class="no_toc">Heading 3</h3>
-                                    </li>
-                                    <li><a class="list-item" href="#"><span>Link list 1 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 2 </span></a></li>
-                                    <li><a class="list-item" href="#"><span>Link list 3</span></a></li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       
       <div class="container my-4">
-        <h1>Lorem Ipsum</h1>
-        <?php
-$filename = $pathAlle.'test.jpg';
-
-if (file_exists($filename)) {
-    echo "The file $filename exists";
-} else {
-    echo "The file $filename does not exist";
-}
-
-$path_parts = pathinfo($filename);
-
-
-echo $path_parts['extension'], "\n";
-
-?>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-tab1-tab" data-toggle="tab" href="#nav-tab1" role="tab" aria-controls="nav-tab1" aria-selected="true">Tab 1</a>
-          <a class="nav-item nav-link" id="nav-tab2-tab" data-toggle="tab" href="#nav-tab2" role="tab" aria-controls="nav-tab2" aria-selected="false">Tab 2</a>
-          <a class="nav-item nav-link" id="nav-tab3-tab" data-toggle="tab" href="#nav-tab3" role="tab" aria-controls="nav-tab3" aria-selected="false">Tab 3</a>
-        </div>
-      
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane p-4 fade show active" id="nav-tab1" role="tabpanel" aria-labelledby="nav-tab1-tab">Contenuto 1</div>
-        <div class="tab-pane p-4 fade" id="nav-tab2" role="tabpanel" aria-labelledby="nav-tab2-tab">Contenuto 2</div>
-        <div class="tab-pane p-4 fade" id="nav-tab3" role="tabpanel" aria-labelledby="nav-tab3-tab">Contenuto 3</div>
-      </div>
-      
-        <div class="row">
-          <div class="col-12 col-lg-4">
-            <!--start card-->
-            <div class="card-wrapper">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor…</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <div class="it-carousel-wrapper it-carousel-landscape-abstract">
+          <div class="it-carousel-all owl-carousel" >
+            <div class="it-single-slide-wrapper" >
+              <a href="#">
+                <div class="img-responsive-wrapper">
+                  <div class="img-responsive">
+                    <div class="img-wrapper"><img src="https://via.placeholder.com/480x360/ebebeb/808080/?text=Immagine1" title="img title" alt="imagealt"></div>
+                  </div>
+                </div>
+              </a>
+              <div class="it-text-slider-wrapper-outside">
+                <div class="card-wrapper">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="category-top">
+                        <!-- category heading--><a class="category" href="#">Category</a>
+                        <!-- category data--><span class="data">10/12/2018</span>
+                      </div>
+                      <h5 class="card-title big-heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit…</h5>
+                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <span class="card-signature">di Federico De Paolis</span>
+                      <a class="read-more" href="#">
+                        <span class="text">Leggi di più</span>
+                        <svg class="icon">
+                          <use xlink:href="svg/sprite.svg#it-arrow-right"></use>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <!--end card-->
-          </div>
-        </div>
-      
-       
-        
-
-
-        <div class="bd-example-tabs">
-          <div class="row">
-            <div class="col-4 col-md-3">
-              <div class="nav nav-tabs nav-tabs-vertical nav-tabs-vertical-background" id="nav-vertical-tab-bg" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="nav-vertical-tab-bg1-tab" data-toggle="tab" href="#nav-vertical-tab-bg1" role="tab" aria-controls="nav-vertical-tab-bg1" aria-selected="true">Tab 1</a>
-                <a class="nav-link" id="nav-vertical-tab-bg2-tab" data-toggle="tab" href="#nav-vertical-tab-bg2" role="tab" aria-controls="nav-vertical-tab-bg2" aria-selected="false">Tab 2</a>
-                <a class="nav-link" id="nav-vertical-tab-bg3-tab" data-toggle="tab" href="#nav-vertical-tab-bg3" role="tab" aria-controls="nav-vertical-tab-bg3" aria-selected="false">Tab 3</a>
-                <a class="nav-link">...</a>
+            <div class="it-single-slide-wrapper">
+              <a href="#">
+                <div class="img-responsive-wrapper">
+                  <div class="img-responsive">
+                    <div class="img-wrapper"><img src="https://via.placeholder.com/480x360/ebebeb/808080/?text=Immagine2" title="img title" alt="imagealt"></div>
+                  </div>
+                </div>
+              </a>
+              <div class="it-text-slider-wrapper-outside">
+                <div class="card-wrapper">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="category-top">
+                        <!-- category heading--><a class="category" href="#">Category</a>
+                        <!-- category data--><span class="data">10/12/2018</span>
+                      </div>
+                      <h5 class="card-title big-heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit…</h5>
+                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <span class="card-signature">di Federico De Paolis</span>
+                      <a class="read-more" href="#">
+                        <span class="text">Leggi di più</span>
+                        <svg class="icon">
+                          <use xlink:href="svg/sprite.svg#it-arrow-right"></use>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-8 col-md-9">
-              <div class="tab-content" id="nav-vertical-tab-bgContent">
-                <div class="tab-pane p-3 fade show active" id="nav-vertical-tab-bg1" role="tabpanel" aria-labelledby="nav-vertical-tab-bg1-tab">Contenuto 1</div>
-                <div class="tab-pane p-3 fade" id="nav-vertical-tab-bg2" role="tabpanel" aria-labelledby="nav-vertical-tab-bg2-tab">Contenuto 2</div>
-                <div class="tab-pane p-3 fade" id="nav-vertical-tab-bg3" role="tabpanel" aria-labelledby="nav-vertical-tab-bg3-tab">Contenuto 3</div>
+            <div class="it-single-slide-wrapper">
+              <a href="#">
+                <div class="img-responsive-wrapper">
+                  <div class="img-responsive">
+                    <div class="img-wrapper"><img src="https://via.placeholder.com/480x360/ebebeb/808080/?text=Immagine3" title="img title" alt="imagealt"></div>
+                  </div>
+                </div>
+              </a>
+              <div class="it-text-slider-wrapper-outside">
+                <div class="card-wrapper">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="category-top">
+                        <!-- category heading--><a class="category" href="#">Category</a>
+                        <!-- category data--><span class="data">10/12/2018</span>
+                      </div>
+                      <h5 class="card-title big-heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit…</h5>
+                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <span class="card-signature">di Federico De Paolis</span>
+                      <a class="read-more" href="#">
+                        <span class="text">Leggi di più</span>
+                        <svg class="icon">
+                          <use xlink:href="svg/sprite.svg#it-arrow-right"></use>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="it-single-slide-wrapper">
+              <a href="#">
+                <div class="img-responsive-wrapper">
+                  <div class="img-responsive">
+                    <div class="img-wrapper"><img src="https://via.placeholder.com/480x360/ebebeb/808080/?text=Immagine4" title="img title" alt="imagealt"></div>
+                  </div>
+                </div>
+              </a>
+              <div class="it-text-slider-wrapper-outside">
+                <div class="card-wrapper">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="category-top">
+                        <!-- category heading--><a class="category" href="#">Category</a>
+                        <!-- category data--><span class="data">10/12/2018</span>
+                      </div>
+                      <h5 class="card-title big-heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit…</h5>
+                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <span class="card-signature">di Federico De Paolis</span>
+                      <a class="read-more" href="#">
+                        <span class="text">Leggi di più</span>
+                        <svg class="icon">
+                          <use xlink:href="svg/sprite.svg#it-arrow-right"></use>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -312,4 +266,21 @@ echo $path_parts['extension'], "\n";
       ?>
    
   </body>
+  <script>
+  
+  
+$(document).ready(function() {
+
+var owl = $(".owl-carousel");
+
+owl.owlCarousel({
+  navigation : false,
+  singleItem : true,
+  autoPlay: 3000,
+  transitionStyle : "fadeUp"
+
+});
+
+});
+  </script>
 </html>

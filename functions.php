@@ -74,9 +74,7 @@
     return $_SESSION['userData']['roletype'] ?? '';
   }
 
-  function getAmbiente(){
-    return $_SESSION['userData']['ambiente'] ?? '';
-  }
+  
   
   function isUserAdmin(){
     return getUserRole() === 'admin';
@@ -105,9 +103,7 @@
     return $_SESSION['userData']['email'] ?? '';
   }
 
-  function getUserLogo(){
-    return $_SESSION['userData']['logoazienda'] ?? '';
-  }
+  
   
 
   function getConfig($param, $default = null){
@@ -240,34 +236,7 @@
   
   }
 
-  function getMenu($ambMenu){
-
-    /**
-     * @var $conn mysqli
-     */
-
-        $conn = $GLOBALS['mysqli'];
-
-        
-        $records = [];
-
-        
-        $sql = "SELECT * FROM sidebar WHERE menu = 'main' and ambiente = '$ambMenu' ORDER BY posizione ASC";
-        
-
-        $res = $conn->query($sql);
-        if($res) {
-
-          while( $row = $res->fetch_assoc()) {
-              $records[] = $row;
-              
-          }
-
-        }
-
-    return $records;
-
-  }
+  
   function getSubMenu1($subParMenu){
 
     /**
@@ -388,59 +357,4 @@
 
   }
   
-  function decodSelect($tab,$tipo){
-
-    /**
-       * @var $conn mysqli
-       */
-
-      $conn = $GLOBALS['mysqli'];
-        
-          
-      $records = [];
-     
-      
-      $sql = "SELECT * FROM decod_setec WHERE tabella = '$tab' and tipo = '$tipo'";
-     // var_dump($sql);
-
-      $res = $conn->query($sql);
-      if($res) {
-
-      while( $row = $res->fetch_assoc()) {
-          $records[] = $row;
-            
-      }
-
-      }
-
-    return $records;
-
-  }
-  function decodView($tab,$valore){
-
-    /**
-       * @var $conn mysqli
-       */
-
-      $conn = $GLOBALS['mysqli'];
-        
-          
-      $records = 0;
-     
-      
-      $sql = "SELECT descrizione as descr FROM decod_setec WHERE tabella = '$tab' and valore = '$valore'";
-      //var_dump($sql);
-
-      $res = $conn->query($sql);
-      if($res) {
-
-       $row = $res->fetch_assoc();
-          $records = $row['descr'];
-            
-      
-
-      }
-
-    return $records;
-
-  }
+  

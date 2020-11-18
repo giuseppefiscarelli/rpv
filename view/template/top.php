@@ -9,4 +9,10 @@
     <link rel="stylesheet" href="assets/css/bootstrap-italia.min.css">
      <!-- Icons CSS-->
   <link href="assets/css/icons.css" rel="stylesheet" type="text/css"/>
+  <!--
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link href="assets/css/sweetalert.css" rel="stylesheet" type="text/css"/>-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css">
+  
+ 
   </head>

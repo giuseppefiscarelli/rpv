@@ -232,44 +232,83 @@ require_once 'view/template/top.php';
         </div>
       
       <div class="container my-4">
-  
-      <div id="accordionDiv1" class="collapse-div collapse-background-active" role="tablist">
-  <div class="collapse-header" id="headingA1">
-    <button data-toggle="collapse" data-target="#accordion1" aria-expanded="false" aria-controls="accordion1">
-      Accordion Group Item #1
-    </button>
-  </div>
-  <div id="accordion1" class="collapse " role="tabpanel" aria-labelledby="headingA1" data-parent="#accordionDiv1">
-    <div class="collapse-body">
-      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. 
-    </div>
-  </div>
-  <div class="collapse-header" id="headingA2">
-    <button data-toggle="collapse" data-target="#accordion2" aria-expanded="false" aria-controls="accordion2">
-      Accordion Group Item #2 
-    </button>
-    <small>test</small>
-  </div>
-  <div id="accordion2" class="collapse" role="tabpanel" aria-labelledby="headingA2" data-parent="#accordionDiv1">
-    <div class="collapse-body">
-      Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-    </div>
-  </div>
-  <div class="collapse-header" id="headingA3">
-    <button data-toggle="collapse" data-target="#accordion3" aria-expanded="false" aria-controls="accordion3">
-      Accordion Group Item #3
-    </button>
-  </div>
-  <div id="accordion3" class="collapse" role="tabpanel" aria-labelledby="headingA3" data-parent="#accordionDiv1">
-    <div class="collapse-body">
-      Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-    </div>
-  </div>
-</div>
+      <form method="post" action="" enctype="multipart/form-data">
+  <input type="file" name="upload1" id="upload1" class="upload" multiple="multiple" />
+  <label for="upload1">
+    <svg class="icon icon-sm" aria-hidden="true"><use xlink:href="svg/sprite.svg#it-upload"></use></svg>
+    <span>Upload</span>
+  </label>
+  <ul class="upload-file-list">
+    <li class="upload-file success">
+      <svg class="icon icon-sm" aria-hidden="true"><use xlink:href="svg/sprite.svg#it-file"></use></svg>
+      <p>
+        <span class="sr-only">File caricato:</span>
+        nome-file-01.pdf <span class="upload-file-weight">68 MB</span>
+      </p>
+      <button disabled>
+        <span class="sr-only">Caricamento ultimato</span>
+        <svg class="icon" aria-hidden="true"><use xlink:href="svg/sprite.svg#it-check"></use></svg>
+      </button>
+    </li>
+    <li class="upload-file success">
+      <svg class="icon icon-sm" aria-hidden="true"><use xlink:href="svg/sprite.svg#it-file"></use></svg>
+      <p>
+        <span class="sr-only">File caricato:</span>
+        nome-file-02-nome-file-lungo-per-ellissi.doc <span class="upload-file-weight">68 MB</span>
+      </p>
+      <button disabled>
+        <span class="sr-only">Caricamento ultimato</span>
+        <svg class="icon" aria-hidden="true"><use xlink:href="svg/sprite.svg#it-check"></use></svg>
+      </button>
+    </li>
+    <li class="upload-file uploading">
+      <svg class="icon icon-sm" aria-hidden="true"><use xlink:href="svg/sprite.svg#it-file"></use></svg>
+      <p>
+        <span class="sr-only">Caricamento file:</span>
+        nome-file-03.png <span class="upload-file-weight"></span>
+      </p>
+      <button>
+        <span class="sr-only">Annulla caricamento file nome-file-03.png</span>
+        <svg class="icon" aria-hidden="true"><use xlink:href="svg/sprite.svg#it-close"></use></svg>
+      </button>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </li>
+    <li class="upload-file error">
+      <svg class="icon icon-sm" aria-hidden="true"><use xlink:href="svg/sprite.svg#it-file"></use></svg>
+      <p>
+        <span class="sr-only">Errore caricamento file:</span>
+        nome-file-04.jpg <span class="upload-file-weight"></span>
+      </p>
+      <button>
+        <span class="sr-only">Elimina file caricato nome-file-04.jpg</span>
+        <svg class="icon" aria-hidden="true"><use xlink:href="svg/sprite.svg#it-close"></use></svg>
+      </button>
+    </li>
+  </ul>
+</form>
 
-
-
-       
+<button type="button" class="btn btn-primary" onclick="prova()"> alert</button>
+<form method="post" id="form_allegato" enctype="multipart/form-data">
+                                                   
+                                                        <div class="bootstrap-select-wrapper">
+                                                            <label>Tipo Documento</label>
+                                                            <select id="tipo_documento" name="tipo_documento"title="Scegli un tipo di documento">
+                                                          
+                                                          </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for=""></label>
+                                                          <input type="file"
+                                                            class="form-control" name="file_allegato" id="file_allegato" aria-describedby="helpId" placeholder="">
+                                                          <small id="helpId" class="form-text text-muted">Help text</small>
+                                                        </div>
+                                                        <div id="campi_allegati" style="margin-top:50px;">
+                                                        </div>
+                                                      </form>   
+                                                      <button class="btn btn-primary btn-sm" data-dismiss="modal" type="button">Close</button>
+                                                      <button class="btn btn-primary btn-sm" form="form_allegato"type="submit">Salva Allegato Veicolo</button>   
         
 
 
@@ -284,6 +323,73 @@ require_once 'view/template/top.php';
     var y = document.getElementById("input-file").value;
     document.getElementById("selectedFileName").innerHTML = y;
   }
+  
+      $('#form_allegato').submit(function(event){
+            $('#docModal').modal('toggle');
+            var htmltext='<div class="progress"><div class="progress-bar" role="progressbar" id="progress-bar"style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div></div>'
+      
+        swal({ 
+                html:true,
+                title: "Upload in Corso",
+                text:htmltext,
+                type: "info",
+                showLoaderOnConfirm: true,
+                showCancelButton: false,
+                showConfirmButton: false
+        });
+           
+            event.preventDefault();
+            tipo=$('#tipo_documento option:selected').text()
+            console.log(tipo)
+            formData = new FormData(this);
+            
+                  $.ajax({
+                              xhr: function() {
+                              var xhr = new window.XMLHttpRequest();
+                              xhr.upload.addEventListener("progress", function(evt) {
+                                  if (evt.lengthComputable) {
+                                      var percentComplete = ((evt.loaded / evt.total) * 100);
+                                      $("#progress-bar").width(percentComplete + '%');
+                                     
+                                      //$(".progress-bar").html(percentComplete+'%');
+                                  }
+                              }, false);
+                              return xhr;
+                          },
+                        url: "controller/updateIstanze.php?action=newAllegato",
+                        type:"POST",
+                        data: formData,
+                        dataType: 'json',
+                        contentType: false,
+                        cache: false,
+                        processData:false,
+                        beforeSend: function(){
+                                $("#progress-bar").width('0%');
+                                $('#uploadStatus').html('<img src="images/loading.gif"/>');
+                            },
+                            error:function(){
+                              
+                                swal("Operazione Non Completata!", "Allegato non caricato correttamente.", "warning");
+                             
+                            },
+                        success: function(data){
+                              
+                              
+                                swal("Operazione Completata!", "Allegato caricato correttamente.", "success");
+                              
+                             
+                              data_ins=convData(data.data_agg)
+                              id_table= formData.get('doc_idvei')
+                            
+                              button='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-primary "><i class="fa fa-download" aria-hidden="true"></i></a>'
+                              buttonb='<button type="button" onclick="window.open(\'allegato.php?id='+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-danger "><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
+                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td>'+button+''+buttonb+'</td></tr>'
+                              $('#tab_doc_'+id_table+' > tbody:last-child').append(row);
+                             
+                        }
+                  })
+
+      })
 </script>
   </body>
 </html>

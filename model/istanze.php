@@ -554,19 +554,43 @@ function getAllegatoID($id){
   * @var $conn mysqli
   */
 
-$conn = $GLOBALS['mysqli'];
+    $conn = $GLOBALS['mysqli'];
 
-$sql = 'SELECT * FROM allegato WHERE id ='.$id;
-//echo $sql;
-$result = [];
+    $sql = 'SELECT * FROM allegato WHERE id ='.$id;
+    //echo $sql;
+    $result = [];
 
-$res = $conn->query($sql);
-      
+    $res = $conn->query($sql);
+          
       if($res && $res->num_rows){
         $result = $res->fetch_assoc();
         
       }
     return $result;
+
+
+
+}
+function delAllegatoID($id){
+  /**
+  * @var $conn mysqli
+  */
+  $conn = $GLOBALS['mysqli'];
+  $result=0;
+  $sql ='UPDATE allegato SET ';
+  $sql .= "attivo = 'c'";
+  $sql .=' WHERE id = '.$id;
+  //print_r($data);
+  //echo $sql;die;
+  $res = $conn->query($sql);
+  
+  if($res ){
+    $result =  $conn->affected_rows;
+    
+  }else{
+    $result -1;  
+  }
+  return $result;
 
 
 
@@ -635,7 +659,7 @@ function upVeicolo($data){
 
 
 }
-function newAllegato($data,$file,$pathAlle){
+function newAllegato($data){
   /**
    * @var $conn mysqli
    */
@@ -645,12 +669,14 @@ function newAllegato($data,$file,$pathAlle){
   $id_ram = $conn->escape_string($data['id_RAM']);
   $id_veicolo = $conn->escape_string($data['doc_idvei']);
   $tipo_documento = $conn->escape_string($data['tipo_documento']);
-  $docu_nome_file_origine =  $conn->escape_string($file['name']);
+  $docu_nome_file_origine =  $conn->escape_string($data['docu_nome_file_origine']);
   $path_parts = pathinfo($docu_nome_file_origine);
-  $docu_id_file_archivio = $id_ram."_".$id_veicolo."_".strtotime("now").".".$path_parts['extension'];
+  $docu_id_file_archivio = $conn->escape_string($data['docu_id_file_archivio']);
   $data_allegato = array_key_exists('data_allegato', $data)? $data['data_allegato']:'';
+  if($data_allegato){
   $data_allegato = DateTime::createFromFormat('d/m/Y', $data_allegato);
   $data_allegato= $data_allegato->format('Y-m-d');
+  }
   $importo_allegato = array_key_exists('importo_allegato', $data)? $data['importo_allegato']:'NULL';
   $testo_allegato = array_key_exists('testo_allegato', $data)? $data['testo_allegato']:'';
   $numero_allegato = array_key_exists('numero_allegato', $data)? $data['numero_allegato']:'';
@@ -667,7 +693,7 @@ function newAllegato($data,$file,$pathAlle){
   
   if($res ){
     $result =  $conn->affected_rows;
-    move_uploaded_file($file['tmp_name'],$pathAlle.$docu_id_file_archivio);
+   // move_uploaded_file($file['tmp_name'],$pathAlle.$docu_id_file_archivio);
 
     $last_id= mysqli_insert_id($conn);
     
@@ -678,5 +704,270 @@ function newAllegato($data,$file,$pathAlle){
 
 
 
+
+}
+function getInfoVei($id){
+  /**
+  * @var $conn mysqli
+  */
+
+    $conn = $GLOBALS['mysqli'];
+
+    $sql = 'SELECT * FROM veicolo WHERE id ='.$id;
+    //echo $sql;
+    $result = [];
+
+    $res = $conn->query($sql);
+          
+      if($res && $res->num_rows){
+        $result = $res->fetch_assoc();
+        
+      }
+    return $result;
+
+
+
+}
+function countIstanzaVei($id_RAM){
+
+  /**
+   * @var $conn mysqli
+   */
+
+      $conn = $GLOBALS['mysqli'];
+
+    
+      $total = 0;
+
+      
+
+      $sql = 'SELECT count(*) as total FROM veicolo';
+
+          $sql .=" WHERE id_RAM = $id_RAM";
+       
+    
+        //  echo $sql;
+      
+
+      $res = $conn->query($sql);
+      if($res) {
+
+       $row = $res->fetch_assoc();
+       $total = $row['total'];
+      }
+      return $total;
+
+}
+function countIstanzaVeiInfo($id_RAM){
+
+  /**
+   * @var $conn mysqli
+   */
+
+      $conn = $GLOBALS['mysqli'];
+
+    
+      $total = 0;
+
+      
+
+      $sql = 'SELECT count(*) as total FROM veicolo';
+
+          $sql .=" WHERE id_RAM = $id_RAM AND targa IS NOT NULL";
+       
+    
+        //  echo $sql;
+      
+
+      $res = $conn->query($sql);
+      if($res) {
+
+       $row = $res->fetch_assoc();
+       $total = $row['total'];
+      }
+      return $total;
+
+}
+function countDocIstanza($id_RAM){
+
+  /**
+   * @var $conn mysqli
+   */
+
+      $conn = $GLOBALS['mysqli'];
+
+    
+      $records = [];
+
+      
+
+      $sql = 'SELECT * FROM veicolo';
+
+          $sql .=" WHERE id_RAM = $id_RAM";
+       
+    
+        //  echo $sql;
+      
+        $res = $conn->query($sql);
+        if($res) {
+
+          while( $row = $res->fetch_assoc()) {
+              $records[] = $row;
+              
+          }
+
+        }
+
+   if($records){
+    $total = 0;
+     foreach($records as $r){
+     
+
+      $codice_tipo_veicolo = $r['tipo_veicolo'];
+
+      $sql = 'SELECT count(*) as total FROM tv_td';
+
+          $sql .=" WHERE codice_tipo_veicolo =".$codice_tipo_veicolo;
+       
+    
+         // echo $sql;
+      
+
+      $res = $conn->query($sql);
+      if($res) {
+
+       $row = $res->fetch_assoc();
+       $totalb = $row['total'];
+      }
+       $total += $totalb;
+     
+
+
+
+     }
+   }
+   return $total;
+
+}
+function countDocIstanzaInfo($id_RAM){
+
+  /**
+   * @var $conn mysqli
+   */
+
+      $conn = $GLOBALS['mysqli'];
+
+    
+      $records = [];
+
+      
+
+      $sql = 'SELECT * FROM veicolo';
+
+          $sql .=" WHERE id_RAM = $id_RAM";
+       
+    
+        //  echo $sql;
+      
+        $res = $conn->query($sql);
+        if($res) {
+
+          while( $row = $res->fetch_assoc()) {
+              $records[] = $row;
+              
+          }
+
+        }
+
+   if($records){
+    $total = 0;
+     foreach($records as $r){
+     
+
+      $id_veicolo = $r['id'];
+
+     
+  $sql = 'SELECT count(DISTINCT tipo_documento) as total FROM allegato';
+
+  $sql .=" WHERE id_ram = $id_RAM and id_veicolo = $id_veicolo";
+    
+         // echo $sql;
+      
+
+      $res = $conn->query($sql);
+      if($res) {
+
+       $row = $res->fetch_assoc();
+       $totalb = $row['total'];
+      }
+       $total += $totalb;
+     
+
+
+
+     }
+   }
+   return $total;
+
+}
+function countDocVeicolo($id){
+
+   /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+
+    
+  $total = 0;
+
+  
+
+  $sql = 'SELECT count(*) as total FROM tv_td';
+
+      $sql .=" WHERE codice_tipo_veicolo = $id";
+   
+
+    //  echo $sql;
+  
+
+  $res = $conn->query($sql);
+  if($res) {
+
+   $row = $res->fetch_assoc();
+   $total = $row['total'];
+  }
+  return $total;
+
+}
+function countDocVeicoloInfo($id_RAM,$id_veicolo){
+
+   /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+
+    
+  $total = 0;
+
+  
+      
+
+
+     
+  $sql = 'SELECT count(DISTINCT tipo_documento) as total FROM allegato';
+
+  $sql .=" WHERE id_ram = $id_RAM and id_veicolo = $id_veicolo";
+    //  echo $sql;
+  
+
+  $res = $conn->query($sql);
+  if($res) {
+
+   $row = $res->fetch_assoc();
+   $total = $row['total'];
+  }
+  return $total;
 
 }

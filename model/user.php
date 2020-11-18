@@ -75,17 +75,15 @@ function storeUser(array $data, int $id){
       $cognome = $conn->escape_string($data['cognome']);
       $nome = $conn->escape_string($data['nome']);
       $email = $conn->escape_string($data['email']);
-      $ambiente = $conn->escape_string($data['ambiente']);
-      $azienda = $conn->escape_string($data['azienda']);
-      $filiale = $conn->escape_string($data['filiale']);
-      $logoazienda = $conn->escape_string($data['logoazienda']);
+      
+     
       
 
 
       $roletype = in_array($data['roletype'], getConfig('roletype',[]))? $data['roletype']:'user';
       $result=0;
       $sql ='UPDATE users SET ';
-      $sql .= "username = '$username', cognome = '$cognome', nome = '$nome', email = '$email', azienda = '$azienda', filiale = '$filiale', logoazienda = '$logoazienda', ambiente ='$ambiente'";
+      $sql .= "username = '$username', cognome = '$cognome', nome = '$nome', email = '$email'";
       if($data['password']){
         $data['password']=$data['password']?? 'password';
         $password = password_hash($data['password'], PASSWORD_DEFAULT);
@@ -123,19 +121,13 @@ function saveUser(array $data){
       $cognome = $conn->escape_string($data['cognome']);
       $nome = $conn->escape_string($data['nome']);
       $email = $conn->escape_string($data['email']);
-      $ambiente = $conn->escape_string($data['ambiente']);
-      $azienda = $conn->escape_string($data['azienda']);
-      $filiale = $conn->escape_string($data['filiale']);
-      $ambiente = 1;
-      $azienda = 1;
-      $filiale = 1;
-      $logoazienda = $conn->escape_string($data['logoazienda']);
+      
       $roletype = in_array($data['roletype'], getConfig('roletype',[]))? $data['roletype']:'user';
       $data['password']= $data['password']?$data['password']:'testuser';
       $password = password_hash($data['password'], PASSWORD_DEFAULT);
       $result=0;
-      $sql ='INSERT INTO users (id, password, username, cognome, nome, email, ambiente, azienda, filiale, roletype, logoazienda) ';
-      $sql .= "VALUES (NULL, '$password', '$username', '$cognome', '$nome', '$email', '$ambiente', '$azienda', '$filiale','$roletype','$logoazienda') ";
+      $sql ='INSERT INTO users (id, password, username, cognome, nome, email,  roletype) ';
+      $sql .= "VALUES (NULL, '$password', '$username', '$cognome', '$nome', '$email', '$roletype') ";
       
       //echo $sql;die;
       $res = $conn->query($sql);

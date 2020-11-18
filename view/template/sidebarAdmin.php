@@ -1,4 +1,4 @@
-<div class="it-header-navbar-wrapper">
+<div class="it-header-navbar-wrapper affix-top" style="z-index:1;">
           <div class="container">
             <div class="row">
               <div class="col-12">
@@ -15,10 +15,12 @@
                       <button class="btn close-menu" type="button"><span class="it-close"></span>close</button>
                     </div>
                     <div class="menu-wrapper">
+
+                    
                       <ul class="navbar-nav">
-                        <li class="nav-item active"><a class="nav-link active" href="home.php"><span><i class="fa fa-home" aria-hidden="true"></i> Home</span><span class="sr-only">current</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="istanze.php"><span>Istanze </span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><span>link 4</span></a></li>
+                        <li class="nav-item active"><a class="nav-link <?=basename($_SERVER["PHP_SELF"])=='home.php'?'active':''?>" href="home.php"><span><i class="fa fa-home" aria-hidden="true"></i> Home</span><span class="sr-only">current</span></a></li>
+                        <li class="nav-item"><a class="nav-link <?=basename($_SERVER["PHP_SELF"])=='istanze.php'?'active':''?>" href="istanze.php"><span><i class="fa fa-list" aria-hidden="true"></i> Istanze </span></a></li>
+                        <li class="nav-item"><a class="nav-link <?=basename($_SERVER["PHP_SELF"])=='comunicazioni.php'?'active':''?>" href="comunicazioni.php"><span><i class="fa fa-inbox" aria-hidden="true"></i> Comunicazioni</span></a></li>
                         <!--
                         <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">

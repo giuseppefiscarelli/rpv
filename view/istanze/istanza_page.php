@@ -6,7 +6,7 @@
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <a class="nav-item nav-link active" id="nav-tab1-tab" data-toggle="tab" href="#nav-tab1" role="tab" aria-controls="nav-tab1" aria-selected="true">Dati della Domanda</a>
       <a class="nav-item nav-link" id="nav-tab2-tab" data-toggle="tab" href="#nav-tab2" role="tab" aria-controls="nav-tab2" aria-selected="false">Investimento /rendicontazione</a>
-      <a class="nav-item nav-link" id="nav-tab3-tab" data-toggle="tab" href="#nav-tab3" role="tab" aria-controls="nav-tab3" aria-selected="false">Tab 3</a>
+      <a class="nav-item nav-link" id="nav-tab3-tab" data-toggle="tab" href="#nav-tab3" role="tab" aria-controls="nav-tab3" aria-selected="false">Comunicazioni</a>
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
@@ -165,24 +165,34 @@
           <!--end card-->
         </div>
       </div>
+      
     
     </div>
     <div class="tab-pane p-4 fade" id="nav-tab2" role="tabpanel" aria-labelledby="nav-tab2-tab">
                     
 
-        <div class="row">
-        <button type="button" class="btn btn-primary"></button>
-        </div>
+        
+           <?php
+            require "inforend.php";
+
+            
+
+            require "alleistanza.php";
+            ?>
+       
         <div class="row">
           <div class="col-12">
             <div id="collapseDiv1-sc1" class="collapse-div collapse-background-active " role="tablist">
               <?php
               $cat=getCatInc();
               $accord=1; 
+
               $catA=$i['nv1']||$i['nv2']||$i['nv3']||$i['nv4']||$i['nv5']||$i['nv6']||$i['nv7']||$i['nv8']||$i['nv9']||$i['nv10']||$i['nv11'];
               $catB=$i['r_nv_1']||$i['r_nv_2']||$i['r_nv_3'];
               $catC=$i['nr_1']||$i['nr_2'];
               $catD=$i['ng_1'];
+
+
               foreach($cat as $ca){
                   if($ca['ctgi_categoria']=='A'&&$catA){
                       require "tabcat.php";
@@ -199,6 +209,21 @@
           </div>
         </div>
                                               
+    </div>
+    <div class="tab-pane p-4 fade" id="nav-tab3" role="tabpanel" aria-labelledby="nav-tab3-tab">
+      <div class="row">
+        <div class="col-12 col-lg-4">
+          <!--start card-->
+          <div class="card-wrapper">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Comunicazioni</h5>
+                <p>Non Ci sono Comunicazioni!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>          
     </div>
     
   </div>
@@ -242,44 +267,44 @@
                                                       </h5>
                                                     </div>
                                                     <div class="modal-body">
-                                                    <div>
-                                                    <div class="container">
-                                                      <form method="post" id="form_infovei">
-                                                      <input type="hidden" id="info_idvei" value="" >
-                                                        <div class="form-group">
-                                                            <input type="text" required placeholder="Inserire targa" oninput="this.value = this.value.toUpperCase();"value="" class="form-control" id="targa" name="targa" required>
-                                                        
-                                                          <label for="username" >Targa</label>
-                                                          <div class="invalid-feedback">Per favore scegli un username.</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" required placeholder="Inserire marca" value="" oninput="this.value = this.value.toUpperCase();"class="form-control" id="marca" name="marca" required>
-                                                        
-                                                          <label for="username" >Marca</label>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" required placeholder="Inserire modello" oninput="this.value = this.value.toUpperCase();"value="" class="form-control" id="modello" name="modello" required>
-                                                        
-                                                          <label for="username" >Modello</label>
-                                                        </div>
-                                                        <label for="costo" class="input-number-label" style="margin-top: -25px;">Costo</label>
-                                                        <span class="input-number input-number-currency">
-                                                          <input type="number" id="costo" name="costo" value="0.00" min="1.00" required>
+                                                   
+                                                      <div class="container">
+                                                        <form method="post" id="form_infovei">
+                                                          <input type="hidden" id="info_idvei" value="" >
+                                                          <div class="form-group">
+                                                              <input type="text" required placeholder="Inserire targa" oninput="this.value = this.value.toUpperCase();"value="<?=$rv['targa']?>" class="form-control" id="targa" name="targa" required>
                                                           
-                                                        </span>
-                                                      
-                                                        <div class="bootstrap-select-wrapper" style="margin-top:50px;">
-                                                            <label for="roletype" >Tipo Acquisizione</label>
-                                                            <select class="form-control" id="tipo_acquisizione" name="tipo_acquisizione" required >
-                                                                <option >Scegli una opzione</option>
-                                                                <option value="01">Acquisto</option>
-                                                                <option value="02">Leasing</option>
-                                                                
-                                                            </select>
+                                                            <label for="username" >Targa</label>
+                                                            <div class="invalid-feedback">Per favore scegli un username.</div>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <input type="text" required placeholder="Inserire marca" value="" oninput="this.value = this.value.toUpperCase();"class="form-control" id="marca" name="marca" required>
                                                           
-                                                        </div>
-                                                      </form>
-                                                    </div>
+                                                            <label for="username" >Marca</label>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <input type="text" required placeholder="Inserire modello" oninput="this.value = this.value.toUpperCase();"value="" class="form-control" id="modello" name="modello" required>
+                                                          
+                                                            <label for="username" >Modello</label>
+                                                          </div>
+                                                          <label for="costo" class="input-number-label" style="margin-top: -25px;">Costo</label>
+                                                          <span class="input-number input-number-currency">
+                                                            <input type="number" id="costo" name="costo" value="0.00" min="1.00" required>
+                                                            
+                                                          </span>
+                                                        
+                                                          <div class="bootstrap-select-wrapper" style="margin-top:50px;">
+                                                              <label for="roletype" >Tipo Acquisizione</label>
+                                                              <select class="form-control" accept="application/pdf" id="tipo_acquisizione" name="tipo_acquisizione" required >
+                                                                  <option >Scegli una opzione</option>
+                                                                  <option value="01">Acquisto</option>
+                                                                  <option value="02">Leasing</option>
+                                                                  
+                                                              </select>
+                                                            
+                                                          </div>
+                                                        </form>
+                                                      </div>
                                                       
                                                     
                                                      
@@ -296,24 +321,40 @@
                                                   </div>
                                                 </div>
                                               </div> 
-                                              <div class="modal fade" tabindex="-1" role="dialog" id="spinModal" >
-                                                <div class="modal-dialog" role="document">
+                                              <div class="modal fade" tabindex="-1" role="dialog" id="docMaggiorazione">
+                                                <div class="modal-dialog modal-lg" role="document">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
-                                                      <h5 class="modal-title">dialog header
+                                                      <h5 class="modal-title">Inserimento Allegati per Maggiorazione
                                                       </h5>
                                                     </div>
-                                                    <div class="modal-body" >
-                                                    <div class="text-center">
-  <div class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-</div>
-                                                     
+                                                    <div class="modal-body">
+                                                      <form method="post" id="form_allegato_mag" enctype="multipart/form-data">
+                                                        <input type="hidden" name="id_RAM" value="<?=$i['id_RAM']?>">
+                                                        <input type="hidden" name="tipo_doc_mag" id="tipo_doc_mag" value="">
+                                                        <label>Tipo Allegato</label>
+                                                          <div class="form-group">
+                                                            <textarea rows="3" style="text-align: justify;"class="form-control" type="text" id="tipo_documento_magg" name="tipo_documento" readonly></textarea>
+                                                            
+                                                          </div>
+
+                                                          <div class="form-group">
+                                                            <label for="file_allegato" class="active">Allegato</label>
+                                                            <input type="file" accept="application/pdf" class="form-control-file" id="file_allegato" name="file_allegato"required>
+                                                          </div>
+
+                                                        
+                                                      </form> 
+
                                                     </div>
                                                     <div class="modal-footer">
-                                                      <button class="btn btn-primary btn-sm" data-dismiss="modal" type="button">Close</button>
+                                                      <button class="btn btn-secondary btn-sm" data-dismiss="modal" type="button">Chiudi</button>
+                                                      <button class="btn btn-primary btn-sm" form="form_allegato_mag"type="submit">Salva Allegato per Maggiorazione</button>
                                                     </div>
                                                   </div>
                                                 </div>
                                               </div>
+                                            
+                                                <!-- Modal -->
+                                                
+                                          

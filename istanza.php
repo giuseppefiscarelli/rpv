@@ -42,7 +42,20 @@ require_once 'headerInclude.php';
             inputFormat: ["dd/MM/yyyy"],
             outputFormat: 'dd/MM/yyyy',
       });
+      
+      $('#header_menu').on('affixed.bs.affix', function(){
+            alert('The navigation menu is about to be affixed - The .affix-top class has been replaced with the .affix class');
       });
+      });
+    
+$(window).on( 'scroll', function(){
+    var team = $('#header_menu').offset().top;
+    if ($(window).scrollTop() >= team) {
+       $('#li_logo').show()
+    }else{
+      $('#li_logo').hide()
+    } 
+});
      var myVar= $('[id^=nav-vertical-tab-bg]').find("active")
      
       $('#form_infovei').submit(function( event ) {
@@ -165,7 +178,7 @@ require_once 'headerInclude.php';
                                                 $('#campi_allegati').append(field) 
                                                 field='<div class="form-group">'
                                                 field+='<label for="file_allegato" class="active">Documento</label>'
-                                                field+='<input type="file" class="form-control-file" id="file_allegato" name="file_allegato"required></div>'
+                                                field+='<input type="file" accept="application/pdf" class="form-control-file" id="file_allegato" name="file_allegato"required></div>'
 
                                                 $('#campi_allegati').append(field) 
     
@@ -183,13 +196,36 @@ require_once 'headerInclude.php';
       });
       $('#form_allegato').submit(function(event){
             $('#docModal').modal('toggle');
-            $('<div class="modal-backdrop"></div>').appendTo(document.body);
+            var htmltext='<div class="progress"><div class="progress-bar" role="progressbar" id="progress-bar"style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div></div>'
+      
+        Swal.fire({ 
+                html:true,
+                title: "Upload in Corso",
+                text:htmltext,
+                type: "info",
+                showLoaderOnConfirm: true,
+                showCancelButton: false,
+                showConfirmButton: false
+        });
+           
             event.preventDefault();
             tipo=$('#tipo_documento option:selected').text()
             console.log(tipo)
             formData = new FormData(this);
-            //alert("ok")
+            
                   $.ajax({
+                              xhr: function() {
+                              var xhr = new window.XMLHttpRequest();
+                              xhr.upload.addEventListener("progress", function(evt) {
+                                  if (evt.lengthComputable) {
+                                      var percentComplete = ((evt.loaded / evt.total) * 100);
+                                      $("#progress-bar").width(percentComplete + '%');
+                                     
+                                      //$(".progress-bar").html(percentComplete+'%');
+                                  }
+                              }, false);
+                              return xhr;
+                          },
                         url: "controller/updateIstanze.php?action=newAllegato",
                         type:"POST",
                         data: formData,
@@ -197,8 +233,21 @@ require_once 'headerInclude.php';
                         contentType: false,
                         cache: false,
                         processData:false,
+                        beforeSend: function(){
+                                $("#progress-bar").width('0%');
+                                $('#uploadStatus').html('<img src="images/loading.gif"/>');
+                            },
+                            error:function(){
+                              
+                                Swal.fire("Operazione Non Completata!", "Allegato non caricato correttamente.", "warning");
+                             
+                            },
                         success: function(data){
-                              //console.log(data)
+                              
+                              
+                                Swal.fire("Operazione Completata!", "Allegato caricato correttamente.", "success");
+                              
+                             
                               data_ins=convData(data.data_agg)
                               id_table= formData.get('doc_idvei')
                             
@@ -206,23 +255,140 @@ require_once 'headerInclude.php';
                               buttonb='<button type="button" onclick="window.open(\'allegato.php?id='+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-danger "><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
                               row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td>'+button+''+buttonb+'</td></tr>'
                               $('#tab_doc_'+id_table+' > tbody:last-child').append(row);
-                              $(".modal-backdrop").remove();
+                             
                         }
                   })
 
-      });
+      })
+      $('#form_allegato_mag').submit(function(event){
+            $('#docMaggiorazione').modal('toggle');
+            
+            var htmltext='<div class="progress"><div class="progress-bar" role="progressbar" id="progress-bar"style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div></div>'
+      
+        Swal.fire({ 
+                html:true,
+                title: "Upload in Corso",
+                text:htmltext,
+                type: "info",
+                showLoaderOnConfirm: true,
+                showCancelButton: false,
+                showConfirmButton: false
+        });
+           
+            event.preventDefault();
+            tipo=$('#tipo_doc_mag').val()
+            console.log(tipo)
+            formData = new FormData(this);
+            
+                  $.ajax({
+                              xhr: function() {
+                              var xhr = new window.XMLHttpRequest();
+                              xhr.upload.addEventListener("progress", function(evt) {
+                                  if (evt.lengthComputable) {
+                                      var percentComplete = ((evt.loaded / evt.total) * 100);
+                                      $("#progress-bar").width(percentComplete + '%');
+                                     
+                                      //$(".progress-bar").html(percentComplete+'%');
+                                  }
+                              }, false);
+                              return xhr;
+                          },
+                        url: "controller/updateIstanze.php?action=newAllegatoMag",
+                        type:"POST",
+                        data: formData,
+                        dataType: 'json',
+                        contentType: false,
+                        cache: false,
+                        processData:false,
+                        beforeSend: function(){
+                                $("#progress-bar").width('0%');
+                                $('#uploadStatus').html('<img src="images/loading.gif"/>');
+                            },
+                            error:function(){
+                              
+                                Swal.fire("Operazione Non Completata!", "Allegato non caricato correttamente.", "warning");
+                             
+                            },
+                        success: function(data){
+                                                       
+                                Swal.fire("Operazione Completata!", "Allegato caricato correttamente.", "success");
+                              
+                             
+                              data_ins=convData(data.data_agg)
+                              $('#data_'+tipo).html(data_ins)
+                              $('#upload_'+tipo).hide()
+                              $('#download_'+tipo).show()
+                              $('#open_'+tipo).attr("onclick","window.open('allegato.php?id="+data.id+"', '_blank')'");
+                              $('#del_'+tipo).attr("onclick","delAlle("+data.id+",this);");
+                              $('#down_'+tipo).attr("href","download.php?id="+data.id)
+                              //id_table= formData.get('doc_idvei')
+                              $('#file_allegato').val(null);
+                            
+                              
+                             
+                        }
+                  })
+
+      })
       $('#docModal').on('hidden.bs.modal', function (e) {
             $('#campi_allegati').empty();
       }) 
       
      
       function infomodal(id){
+         $('#form_infovei')[0].reset();
+         $("#tipo_acquisizione").val('').selectpicker("refresh");
 
             //alert(id);
             $("#infoModal").modal("toggle");
             $("#info_idvei").val(id);
 
       } 
+      function infomodalup(id){
+
+            //alert(id);
+            $("#infoModal").modal("toggle");
+            getInfoVei(id);
+            $("#info_idvei").val(id);
+           
+
+      } 
+      function docmagmodal(id){
+            //$("#infoModal").modal("toggle");
+            $("#docMaggiorazione").modal("toggle");
+            $("#tipo_doc_mag").val(id);
+            tipo = $('#tipo_magg_'+id).text();
+            console.log(tipo);
+            $('#tipo_documento_magg').val(tipo);
+
+
+
+            
+      }
+
+      function getInfoVei(id){
+            $.ajax({
+                        type: "POST",
+                        url: "controller/updateIstanze.php?action=getInfoVei",
+                        data: {id:id},
+                        dataType: "json",
+                        success: function(data){
+                              console.log(data)
+                              $('#targa').val(data.targa)
+                              $('#marca').val(data.marca)
+                              $('#modello').val(data.modello)
+                              $('#costo').val(data.costo)
+                              
+                              $('.bootstrap-select-wrapper select').val(data.tipo_acquisizione);
+                              $('.bootstrap-select-wrapper select').selectpicker('render');
+                              
+                            
+                                                          
+                        }
+                  })
+
+
+      }
       function docmodal(id,tipdoc){
             //$('#tipo_documento').remove();
             $(".bootstrap-select-wrapper option").remove();
@@ -252,6 +418,7 @@ require_once 'headerInclude.php';
 
                   
       }
+     
       function tipDoc(tip){
        $('#row_doc').empty();
 
@@ -363,6 +530,53 @@ require_once 'headerInclude.php';
             newanno=newdata.getFullYear();
             return newgiorno+'/'+newmese+'/'+newanno;
       }
+
+      function delAlle(ida,elem){
+           
+            div_down= elem.parentNode.id;
+            div_up=div_down.split("_");
+            //console.log(div_up)
+            div_up = div_up[1];
+            //console.log("upload_"+div_up)
+            Swal.fire({
+                  title: 'Vuoi elinimare l\'allegato?',
+                  text: "Non potrai più recuperarlo",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'SI Eliminalo!',
+                  cancelButtonText: 'NO, Annulla!'
+                  }).then((result) => {
+                        if (result.isConfirmed) {
+                              $.ajax({
+                                    url: "controller/updateIstanze.php?action=delAllegato",
+                                    data: {id:ida},
+                                    dataType: "json",
+                                    success: function(results){
+                                         
+                                          if(results)
+                                          {
+                                                $('#upload_'+div_up).show();
+                                                $('#'+div_down).hide()
+                                                $('#data_'+div_up).text("Allegato non Caricato")
+                                                Swal.fire(
+                                                      'Eliminato!',
+                                                      'L\'allegato è stato eliminato correttamente.',
+                                                      'success'
+                                                )
+                                          }
+                                          //console.log(results)
+                                    }
+
+                              })
+
+
+                        }
+                  })
+      }
+         
+            
 </script>
 
 </body>
