@@ -28,7 +28,8 @@ require_once 'view/template/top.php';
               <div class="row">
                   <div class="col-12">
                     <div class="it-header-slim-wrapper-content">
-                        <a class="d-none d-lg-block navbar-brand" href="#">Ente appartenenza/Owner</a>
+                    <img src="images/logo-ram-2018.png" alt="Home" style="max-height: -webkit-fill-available;">
+                        <a class="d-none d-lg-block navbar-brand" href="#"></a>
                         <div class="nav-mobile">
                           <nav>
                               <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu1" role="button" aria-expanded="false" aria-controls="menu1">
@@ -131,8 +132,18 @@ require_once 'view/template/top.php';
               </div>
             </div>
         </div>
-        
-      
+        <?php
+
+//var_dump($_SESSION);
+if(!empty($_SESSION['message'])){
+    
+    $message = $_SESSION['message'];
+    $alertType ='danger';
+    
+    require 'view/template/message.php';
+    unset($_SESSION['message'],$_SESSION['success']);
+  } 
+      ?>
       <div class="container my-4">
         <div class="it-carousel-wrapper it-carousel-landscape-abstract">
           <div class="it-carousel-all owl-carousel" >
@@ -152,7 +163,7 @@ require_once 'view/template/top.php';
                         <!-- category heading--><a class="category" href="#">Category</a>
                         <!-- category data--><span class="data">10/12/2018</span>
                       </div>
-                      <h5 class="card-title big-heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit…</h5>
+                      <h5 class="card-title big-heading">Lèéorem ipcing elit…</h5>
                       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                       <span class="card-signature">di Federico De Paolis</span>
                       <a class="read-more" href="#">
@@ -258,28 +269,33 @@ require_once 'view/template/top.php';
             </div>
           </div>
         </div>
+        <button type="button" class="btn btn-primary play">Play</button>
+        <button type="button" class="btn btn-primary stop">stop</button>
 
       </div>
       
-      <?php
-      require_once 'view/template/footer.php';
-      ?>
-   
+     
+   <!-- JS -->
+<script src="assets/js/bootstrap-italia.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.js"></script>
+
+<script type="text/javascript">
+        $( document ).ready(function() {
+            $('#message').delay(3000).fadeOut();
+        });
+       
+</script> 
   </body>
   <script>
   
   
 $(document).ready(function() {
 
-var owl = $(".owl-carousel");
+  $(".owl-carousel").owlCarousel();
+  var owl = $('.owl-carousel');
 
-owl.owlCarousel({
-  navigation : false,
-  singleItem : true,
-  autoPlay: 3000,
-  transitionStyle : "fadeUp"
+owl.trigger('play.owl.autoplay',[5000])
 
-});
 
 });
   </script>

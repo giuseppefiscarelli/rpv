@@ -21,6 +21,7 @@
                       
                       <li id="li_logo" style="display:none;">
                           <div class="row">
+                          <img src="images/logo-ram-2018.png" alt="Home" style="height: 50px">
                             <img src="images/logo.svg" alt="Home" style="max-height: 50px;    padding: 7px;">
                               <div class="it-brand-text">
                                 <b class="no_toc" style="color:white;">Ministero</b>

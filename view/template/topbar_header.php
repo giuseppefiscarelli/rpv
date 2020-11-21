@@ -5,7 +5,8 @@
               <div class="row">
                   <div class="col-12">
                     <div class="it-header-slim-wrapper-content">
-                        <a class="d-none d-lg-block navbar-brand" href="#">Ente appartenenza/Owner</a>
+                    <img src="images/logo-ram-2018.png" alt="Home" style="max-height: -webkit-fill-available;">
+                        <a class="d-none d-lg-block navbar-brand" href="#"> </a>
                         <div class="nav-mobile">
                           <nav>
                               <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu1" role="button" aria-expanded="false" aria-controls="menu1">
