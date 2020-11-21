@@ -1,6 +1,6 @@
 <div class="collapse-header " id="heading1-sc<?=$ca['ctgi_codice']?>">
                     <button data-toggle="collapse" data-target="#collapse1-sc<?=$ca['ctgi_codice']?>" aria-expanded="<?=$ca['ctgi_codice']==1?'true':'false'?>" aria-controls="collapse1-sc<?=$ca['ctgi_codice']?>">
-                       Categoria <?=$ca['ctgi_categoria']?><br> <small><?=$ca['ctgi_descrizione']?></small>
+                       Categoria <?=utf8_decode($ca['ctgi_categoria'])?><br> <small><?=utf8_decode($ca['ctgi_descrizione'])?></small>
                     </button>
                   </div>
                   <div id="collapse1-sc<?=$ca['ctgi_codice']?>" class="collapse" role="tabpanel" aria-labelledby="heading1-sc<?=$ca['ctgi_codice']?>" data-parent="#collapseDiv1-sc1">
