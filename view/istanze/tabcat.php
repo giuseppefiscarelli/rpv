@@ -1,4 +1,4 @@
-<div class="collapse-header " id="heading1-sc<?=$ca['ctgi_codice']?>">
+                  <div class="collapse-header " id="heading1-sc<?=$ca['ctgi_codice']?>">
                     <button data-toggle="collapse" data-target="#collapse1-sc<?=$ca['ctgi_codice']?>" aria-expanded="<?=$ca['ctgi_codice']==1?'true':'false'?>" aria-controls="collapse1-sc<?=$ca['ctgi_codice']?>">
                        Categoria <?=utf8_decode($ca['ctgi_categoria'])?><br> <small><?=utf8_decode($ca['ctgi_descrizione'])?></small>
                     </button>
