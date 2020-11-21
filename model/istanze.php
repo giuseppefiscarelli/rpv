@@ -595,14 +595,14 @@ function delAllegatoID($id){
 
 
 }
-function getAllegati($id_RAM,$id_veicolo){
+function getAllegati($id_RAM,$tipo_veicolo,$progressivo){
   /**
   * @var $conn mysqli
   */
 
   $conn = $GLOBALS['mysqli'];
   
-  $sql = 'SELECT * FROM allegato WHERE id_ram ='.$id_RAM.' and id_veicolo ='.$id_veicolo.' and attivo="s" ';
+  $sql = 'SELECT * FROM allegato WHERE id_ram ='.$id_RAM.' and tipo_veicolo ='.$tipo_veicolo.' and progressivo='.$progressivo.' and attivo="s" ';
   //echo $sql;
   $records = [];
 
@@ -667,12 +667,20 @@ function newAllegato($data){
   $conn = $GLOBALS['mysqli'];
 
   $id_ram = $conn->escape_string($data['id_RAM']);
-  $id_veicolo = $conn->escape_string($data['doc_idvei']);
+  $tipo_veicolo = $conn->escape_string($data['tipo_veicolo']);
+  if(!$tipo_veicolo){
+    $tipo_veicolo = 0;
+  }
+  $progressivo = $conn->escape_string($data['progressivo']);
+  if(!$progressivo){
+    $progressivo = 0;
+  }
   $tipo_documento = $conn->escape_string($data['tipo_documento']);
   $docu_nome_file_origine =  $conn->escape_string($data['docu_nome_file_origine']);
   $path_parts = pathinfo($docu_nome_file_origine);
   $docu_id_file_archivio = $conn->escape_string($data['docu_id_file_archivio']);
   $data_allegato = array_key_exists('data_allegato', $data)? $data['data_allegato']:'';
+  $json_data = array_key_exists('json_data', $data)? $data['json_data']:'';
   if($data_allegato){
   $data_allegato = DateTime::createFromFormat('d/m/Y', $data_allegato);
   $data_allegato= $data_allegato->format('Y-m-d');
@@ -685,8 +693,8 @@ function newAllegato($data){
   $user = $_SESSION['userData']['email'];
 
   $result=0;
-  $sql ='INSERT INTO allegato (id,id_ram,id_veicolo,tipo_documento,docu_nome_file_origine,docu_id_file_archivio,data_allegato,importo_allegato,testo_allegato,numero_allegato,note,attivo,user) ';
-  $sql .= "VALUES (NULL,$id_ram,$id_veicolo,$tipo_documento,'$docu_nome_file_origine','$docu_id_file_archivio','$data_allegato',$importo_allegato,'$testo_allegato','$numero_allegato','$note','$attivo','$user')  ";
+  $sql ='INSERT INTO allegato (id,id_ram,tipo_veicolo,progressivo,tipo_documento,docu_nome_file_origine,docu_id_file_archivio,data_allegato,importo_allegato,testo_allegato,numero_allegato,note,attivo,user,json_data) ';
+  $sql .= "VALUES (NULL,$id_ram,$tipo_veicolo,$progressivo,$tipo_documento,'$docu_nome_file_origine','$docu_id_file_archivio','$data_allegato',$importo_allegato,'$testo_allegato','$numero_allegato','$note','$attivo','$user','$json_data')  ";
   
   //echo $sql;die;
   $res = $conn->query($sql);
@@ -884,12 +892,13 @@ function countDocIstanzaInfo($id_RAM){
      foreach($records as $r){
      
 
-      $id_veicolo = $r['id'];
+      $tipo_veicolo = $r['tipo_veicolo'];
+      $progressivo = $r['progressivo'];
 
      
   $sql = 'SELECT count(DISTINCT tipo_documento) as total FROM allegato';
 
-  $sql .=" WHERE id_ram = $id_RAM and id_veicolo = $id_veicolo";
+  $sql .=" WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo";
     
          // echo $sql;
       
@@ -917,6 +926,7 @@ function countDocVeicolo($id){
    */
 
   $conn = $GLOBALS['mysqli'];
+  
 
     
   $total = 0;
@@ -940,34 +950,85 @@ function countDocVeicolo($id){
   return $total;
 
 }
-function countDocVeicoloInfo($id_RAM,$id_veicolo){
+function countDocVeicoloInfo($id_RAM,$tipo_veicolo,$progressivo){
 
-   /**
+   
+  /**
    * @var $conn mysqli
    */
 
-  $conn = $GLOBALS['mysqli'];
+            $conn = $GLOBALS['mysqli'];
 
-    
-  $total = 0;
+              
+           
+              
+            $total = 0;
 
   
       
 
 
      
-  $sql = 'SELECT count(DISTINCT tipo_documento) as total FROM allegato';
+                $sql = 'SELECT count(DISTINCT tipo_documento) as total FROM allegato';
 
-  $sql .=" WHERE id_ram = $id_RAM and id_veicolo = $id_veicolo";
-    //  echo $sql;
-  
+                $sql .=" WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo";
+                //  echo $sql;
+                
+
+                $res = $conn->query($sql);
+                if($res) {
+
+                $row = $res->fetch_assoc();
+                $total = $row['total'];
+                
+                return $total;
+
+              }
+          
+}
+function getTipoDich($cod){
+   /**
+  * @var $conn mysqli
+  */
+
+  $conn = $GLOBALS['mysqli'];
+
+  $sql = 'SELECT * FROM tipo_dichiarante WHERE cod_tipo ='.$cod;
+  //echo $sql;
+  $result = [];
 
   $res = $conn->query($sql);
-  if($res) {
+        
+    if($res && $res->num_rows){
+      $result = $res->fetch_assoc();
+      
+    }
+  return $result;
 
-   $row = $res->fetch_assoc();
-   $total = $row['total'];
-  }
-  return $total;
+
+
+
+}
+function getTipoImpresa($cod){
+  /**
+ * @var $conn mysqli
+ */
+
+ $conn = $GLOBALS['mysqli'];
+
+ $sql = 'SELECT * FROM tipo_impresa WHERE cod_tipo ='.$cod;
+ //echo $sql;
+ $result = [];
+
+ $res = $conn->query($sql);
+       
+   if($res && $res->num_rows){
+     $result = $res->fetch_assoc();
+     
+   }
+ return $result;
+
+
+
 
 }

@@ -28,7 +28,7 @@ require_once 'view/template/top.php';
               <div class="row">
                   <div class="col-12">
                     <div class="it-header-slim-wrapper-content">
-                    <img src="images/logo-ram-2018.png" alt="Home" style="max-height: -webkit-fill-available;">
+                   
                         <a class="d-none d-lg-block navbar-brand" href="#"></a>
                         <div class="nav-mobile">
                           <nav>
@@ -117,14 +117,20 @@ require_once 'view/template/top.php';
                 <div class="col-12">
                   <div class="it-header-center-content-wrapper" >
                     <div class="it-brand-wrapper" style="min-width: -webkit-fill-available;">
-                      <a href="#">
-                        <img src="images/logo.svg" alt="Home" style="max-height: -webkit-fill-available;    padding: 7px;">
-                        <div class="it-brand-text">
-                          <h2 class="no_toc">Ministero
-                           </h2>
-                          <h3 class="no_toc  d-md-block"> delle Infrastrutture e dei Trasporti</h3>
-                        </div>
-                      </a>
+                      <div class="row">
+                        <a href="#">
+                          <img src="images/logo.svg" alt="Home" style="max-height: -webkit-fill-available;    padding: 7px;">
+                          <div class="it-brand-text">
+                            <h2 class="no_toc">Ministero
+                            </h2>
+                            <h3 class="no_toc  d-md-block"> delle Infrastrutture e dei Trasporti</h3>
+                          </div>
+                          <div style="padding: 20px;">
+                           <img src="images/logo-ram-2018.png" alt="Home" style="max-height: -webkit-fill-available;">
+                          </div>
+                        </a>
+                      
+                      </div>
                     </div>
                     
                   </div>

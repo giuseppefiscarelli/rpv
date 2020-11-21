@@ -47,7 +47,7 @@
                   
                       </tr>
                       <tr>
-                      <th scope="row">Luogo Residenza</th>
+                      <th scope="row">Comune Residenza</th>
                       <td><?=$i['cap_residenza']?> - <?=$i['comune_residenza']?> (<?=$i['prov_residenza']?>)</td>
                   
                       </tr>
@@ -56,9 +56,13 @@
                       <td><?=$i['email_richiedente']?></td>
                   
                       </tr>
+                      <?php
+                       $dichiarante  =getTipoDich($i['tipo_dichiarante']);
+                       $dich = $dichiarante['descrizione_tipo'];
+                       ?> 
                       <tr>
                       <th scope="row">Tipo</th>
-                      <td><?=$i['tipo_dichiarante']?></td>
+                      <td><?=$dich?></td>
                   
                       </tr>
                   </tbody>
@@ -129,9 +133,13 @@
                   <div class="col-lg-6 col-12"> 
                       <table class="table table-sm">
                           <tbody>
+                          <?php
+                           $tipoimpresa = getTipoImpresa($i['tipo_impresa']);
+                           $tipImr = $tipoimpresa['descrizione_tipo'];
+                           ?>
                               <tr>
                               <th scope="row">Tipo Impresa</th>
-                              <td><?=$i['tipo_impresa']?></td>
+                              <td><?=$tipImr?></td>
                               </tr>
                               <tr>
                               <th scope="row">Codice Albo</th>
@@ -146,7 +154,7 @@
                               <td>Provincia <?=$i['cciaa_prov']?><br>Codice <?=$i['cciaa_codice']?><br>Data <?=date("d/m/Y",strtotime($i['cciaa_data']))?></td>
                               </tr>
                               <tr>
-                              <th scope="row">Codice Ateca</th>
+                              <th scope="row">Codice A.TE.CO</th>
                               <td><?=$i['codice_ateco']?></td>
                               </tr>
                               <tr>
@@ -237,7 +245,8 @@
                                                     </div>
                                                     <div class="modal-body">
                                                      <form method="post" id="form_allegato" enctype="multipart/form-data">
-                                                     <input type="hidden" name="id_RAM" value="<?=$i['id_RAM']?>">
+                                                      <input type="hidden" name="id_RAM" value="<?=$i['id_RAM']?>">
+                                                      
                                                       <input type="hidden" name="doc_idvei" id="doc_idvei" value="">
                                                         <div class="bootstrap-select-wrapper">
                                                             <label>Tipo Documento</label>
@@ -354,7 +363,34 @@
                                                   </div>
                                                 </div>
                                               </div>
+                                              <div class="modal fade" tabindex="-1" role="dialog" id="infoAllegato">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title">Info Allegato
+                                                      </h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                   
+                                                      <div class="container">
+                                                        
+                                                      </div>
+                                                      
+                                                    
+                                                     
+  
+                                                       
+                                                        
+                                                      
                                             
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button class="btn btn-secondary btn-sm" data-dismiss="modal" type="button">Chiudi</button>
+                                                      <button class="btn btn-primary btn-sm" form="form_infovei"type="submit">Salva Dati Veicolo</button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
                                                 <!-- Modal -->
                                                 
                                           

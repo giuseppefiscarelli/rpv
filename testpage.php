@@ -294,21 +294,12 @@ require_once 'view/template/top.php';
                                                    
                                                         <div class="bootstrap-select-wrapper">
                                                             <label>Tipo Documento</label>
-                                                            <select id="tipo_documento" name="tipo_documento"title="Scegli un tipo di documento">
-                                                          
-                                                          </select>
+                                                           <select >
+  <option data-content="test tipo documento  <span class='badge badge-success'> <i class='fa fa-check-circle' aria-hidden='true'></i></span>"></option>
+</select>
+
                                                         </div>
-                                                        <div class="form-group">
-                                                          <label for=""></label>
-                                                          <input type="file"
-                                                            class="form-control" name="file_allegato" id="file_allegato" aria-describedby="helpId" placeholder="">
-                                                          <small id="helpId" class="form-text text-muted">Help text</small>
-                                                        </div>
-                                                        <div id="campi_allegati" style="margin-top:50px;">
-                                                        </div>
-                                                      </form>   
-                                                      <button class="btn btn-primary btn-sm" data-dismiss="modal" type="button">Close</button>
-                                                      <button class="btn btn-primary btn-sm" form="form_allegato"type="submit">Salva Allegato Veicolo</button>   
+                                                       
         
 
 

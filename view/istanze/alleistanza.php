@@ -1,7 +1,7 @@
 
 <?php
 
-$alleMag = getAllegati($i['id_RAM'],0);
+$alleMag = getAllegati($i['id_RAM'],0,0);
 //$alleMag = getAllegato(99,$i['id_RAM'],0)
 //var_dump($alleMag);
 /*
@@ -25,7 +25,7 @@ var_dump($test);
                     <div id="accordionalle" class="collapse-div collapse-background-active" role="tablist">
                         <div class="collapse-header" id="headingAlle">
                             <button data-toggle="collapse" data-target="#accordionAllegati" aria-expanded="false" aria-controls="accordionAllegati">
-                            <i class="fa fa-paperclip" aria-hidden="true"></i> Allegati Per Maggiorazione
+                            <i class="fa fa-paperclip" aria-hidden="true"></i> Allegati Dichiarazioni
                             </button>
                         </div>
                         <div id="accordionAllegati" class="collapse " role="tabpanel" aria-labelledby="headingAlle" data-parent="#accordionalle">
@@ -36,11 +36,11 @@ var_dump($test);
                                             <thead>
                                                 <tr>
                                                     <th>Tipo</th>
-                                                    <th style="width:25%">Data Upload</th>
-                                                    <th></th>
+                                                    <th style="width:11%">Data Upload</th>
+                                                    <th style="width:11%"></th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody style="font-size:15px;">
                                             <?php
                                             $data_ampl = false;
                                             $file_ampl =  false;
@@ -73,7 +73,7 @@ var_dump($test);
                                                         $id_alle_ampl =$aM['id'];
                                                     }
 
-                                                    
+                                                     
                                                 }
 
 
@@ -90,12 +90,13 @@ var_dump($test);
                                                     <td> <?php
                                                             if(!isUserAdmin()){?> 
 
-                                                        <div id="upload_pmi"style="display:<?=$data_pmi?'none':''?>" class="btn-group btn-group-sm" role="group">
+                                                        <div id="upload_pmi"style="display:<?=$data_pmi?'none':''?>"    >
                                                             <button type="button" onclick="docmagmodal('pmi');"class="btn btn-primary btn-xs" title="Carica Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Carica Allegato</button>
                                                         </div>
                                                         <?php
                                                         }?>
-                                                        <div id="download_pmi"style="display:<?=$file_pmi?'':'none'?>"class="btn-group btn-group-sm" role="group">
+                                                        <div id="download_pmi"style="display:<?=$file_pmi?'':'none'?>"  >
+                                                            <button id="info_pmi"type="button" onclick="infoAlle(<?=$id_alle_pmi?>);"class="btn btn-danger btn-xs" title="Visualizza Info Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-list" aria-hidden="true"></i></button>
                                                             <button id="open_pmi"type="button" onclick="window.open('allegato.php?id=<?=$id_alle_pmi?>', '_blank')"class="btn btn-primary btn-xs" title="Visualizza Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i></button>
                                                             <a d="down_pmi"type="button" href="download.php?id=<?=$id_alle_pmi?>" download class="btn btn-success btn-xs" title="Download Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i></a>
                                                             <?php
@@ -116,13 +117,15 @@ var_dump($test);
                                                     <td >
                                                     <?php
                                                             if(!isUserAdmin()){?> 
-                                                        <div id="upload_rete"style="display:<?=$file_rete?'none':''?>"class="btn-group btn-group-sm" role="group">
+                                                        <div id="upload_rete"style="display:<?=$file_rete?'none':''?>"   >
                                                         <button type="button" onclick="docmagmodal('rete');" class="btn btn-primary btn-xs" title="Carica Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Carica Allegato</button>
 
                                                         </div>
                                                         <?php
                                                         }?>
-                                                        <div id="download_rete"style="display:<?=$file_rete?'':'none'?>"class="btn-group btn-group-sm" role="group">
+                                                        <div id="download_rete"style="display:<?=$file_rete?'':'none'?>"   >
+                                                        <button id="info_rete"type="button" onclick="infoAlle(<?=$id_alle_rete?>);"class="btn btn-danger btn-xs" title="Visualizza Info Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-list" aria-hidden="true"></i></button>
+
                                                             <button id="open_rete" type="button" onclick="window.open('allegato.php?id=<?=$id_alle_rete?>', '_blank')"class="btn btn-primary btn-xs" title="Visualizza Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i></button>
                                                             <a id="down_rete"type="button" href="download.php?id=<?=$id_alle_rete?>" download class="btn btn-success btn-xs" title="Download Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i></a>
                                                             <?php
@@ -144,13 +147,15 @@ var_dump($test);
                                                     <td>
                                                         <?php
                                                             if(!isUserAdmin()){?>    
-                                                        <div id="upload_ampl"style="display:<?=$file_ampl?'none':''?>"class="btn-group btn-group-sm" role="group">
+                                                        <div id="upload_ampl"style="display:<?=$file_ampl?'none':''?>"   >
                                                             <button type="button" onclick="docmagmodal('ampl');" class="btn btn-primary btn-xs" title="Carica Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Carica Allegato</button>
 
                                                         </div>
                                                         <?php
                                                         }?>
-                                                        <div id="download_ampl" style="display:<?=$file_ampl?'':'none'?>"class="btn-group btn-group-sm" role="group">
+                                                        <div id="download_ampl" style="display:<?=$file_ampl?'':'none'?>"   >
+                                                        <button id="info_ampl"type="button" onclick="infoAlle(<?=$id_alle_ampl?>);"class="btn btn-danger btn-xs" title="Visualizza Info Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-list" aria-hidden="true"></i></button>
+
                                                             <button id="open_ampl"type="button" onclick="window.open('allegato.php?id=<?=$id_alle_ampl?>', '_blank')"class="btn btn-primary btn-xs" title="Visualizza Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-archive-o" aria-hidden="true"></i></button>
                                                             <a id="down_ampl"type="button" href="download.php?id=<?=$id_alle_ampl?>" download class="btn btn-success btn-xs" title="Download Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i></a>
                                                             <?php
@@ -176,7 +181,6 @@ var_dump($test);
                             </div>            
                         
                         </div>
-
                     </div>
 
                 

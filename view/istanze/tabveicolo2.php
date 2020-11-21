@@ -8,7 +8,7 @@
                                                         $countDocVeicolo=countDocVeicolo($rv['tipo_veicolo']);
                                                         $countDocVeicolo= $countDocVeicolo?$countDocVeicolo:0;
                                                         //var_dump($countDocVeicolo);
-                                                        $countDocVeicoloInfo=countDocVeicoloInfo($rv['id_RAM'],$rv['id']);
+                                                        $countDocVeicoloInfo=countDocVeicoloInfo($rv['id_RAM'],$rv['tipo_veicolo'],$rv['progressivo']);
                                                         //var_dump($countDocVeicoloInfo);
                                                     ?>
 
@@ -146,7 +146,7 @@
                                                                         </thead>
                                                                         <tbody style="font-size:15px;">
                                                                                 <?php
-                                                                                $allegati=getAllegati($i['id_RAM'],$rv['id']);
+                                                                                $allegati=getAllegati($i['id_RAM'],$rv['tipo_veicolo'],$rv['progressivo']);
                                                                                 if($allegati){
                                                                                     foreach ($allegati as $alle) {
                                                                                         $tipoDoc = getTipDoc($alle['tipo_documento']);
@@ -159,8 +159,9 @@
                                                                                         <td><?=$tipoDoc?></td>
                                                                                         <td><?=date("d/m/Y H:i", strtotime($alle['data_agg']))?></td>
                                                                                         <td><?=$alle['note']?></td>
-                                                                                        <td><div  class="btn-group btn-group-sm" role="group">
-                                                                                       
+                                                                                        <td>
+                                                                                            <button type="button" onclick="infoAlle(<?=$alle['id']?>);"class="btn btn-warning btn-xs" title="Visualizza Info Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-list" aria-hidden="true"></i></button>
+
                                                                                             <button type="button" onclick="window.open('allegato.php?id=<?=$alle['id']?>', '_blank')"title="Vedi Documento"class="btn btn-xs btn-primary " style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
                                                                                             <a type="button" href="download.php?id=<?=$alle['id']?>" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>
                                                                                             <?php
@@ -169,7 +170,7 @@
                                                                                             <?php
                                                                                             }
                                                                                             ?>
-                                                                                            </div></td>
+                                                                                            </td>
                                                                                     </tr>
                                                                                     <?php
                                                                                     }

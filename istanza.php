@@ -35,26 +35,20 @@ require_once 'headerInclude.php';
 <?php
     require_once 'view/template/footer.php';
 ?>
-<script type="text/javascript">
+<script type="text/javascript"> 
 
       $(document).ready(function() {
       $('.it-date-datepicker').datepicker({
             inputFormat: ["dd/MM/yyyy"],
             outputFormat: 'dd/MM/yyyy',
+            
       });
       
       
       });
     
-$(window).on( 'scroll', function(){
-    var team = $('#header_menu').offset().top;
-    if ($(window).scrollTop() >= team) {
-       $('#li_logo').show()
-    }else{
-      $('#li_logo').hide()
-    } 
-});
-     var myVar= $('[id^=nav-vertical-tab-bg]').find("active")
+
+     
      
       $('#form_infovei').submit(function( event ) {
             idvei = $('#info_idvei').val()
@@ -252,7 +246,7 @@ $(window).on( 'scroll', function(){
                               button='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-xs btn-success "  style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i></a>'
                               buttonb='<button type="button" onclick="window.open(\'allegato.php?id='+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-primary "  style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
                               buttonc='<button type="button" title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>'
-                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td><div  class="btn-group btn-group-sm" role="group">'+buttonb+''+button+''+buttonc+'</div></td></tr>'
+                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td>'+buttonb+''+button+''+buttonc+'</td></tr>'
                               $('#tab_doc_'+id_table+' > tbody:last-child').append(row);
                              
                         }
@@ -333,7 +327,35 @@ $(window).on( 'scroll', function(){
             $('#campi_allegati').empty();
       }) 
       
-     
+      function infoAlle(id){
+
+            $('#infoAllegato').modal('toggle');
+            $.ajax({
+                        type: "POST",
+                        url: "controller/updateIstanze.php?action=getAllegato",
+                        data: {id:id},
+                        dataType: "json",
+                        success: function(data){
+                              console.log(data)
+                              //console.log(data.json_data)
+                              test = $.parseJSON(data.json_data)
+                              $.each(test, function(k, v) {
+                                    campo = k.split("_")
+                                    campo= campo[0]+' '+campo[1]
+                                    console.log(campo)
+
+                              });
+                             
+                              
+                            
+                                                          
+                        }
+                  })
+
+
+
+      }
+      
       function infomodal(id){
          $('#form_infovei')[0].reset();
          $("#tipo_acquisizione").val('').selectpicker("refresh");
@@ -366,7 +388,7 @@ $(window).on( 'scroll', function(){
       }
 
       function getInfoVei(id){
-            $.ajax({
+                  $.ajax({
                         type: "POST",
                         url: "controller/updateIstanze.php?action=getInfoVei",
                         data: {id:id},
@@ -502,7 +524,7 @@ $(window).on( 'scroll', function(){
                         success: function(data){
                               $.each(data, function(k,v){
                                     console.log(v.tdoc_descrizione)
-                                    $('#tipo_documento').append('<option value="' + v.tdoc_codice + '">' + v.tdoc_descrizione + '</option>');
+                                    $('#tipo_documento').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + ' <i class=\'fa fa-ban\' aria-hidden=\'true\' style=\'color:red;\'></i>" value="' + v.tdoc_codice + '"></option>');
                                     $('.bootstrap-select-wrapper select').selectpicker('refresh')
                               })
 
