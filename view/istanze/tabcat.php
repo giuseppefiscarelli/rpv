@@ -21,6 +21,25 @@
                                   foreach($tipVei as $tve){
                                     $countCatVei=countCatVei($tve['tpvc_codice'],$i['id_RAM']);
                                     if($countCatVei==!0){
+                                      $check = countDocVeicolo($tve['tpvc_codice']);//numero tipi documento
+                                       $totalDoc = 0;
+                                       $checkVei=0;
+                                      //var_dump($check);
+                                      //var_dump(intval($countCatVei));
+                                      $b= intval($countCatVei);
+                                      for ($iii=1; $iii <$b; $iii++) { 
+                                        $checkb =countDocVeicoloInfo($i['id_RAM'],$tve['tpvc_codice'],$iii);
+                                        $checkb = intval($checkb);
+                                        $totalDoc = $totalDoc + $checkb;
+                                        if($checkb==$check&&$checkb>0){
+                                          $checkVei = $checkVei+1;
+                                        }
+
+                                      }
+                                      //var_dump($totalDoc);
+                                      //var_dump($checkVei);
+                                     $complete= '<i class="fa fa-check" style="color:green;" aria-hidden="true"></i>';
+                                     $incomplete='<i class="fa fa-ban" style="color:red;" aria-hidden="true"></i>';
                                   
                                 ?>
                                 <a class="nav-link <?=$countTip ==1?'active':''?>" id="nav-vertical-tab-bg<?=$tve['codice_categoria_incentivo'].'-'.$countTip?>-tab" data-toggle="tab" href="#nav-vertical-tab-bg<?=$tve['codice_categoria_incentivo'].'-'.$countTip?>" role="tab" aria-controls="nav-vertical-tab-bg<?=$tve['codice_categoria_incentivo'].'-'.$countTip?>" aria-selected="true">
@@ -29,6 +48,8 @@
                                             <td><?=$tve['tpvc_descrizione']?></td>
                                             <td style="width: 30%;text-align: right"><span><?=$countCatVei?> <?=$countCatVei>1?'veicoli':'veicolo'?></span></td>
                                         </tr>
+                                        
+                                        <tr><td colspan="2" style="font-size: 13px;text-align: right;"><?=$checkVei==$countCatVei&&$countCatVei>0?$complete:$incomplete?> Completate Informazioni di <?=$checkVei?> di <?=$countCatVei?> veicoli</td></tr>
                                     </table>
                                 </a>
 

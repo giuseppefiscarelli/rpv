@@ -14,7 +14,20 @@ switch ($action){
 
       $tipo_documento=$_REQUEST['tipo'];
       $res = getCampoDoc($tipo_documento);
-      echo json_encode($res);
+      //echo json_encode($res);
+     // var_dump($res);
+      if ($res){
+        $res2 = array();
+        
+            foreach($res as $r){
+              $cod = getInfoCampo($r['cod_campo']);
+
+              array_push($res2,$cod);
+            }
+            
+            echo json_encode($res2);
+      }
+      
     break;
 
     case 'upVeicolo':
@@ -81,11 +94,12 @@ switch ($action){
      $id_ram = $data['id_RAM'];
      
      $data['doc_idvei']= 0;
-     $id_veicolo = $data['tipo_doc_mag'];
-     $data['tipo_documento'] = 99;
+     $id_veicolo = 0;
+     $data['tipo_documento'] = $data['tipo_doc_mag'];
+     $tipo_documento=$data['tipo_documento'];
      $docu_nome_file_origine =  $file['name'];
      $path_parts = pathinfo($docu_nome_file_origine);
-     $docu_id_file_archivio = $id_ram."_".$id_veicolo."_".strtotime("now").".".$path_parts['extension'];
+     $docu_id_file_archivio = $id_ram."_".$tipo_documento."_".strtotime("now").".".$path_parts['extension'];
      $data['docu_id_file_archivio']=$docu_id_file_archivio;
      $data['docu_nome_file_origine']=$docu_nome_file_origine;
       move_uploaded_file($file['tmp_name'],$pathAlle.$docu_id_file_archivio);
@@ -137,15 +151,22 @@ switch ($action){
     case 'getAllegato':
       $id=$_REQUEST['id'];
       $res =getAllegatoID($id);
-
-      $test = array(
-        $res,
-        $res
+      
+      $json = array(
+        "allegato" => $res,
+        "test" =>$res
         
       );
-      echo json_encode($test);
+      echo json_encode($json);
       //echo json_encode($res);
     break;  
+    case 'getInfoCampo':
+      $cod=$_REQUEST['cod'];
+      $res = getInfoCampo($cod);
+      echo json_encode($res);
+
+
+    break;
       
  
    }

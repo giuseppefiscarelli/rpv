@@ -20,6 +20,8 @@ if(!empty($_POST)){
     $homeAmb = $_POST['ambiente'] ?? '';
 
     $result = verifyLogin($token, $email, $password);
+    writelog($result);
+    
     unset($_SESSION['csrf']);
     if($result['success']){
         $status = 'online';

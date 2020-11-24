@@ -57,6 +57,7 @@
 
     $result['user'] = $resEmail;
     return $result;
+    
   }
 
   function isUserLoggedin(){
@@ -356,5 +357,34 @@
     return $records;
 
   }
-  
+  function writelog($result){
+    /**
+     * @var $conn mysqli
+     */
+
+    $conn = $GLOBALS['mysqli'];
+    
+//var_dump($result);die;
+     $log_cod_user = $result['user']['email'];
+     $log_funzione = "Procedura Login";
+     $log_descrizione = $result['message'];
+     $log_ok = $result['success'];
+     $log_IP = $_SERVER['REMOTE_ADDR'];
+
+    $result=0;
+    //$id_RAM=$data['id_RAM'];
+    $sql ='INSERT INTO log (id,  log_cod_user,log_funzione,log_descrizione,log_IP,log_ok) ';
+    $sql .= "VALUES (NULL, '$log_cod_user','$log_funzione','$log_descrizione','$log_IP',$log_ok) ";
+    
+    echo $sql;
+    $res = $conn->query($sql);
+    
+    if($res ){
+      $result =  $conn->affected_rows;
+      
+    }else{
+      $result -1;  
+    }
+  return $result;
+  }
   

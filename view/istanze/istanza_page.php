@@ -185,7 +185,7 @@
 
             
 
-            require "alleistanza.php";
+            require "alleistanza2.php";
             ?>
        
         <div class="row">
@@ -341,6 +341,7 @@
                                                       <form method="post" id="form_allegato_mag" enctype="multipart/form-data">
                                                         <input type="hidden" name="id_RAM" value="<?=$i['id_RAM']?>">
                                                         <input type="hidden" name="tipo_doc_mag" id="tipo_doc_mag" value="">
+                                                        <input type="hidden" name="tipo_alle" id="tipo_alle" value="">
                                                         <label>Tipo Allegato</label>
                                                           <div class="form-group">
                                                             <textarea rows="3" style="text-align: justify;"class="form-control" type="text" id="tipo_documento_magg" name="tipo_documento" readonly></textarea>
@@ -373,6 +374,12 @@
                                                     <div class="modal-body">
                                                    
                                                       <div class="container">
+                                                      <table class="table table-sm" id="info_tab_alle">
+                                                        
+                                                        <tbody>
+                                                         
+                                                        </tbody>
+                                                      </table>
                                                         
                                                       </div>
                                                       
@@ -386,7 +393,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                       <button class="btn btn-secondary btn-sm" data-dismiss="modal" type="button">Chiudi</button>
-                                                      <button class="btn btn-primary btn-sm" form="form_infovei"type="submit">Salva Dati Veicolo</button>
+                                                      
                                                     </div>
                                                   </div>
                                                 </div>

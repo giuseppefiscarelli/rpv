@@ -111,7 +111,11 @@ require_once 'headerInclude.php';
                                     dataType: "json",
                                     success: function(results){     
                                         
-                                         $.each(results,function(k,v){
+                                          $.each(results,function(k,v){
+                                               console.log(k)
+                                               console.log(v)
+                                               
+                                                  
                                                required= v.richiesto
                                                if(required=="o"){
                                                      req = true
@@ -119,50 +123,53 @@ require_once 'headerInclude.php';
                                                if(required =="f"){
                                                      req=false
                                                }
-                                               conter=1
+                                               //conter=1
                                                console.log(req)
+                                               var namecampo = v.nome_campo.replace(" ", "_");
+                                            
                                            if (v.tipo_valore=='d'){
                                                 field='<div class="it-datepicker-wrapper "><div class="form-group">'
-                                                field+='<input class="form-control it-date-datepicker" id="data_allegato"name="data_allegato" type="text" required placeholder="inserisci la data">'
-                                                field+='<label for="data_allegato">'+v.nome_campo+'</label></div></div>'
+                                                field+='<input class="form-control it-date-datepicker" id="'+namecampo+'"name="'+namecampo+'" type="text"  placeholder="inserisci la data">'
+                                                field+='<label for="'+namecampo+'">'+v.nome_campo+'</label></div></div>'
                                                 
                                                 $('#campi_allegati').append(field)
                                                 $( ".it-date-datepicker" ).datepicker({
                                                       inputFormat: ["dd/MM/yyyy"],
                                                       outputFormat: 'dd/MM/yyyy',
                                                 });
-                                                $("#data_allegato").attr("required", req);
+                                                $("#"+namecampo).attr("required", req);
                                            }
                                            if (v.tipo_valore=='t'){
-                                                field='<div class="form-group">'
-                                                field+='<label for="testo_allegato">'+v.nome_campo+'</label>'
-                                                field+='<input type="text" class="form-control" id="testo_allegato" name="testo_allegato" required>'
+                                                field='<div class="form-group" style="margin-top: inherit;">'
+                                                field+='<label for="'+namecampo+'">'+v.nome_campo+'</label>'
+                                                field+='<input type="text" class="form-control" id="'+namecampo+'" name="'+namecampo+'" >'
                                                 field+='</div>'
                                                
                                                 $('#campi_allegati').append(field)
-                                                $("#testo_allegato").attr("required", req);
+                                                $("#"+namecampo).attr("required", req);
                                            }
                                            if (v.tipo_valore=='i'){
-                                                field='<label for="importo_allegato" class="input-number-label">'+v.nome_campo+'</label>'
+                                                field='<label for="'+namecampo+'" class="input-number-label">'+v.nome_campo+'</label>'
                                                 field+='<span class="input-number input-number-currency">'
-                                                field+='<input type="number" id="importo_allegato" name="importo_allegato" value="0.00" min="0" required>'
+                                                field+='<input type="number" id="'+namecampo+'" name="'+namecampo+'" value="0.00" min="0" >'
                                                 field+='</span>'
                                                 
                                                 $('#campi_allegati').append(field)
-                                                $("#importo_allegato").attr("required", req);
+                                                $("#"+namecampo).attr("required", req);
                                            }
                                            if (v.tipo_valore=='n'){
-                                                field='<label for="numero_allegato" class="input-number-label">'+v.nome_campo+'/label>'
+                                                field='<label for="'+namecampo+'" class="input-number-label">'+v.nome_campo+'/label>'
                                                 field+='<span class="input-number">'
-                                                field+='<input type="number" id="numero_allegato" name="numero_allegato" value="0" required>'
+                                                field+='<input type="number" id="'+namecampo+'" name="'+namecampo+'" value="0" >'
                                                 field+='</span>'
                                               
                                                 $('#campi_allegati').append(field)
-                                                $("#numero_allegato").attr("required", req);
+                                                $("#"+namecampo).attr("required", req);
                                            }
-                                                
+                                                    
 
                                           })
+
                                           field='<div class="form-group" style="margin-top: inherit;">'
                                                 field+='<label for="note_allegato">Note</label>'
                                                 field+='<input type="text" class="form-control" id="note_allegato" name="note_allegato">'
@@ -194,14 +201,13 @@ require_once 'headerInclude.php';
                 html:true,
                 title: "Upload in Corso",
                 text:htmltext,
-                type: "info",
-                showLoaderOnConfirm: true,
-                showCancelButton: false,
-                showConfirmButton: false
+                icon: "info"
+                
         });
            
             event.preventDefault();
-            tipo=$('#tipo_documento option:selected').text()
+            tipo=$('#tipo_documento option:selected').attr("data-content")
+            tipo= tipo.replace(/(<([^>]+)>)/ig,"");
             console.log(tipo)
             formData = new FormData(this);
             
@@ -231,7 +237,7 @@ require_once 'headerInclude.php';
                             },
                             error:function(){
                               
-                                Swal.fire("Operazione Non Completata!", "Allegato non caricato correttamente.", "warning");
+                                Swal.fire("Operazione Non Completata!", "Allegato non caricato.", "warning");
                              
                             },
                         success: function(data){
@@ -242,11 +248,15 @@ require_once 'headerInclude.php';
                              
                               data_ins=convData(data.data_agg)
                               id_table= formData.get('doc_idvei')
+                              buttonA='<button type="button" onclick="infoAlle('+data.id+');"class="btn btn-warning btn-xs" title="Visualizza Info Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-list" aria-hidden="true"></i></button>'
+                              buttonB='<button type="button" onclick="window.open(\''+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-xs btn-primary " style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
+                              buttonC='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>'
+                              buttonD='<button type="button" title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>'
+
                               
-                              button='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-xs btn-success "  style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i></a>'
-                              buttonb='<button type="button" onclick="window.open(\'allegato.php?id='+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-primary "  style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
-                              buttonc='<button type="button" title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>'
-                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td>'+buttonb+''+button+''+buttonc+'</td></tr>'
+                              
+                              
+                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td>'+buttonA+' '+buttonB+' '+buttonC+' '+buttonD+'</td></tr>'
                               $('#tab_doc_'+id_table+' > tbody:last-child').append(row);
                              
                         }
@@ -262,14 +272,11 @@ require_once 'headerInclude.php';
                 html:true,
                 title: "Upload in Corso",
                 html:htmltext,
-                type: "info",
-                showLoaderOnConfirm: true,
-                showCancelButton: false,
-                showConfirmButton: false
+                type: "info"
         });
            
             event.preventDefault();
-            tipo=$('#tipo_doc_mag').val()
+            tipo=$('#tipo_alle').val()
             console.log(tipo)
             formData = new FormData(this);
             
@@ -327,9 +334,29 @@ require_once 'headerInclude.php';
             $('#campi_allegati').empty();
       }) 
       
+      function getCampo(cod){
+            $.ajax({
+                        type: "POST",
+                        url: "controller/updateIstanze.php?action=getInfoCampo",
+                        data: {cod:cod},
+                        dataType: "json",
+                        success: function(data){
+                             // console.log(data)
+                             
+                              return data
+                            
+                                                          
+                        }
+                  })
+
+
+      }
+
+
       function infoAlle(id){
 
             $('#infoAllegato').modal('toggle');
+            $('#info_tab_alle tbody').empty();
             $.ajax({
                         type: "POST",
                         url: "controller/updateIstanze.php?action=getAllegato",
@@ -337,16 +364,25 @@ require_once 'headerInclude.php';
                         dataType: "json",
                         success: function(data){
                               console.log(data)
-                              //console.log(data.json_data)
-                              test = $.parseJSON(data.json_data)
+                              console.log(data['allegato'].json_data)
+                              test = $.parseJSON(data['allegato'].json_data)
+                              console.log(test)
+                              //test = $.parseJSON(data.json_data)
                               $.each(test, function(k, v) {
                                     campo = k.split("_")
-                                    campo= campo[0]+' '+campo[1]
+                                    campo= capitalizeFirstLetter(campo[0])+' '+ capitalizeFirstLetter(campo[1])
                                     console.log(campo)
+                                    $('#info_tab_alle').append('<tr><td>'+campo+'</td><td>'+v+'</td></tr>');
 
                               });
-                             
-                              
+                              view = '<button type="button" onclick="window.open(\'allegato.php?id='+id+'\', \'_blank\')" title="Vedi Documento"class="btn btn-xs btn-primary " style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
+
+                              down ='<a type="button" href="download.php?id='+id+'" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>'
+
+                              $('#info_tab_alle').append('<tr><td>Scarica Allegato</td><td>'+down+'</td></tr>');
+                              $('#info_tab_alle').append('<tr><td>Visualizza allegato</td><td>'+view+'</td></tr>');
+
+
                             
                                                           
                         }
@@ -354,8 +390,7 @@ require_once 'headerInclude.php';
 
 
 
-      }
-      
+      }     
       function infomodal(id){
          $('#form_infovei')[0].reset();
          $("#tipo_acquisizione").val('').selectpicker("refresh");
@@ -374,10 +409,11 @@ require_once 'headerInclude.php';
            
 
       } 
-      function docmagmodal(id){
+      function docmagmodal(id,tipodoc){
             //$("#infoModal").modal("toggle");
             $("#docMaggiorazione").modal("toggle");
-            $("#tipo_doc_mag").val(id);
+            $("#tipo_doc_mag").val(tipodoc);
+            $("#tipo_alle").val(id);
             tipo = $('#tipo_magg_'+id).text();
             console.log(tipo);
             $('#tipo_documento_magg').val(tipo);
@@ -386,7 +422,6 @@ require_once 'headerInclude.php';
 
             
       }
-
       function getInfoVei(id){
                   $.ajax({
                         type: "POST",
@@ -438,8 +473,7 @@ require_once 'headerInclude.php';
                 
 
                   
-      }
-     
+      }     
       function tipDoc(tip){
        $('#row_doc').empty();
 
@@ -536,8 +570,7 @@ require_once 'headerInclude.php';
 
 
       
-      }
-      
+      }      
       function convData(isodata){
             newdata = new Date(isodata);
             newgiorno =newdata.getDate()
@@ -551,7 +584,6 @@ require_once 'headerInclude.php';
             newanno=newdata.getFullYear();
             return newgiorno+'/'+newmese+'/'+newanno;
       }
-
       function delAlle(ida,elem){
            
             div_down= elem.parentNode.id;
@@ -560,7 +592,7 @@ require_once 'headerInclude.php';
             div_up = div_up[1];
             //console.log("upload_"+div_up)
             Swal.fire({
-                  title: 'Vuoi elinimare l\'allegato?',
+                  title: 'Vuoi eliminare l\'allegato?',
                   text: "Non potrai più recuperarlo",
                   icon: 'warning',
                   showCancelButton: true,
@@ -595,6 +627,54 @@ require_once 'headerInclude.php';
 
                         }
                   })
+      }
+      function delAll(ida,elem){
+           
+           
+
+         
+
+           Swal.fire({
+                 title: 'Vuoi eliminare l\'allegato?',
+                 text: "Non potrai più recuperarlo",
+                 icon: 'warning',
+                 showCancelButton: true,
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'SI Eliminalo!',
+                 cancelButtonText: 'NO, Annulla!'
+                 }).then((result) => {
+                       if (result.isConfirmed) {
+                             $.ajax({
+                                   url: "controller/updateIstanze.php?action=delAllegato",
+                                   data: {id:ida},
+                                   dataType: "json",
+                                   success: function(results){
+                                        
+                                         if(results)
+                                         {
+                                               
+                                          $(elem).closest('tr').remove();
+                                               Swal.fire(
+                                                     'Eliminato!',
+                                                     'L\'allegato è stato eliminato correttamente.',
+                                                     'success'
+                                               )
+                                         }
+                                         //console.log(results)
+                                   }
+
+                             })
+
+
+                       }
+                 })
+     }
+
+
+
+      function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
       }
          
             

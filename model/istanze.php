@@ -451,7 +451,7 @@ function getTipoDocumento($cod){
 
 
 }
-function getTipDocumento($tipo_documento){
+function getTipDocumento($tipo_documento){ 
   /**
    * @var $conn mysqli
    */
@@ -504,7 +504,7 @@ function getCampoDoc($tipo_documento){
 
   $conn = $GLOBALS['mysqli'];
   
-  $sql = 'SELECT * FROM td_campo WHERE tipo_documento ='.$tipo_documento;
+  $sql = 'SELECT * FROM td_campi WHERE cod_documento ='.$tipo_documento;
   //echo $sql;
   $records = [];
 
@@ -530,21 +530,17 @@ function getAllegato($tipo_documento,$id_RAM,$id_veicolo){
 
   $conn = $GLOBALS['mysqli'];
   
-  $sql = 'SELECT * FROM allegato WHERE tipo_documento ='.$tipo_documento.' and id_ram ='.$id_RAM.' and id_veicolo ='.$id_veicolo;
+  $sql = 'SELECT * FROM allegato WHERE tipo_documento ='.$tipo_documento.' and id_ram ='.$id_RAM.' and attivo ="s"';
   //echo $sql;
-  $records = [];
+  $result = [];
 
   $res = $conn->query($sql);
-  if($res) {
-
-    while( $row = $res->fetch_assoc()) {
-        $records[] = $row;
-        
-    }
-
+      
+  if($res && $res->num_rows){
+    $result = $res->fetch_assoc();
+    
   }
-
-  return $records;
+return $result;
 
 
 
@@ -938,7 +934,7 @@ function countDocVeicolo($id){
       $sql .=" WHERE codice_tipo_veicolo = $id";
    
 
-    //  echo $sql;
+   //  echo $sql;
   
 
   $res = $conn->query($sql);
@@ -971,7 +967,7 @@ function countDocVeicoloInfo($id_RAM,$tipo_veicolo,$progressivo){
      
                 $sql = 'SELECT count(DISTINCT tipo_documento) as total FROM allegato';
 
-                $sql .=" WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo";
+                $sql .=" WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo and attivo='s'";
                 //  echo $sql;
                 
 
@@ -1027,6 +1023,70 @@ function getTipoImpresa($cod){
      
    }
  return $result;
+
+
+
+
+}
+function getInfoCampo($cod){
+  
+    /**
+     * @var $conn mysqli
+     */
+  
+    $conn = $GLOBALS['mysqli'];
+  
+    $sql = 'SELECT * FROM campi_documento WHERE cod_campo='.$cod ;
+    
+    $result = [];
+
+  $res = $conn->query($sql);
+      
+      if($res && $res->num_rows){
+        $result = $res->fetch_assoc();
+        
+      }
+    return $result;
+
+  
+  
+  
+  
+  
+}
+function checkDocTipoVeicolo($tipo,$idRam){
+   
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+
+              
+           
+              
+  $total = 0;
+
+
+
+
+
+
+      $sql = 'SELECT count(DISTINCT tipo_documento) as total FROM allegato';
+
+      $sql .=" WHERE id_ram = $idRam and tipo_veicolo = $tipo  and attivo='s'";
+      //  echo $sql;
+      
+
+      $res = $conn->query($sql);
+      if($res) {
+
+      $row = $res->fetch_assoc();
+      $total = $row['total'];
+      
+      return $total;
+
+    }
 
 
 

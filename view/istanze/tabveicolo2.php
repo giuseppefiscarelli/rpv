@@ -166,7 +166,7 @@
                                                                                             <a type="button" href="download.php?id=<?=$alle['id']?>" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>
                                                                                             <?php
                                                                                             if(!isUserAdmin()){?> 
-                                                                                            <button type="button" title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                                                            <button type="button" onclick="delAll(<?=$alle['id']?>,this)"title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                                                             <?php
                                                                                             }
                                                                                             ?>

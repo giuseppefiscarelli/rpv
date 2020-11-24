@@ -55,8 +55,7 @@
                                   <div class="col-12">
                                     <div class="link-list-wrapper">
                                         <ul class="link-list">
-                                        <li><a class="list-item" href="#"><span>Profilo</span></a></li>
-                                        <hr>
+                                      
                                        
                                         <li onclick="logout.submit();">
                                             <form id="logout" class="form" role="form" method="post" action="verify-login.php">
