@@ -35,21 +35,18 @@ require_once 'headerInclude.php';
 <?php
     require_once 'view/template/footer.php';
 ?>
+
 <script type="text/javascript"> 
 
       $(document).ready(function() {
-      $('.it-date-datepicker').datepicker({
-            inputFormat: ["dd/MM/yyyy"],
-            outputFormat: 'dd/MM/yyyy',
-            
-      });
+            $('.it-date-datepicker').datepicker({
+                  inputFormat: ["dd/MM/yyyy"],
+                  outputFormat: 'dd/MM/yyyy',
+                  
+            });
       
       
-      });
-    
-
-     
-     
+      });  
       $('#form_infovei').submit(function( event ) {
             idvei = $('#info_idvei').val()
             targa=$('#targa').val()
@@ -244,20 +241,22 @@ require_once 'headerInclude.php';
                               
                               
                                 Swal.fire("Operazione Completata!", "Allegato caricato correttamente.", "success");
-                              
-                             
+                              tipoalle=data.tipo_veicolo
+                              progalle=data.progressivo
+                              checkDocVei(tipoalle,progalle)
                               data_ins=convData(data.data_agg)
-                              id_table= formData.get('doc_idvei')
+                              ora_ins= convOre(data.data_agg)
+                              //tipo_vei= formData.get('doc_idvei')
                               buttonA='<button type="button" onclick="infoAlle('+data.id+');"class="btn btn-warning btn-xs" title="Visualizza Info Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-list" aria-hidden="true"></i></button>'
                               buttonB='<button type="button" onclick="window.open(\''+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-xs btn-primary " style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
                               buttonC='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>'
-                              buttonD='<button type="button" title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>'
+                              buttonD='<button type="button" onclick="delAll('+data.id+',this)"title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>'
 
                               
                               
                               
-                              row='<tr><td>'+tipo+'</td><td>'+data_ins+'</td><td>'+data.note+'</td><td>'+buttonA+' '+buttonB+' '+buttonC+' '+buttonD+'</td></tr>'
-                              $('#tab_doc_'+id_table+' > tbody:last-child').append(row);
+                              row='<tr><td>'+tipo+'</td><td>'+data_ins+' '+ora_ins+'</td><td>'+data.note+'</td><td>'+buttonA+' '+buttonB+' '+buttonC+' '+buttonD+'</td></tr>'
+                              $('#tab_doc_'+tipoalle+'_'+progalle+' > tbody:last-child').append(row);
                              
                         }
                   })
@@ -351,8 +350,6 @@ require_once 'headerInclude.php';
 
 
       }
-
-
       function infoAlle(id){
 
             $('#infoAllegato').modal('toggle');
@@ -445,22 +442,26 @@ require_once 'headerInclude.php';
 
 
       }
-      function docmodal(id,tipdoc){
+      function docmodal(prog,tipovei,istanza){
+            id_RAM =istanza,
+
             //$('#tipo_documento').remove();
             $(".bootstrap-select-wrapper option").remove();
             $('.bootstrap-select-wrapper select').selectpicker('refresh')
             //alert(id);
             $("#docModal").modal("toggle");
-            $("#doc_idvei").val(id);
+            //$("#doc_idvei").val(id);
+            $("#tipo_veicolo").val(tipovei);
+            $("#progressivo").val(prog);
                   $.ajax({
                         type: "POST",
                         url: "controller/updateIstanze.php?action=getDocVei",
-                        data: {tipdoc:tipdoc},
+                        data: {tipovei:tipovei,id_RAM:id_RAM,progressivo:prog},
                         dataType: "json",
                         success: function(data){
                               //console.log(data)
                               $.each(data, function(k,v){
-                                    console.log(v.codice_tipo_documento)
+                                    //console.log(v.codice_tipo_documento)
                                     tip=v.codice_tipo_documento
                                     tipoDoc(tip)
 
@@ -584,6 +585,13 @@ require_once 'headerInclude.php';
             newanno=newdata.getFullYear();
             return newgiorno+'/'+newmese+'/'+newanno;
       }
+      function convOre(isodata){
+            newdata = new Date(isodata);
+            ore = newdata.getHours();
+            minuti = newdata.getMinutes();
+            
+            return ore+':'+minuti;
+      }
       function delAlle(ida,elem){
            
             div_down= elem.parentNode.id;
@@ -669,10 +677,78 @@ require_once 'headerInclude.php';
 
                        }
                  })
-     }
+      }
+      function checkDocVei(tipo,prog){
+
+            checkvp=$('#c_p_d_'+tipo+'_'+prog).html()
+            checkvt=$('#c_t_d_'+tipo+'_'+prog).html()
+            
+            checkcatp= $('#ch_p_'+tipo).html()
+            checkcatt= $('#ch_t_'+tipo).html()
+
+            checkvp = parseInt(checkvp)
+            checkvt= parseInt(checkvt)
+            checkcatp= parseInt(checkcatp)
+            checkcatt= parseInt(checkcatt)
+
+            if(checkvp == checkvt){
+                  docvei = true
+            }else{
+                  docvei = false
+            }
+            console.log(checkvp)
+            console.log(checkvt)
+            console.log(docvei)
+            if(checkcatp==checkcatt){
+                  catvei = true
+            }else{
+                  catvei = false
+            }
+            console.log(checkcatp)
+            console.log(checkcatt)
+            console.log(catvei)
+
+            
+            id_RAM =<?=$i['id_RAM']?>,
+            
+            $.ajax({
+                        type: "POST",
+                        url: "controller/updateIstanze.php?action=checkDoc",
+                        data: {id_RAM:id_RAM,tipo_veicolo:tipo,progressivo:prog},
+                        dataType: "json",
+                        success: function(data){
+                              console.log(data)
+                              if(data.n==data.of){
+                                    ic="check"
+                                    color="green"
+                                    if(catvei == false){
+                                          checkcatp++ ;
+                                          $('#ch_p_'+tipo).html(checkcatp)
+                                          if(checkcatp==checkcatt){
+
+                                                $('#ch_i_'+tipo).removeClass();
+                                                $('#ch_i_'+tipo).addClass("fa fa-check");
+                                                $('#ch_i_'+tipo).css("color", "green");
+
+                                          }    
+
+                                    }
+                              }else{
+                                    ic="ban"
+                                    color="red"
+                              }
+                              
+                              icon='<i class="fa fa-'+ic+'" style="color:'+color+';"aria-hidden="true"></i> Documenti veicoli caricati <b id="c_p_d_'+tipo+'_'+prog+'">'+data.n+'</b> di  <b id="c_t_d_'+tipo+'_'+prog+'">'+data.of+'</b>'
+                              $('#check_vei_'+tipo+'_'+prog).html(icon);
+                             
+                              
+                            
+                                                          
+                        }
+                  })
 
 
-
+      }
       function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
       }

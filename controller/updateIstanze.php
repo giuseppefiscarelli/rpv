@@ -57,10 +57,10 @@ switch ($action){
 
       $data['docu_nome_file_origine']=$file['name'];
       $id_ram = $data['id_RAM'];
-      $id_veicolo = $data['doc_idvei'];
-      $infovei =  getInfoVei($id_veicolo);
-      $tipo_veicolo= $infovei['tipo_veicolo'];
-      $progressivo = $infovei['progressivo'];
+      //$id_veicolo = $data['doc_idvei'];
+      //$infovei =  getInfoVei($id_veicolo);
+      $tipo_veicolo= $data['tipo_veicolo'];
+      $progressivo = $data['progressivo'];
 
       $tipo_documento = $data['tipo_documento'];
       $docu_nome_file_origine =  $file['name'];
@@ -128,8 +128,32 @@ switch ($action){
     break;
     
     case 'getDocVei':
-      $data=$_REQUEST['tipdoc'];
+      $data=$_REQUEST['tipovei'];
+      $id_RAM = $_REQUEST['id_RAM'];
       $res = getTipoDocumento($data);
+      if($res){
+      $check = array();
+        foreach($res as $r){
+          $datas['tipo_documento']=$r['codice_tipo_documento'];
+          $datas['id_ram']=$id_RAM;
+          $datas['tipo_veicolo']=$data;
+          $datas['progressivo']=$_REQUEST['progressivo'];
+
+          $res2= checkSelectTipoDoc($datas);
+          //var_dump($res2);
+          if($res2){
+            
+            //echo "ok tipo veicolo".$res2['tipo_veicolo'];
+            //echo "ok progressivo".$res2['progressivo'];
+            //echo "ok tipo_documento".$res2['tipo_documento'];
+           // array_push
+          }
+
+        }
+      }
+
+
+
       echo json_encode($res);
 
     break  ;
@@ -137,6 +161,8 @@ switch ($action){
     case 'getTipoDoc':
       $data=$_REQUEST['tipo'];
       $res =getTipDocumento($data);
+
+
       echo json_encode($res);
     break;  
 
@@ -166,6 +192,27 @@ switch ($action){
       echo json_encode($res);
 
 
+    break;
+
+    case 'checkDoc':
+      $data=$_REQUEST;
+      $id_RAM =$data['id_RAM'];
+      $tipo_veicolo=$data['tipo_veicolo'];
+      $progressivo=$data['progressivo'];
+      $res =countDocVeicoloInfo($id_RAM,$tipo_veicolo,$progressivo);
+      $res2 = countDocVeicolo($tipo_veicolo);
+      $json= array(
+
+        "n"=>$res,
+        "of"=>$res2
+      );
+
+
+
+      echo json_encode($json);
+    
+    
+    
     break;
       
  

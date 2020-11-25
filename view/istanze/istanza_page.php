@@ -247,7 +247,9 @@
                                                      <form method="post" id="form_allegato" enctype="multipart/form-data">
                                                       <input type="hidden" name="id_RAM" value="<?=$i['id_RAM']?>">
                                                       
-                                                      <input type="hidden" name="doc_idvei" id="doc_idvei" value="">
+                                                      
+                                                      <input type="hidden" name="tipo_veicolo" id="tipo_veicolo" value="">
+                                                      <input type="hidden" name="progressivo" id="progressivo" value="">
                                                         <div class="bootstrap-select-wrapper">
                                                             <label>Tipo Documento</label>
                                                             <select id="tipo_documento" name="tipo_documento"title="Scegli un tipo di documento">

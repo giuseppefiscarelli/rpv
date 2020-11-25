@@ -540,7 +540,7 @@ function getAllegato($tipo_documento,$id_RAM,$id_veicolo){
     $result = $res->fetch_assoc();
     
   }
-return $result;
+  return $result;
 
 
 
@@ -718,6 +718,31 @@ function getInfoVei($id){
     $conn = $GLOBALS['mysqli'];
 
     $sql = 'SELECT * FROM veicolo WHERE id ='.$id;
+    //echo $sql;
+    $result = [];
+
+    $res = $conn->query($sql);
+          
+      if($res && $res->num_rows){
+        $result = $res->fetch_assoc();
+        
+      }
+    return $result;
+
+
+
+}
+function getInfoVeiData($data){
+  /**
+  * @var $conn mysqli
+  */
+
+    $conn = $GLOBALS['mysqli'];
+    $id_RAM= $data['id_RAM'];
+    $tipo_veicolo= $data['tipo_veicolo'];
+    $progressivo= $data['progressivo'];
+
+    $sql = "SELECT * FROM veicolo WHERE id_RAM =$id_RAM AND tipo_veicolo=$tipo_veicolo and progressivo=$progressivo";
     //echo $sql;
     $result = [];
 
@@ -1087,6 +1112,34 @@ function checkDocTipoVeicolo($tipo,$idRam){
       return $total;
 
     }
+
+
+
+
+}
+function checkSelectTipoDoc($data){
+   /**
+  * @var $conn mysqli
+  */
+ $id_ram=$data['id_ram'];
+ 
+ $tipo_veicolo=$data['tipo_veicolo'];
+ $progressivo=$data['progressivo'];
+ $tipo_documento=$data['tipo_documento'];
+
+  $conn = $GLOBALS['mysqli'];
+
+  $sql = "SELECT distinct tipo_documento FROM allegato WHERE id_ram =$id_ram and tipo_veicolo=$tipo_veicolo and progressivo=$progressivo and tipo_documento=$tipo_documento";
+  //echo $sql;
+  $result = [];
+
+  $res = $conn->query($sql);
+        
+    if($res && $res->num_rows){
+      $result = $res->fetch_assoc();
+      
+    }
+  return $result;
 
 
 

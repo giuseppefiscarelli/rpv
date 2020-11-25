@@ -38,8 +38,8 @@
                                       }
                                       //var_dump($totalDoc);
                                       //var_dump($checkVei);
-                                     $complete= '<i class="fa fa-check" style="color:green;" aria-hidden="true"></i>';
-                                     $incomplete='<i class="fa fa-ban" style="color:red;" aria-hidden="true"></i>';
+                                     $complete= '<i id="ch_i_'.$tve['tpvc_codice'].'"class="fa fa-check" style="color:green;" aria-hidden="true"></i>';
+                                     $incomplete='<i id="ch_i_'.$tve['tpvc_codice'].'" class="fa fa-ban" style="color:red;" aria-hidden="true"></i>';
                                   
                                 ?>
                                 <a class="nav-link <?=$countTip ==1?'active':''?>" id="nav-vertical-tab-bg<?=$tve['codice_categoria_incentivo'].'-'.$countTip?>-tab" data-toggle="tab" href="#nav-vertical-tab-bg<?=$tve['codice_categoria_incentivo'].'-'.$countTip?>" role="tab" aria-controls="nav-vertical-tab-bg<?=$tve['codice_categoria_incentivo'].'-'.$countTip?>" aria-selected="true">
@@ -49,7 +49,7 @@
                                             <td style="width: 30%;text-align: right"><span><?=$countCatVei?> <?=$countCatVei>1?'veicoli':'veicolo'?></span></td>
                                         </tr>
                                         
-                                        <tr><td colspan="2" style="font-size: 13px;text-align: right;"><?=$checkVei==$countCatVei&&$countCatVei>0?$complete:$incomplete?> Completate Informazioni di <?=$checkVei?> di <?=$countCatVei?> veicoli</td></tr>
+                                        <tr><td colspan="2" style="font-size: 13px;text-align: right;"><?=$checkVei==$countCatVei&&$countCatVei>0?$complete:$incomplete?> Completate Informazioni di <b id="ch_p_<?=$tve['tpvc_codice']?>"><?=$checkVei?></b> di <b id="ch_t_<?=$tve['tpvc_codice']?>"><?=$countCatVei?></b> veicoli</td></tr>
                                     </table>
                                 </a>
 

@@ -46,12 +46,12 @@
                                                         
                                                         
                                                         }
-                                                    $textDoc="Documenti veicoli caricati ".$countDocVeicoloInfo." di ".$countDocVeicolo;
+                                                   
                                                     
                                                         ?>
-                                                <small class="form-text text-muted" style="padding-left:50px"><i class="fa fa-<?=$iconDoc?>" style="color:<?=$colorDoc?>;"aria-hidden="true"></i> 
+                                                <small id="check_vei_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>" class="form-text text-muted" style="padding-left:50px"><i class="fa fa-<?=$iconDoc?>" style="color:<?=$colorDoc?>;"aria-hidden="true"></i> 
 
-                                                <?=$textDoc?></small>
+                                                Documenti veicoli caricati <b id="c_p_d_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>"><?=$countDocVeicoloInfo?></b> di <b id="c_t_d_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>"><?=$countDocVeicolo?></b></small>
                                             </div>
                                                                 
                                             </div>
@@ -121,7 +121,7 @@
                                                         <div class="col-lg-12">
                                                                 <div class="card">   
                     
-                                                                    <table class="table table-borderless table-sm" id="tab_doc_<?=$rv['id']?>">
+                                                                    <table class="table table-borderless table-sm" id="tab_doc_<?=$rv['tipo_veicolo']?>_<?=$rv['progressivo']?>">
                                                                         <caption style="font-size: 25px;caption-side: top;">Documenti Veicolo</caption>
 
                                                                         <thead>
@@ -129,7 +129,7 @@
                                                                             if(!isUserAdmin()){?> 
                                                                         <tr>
                                                                             <th colspan="5">
-                                                                                <button type="button" class="btn btn-success btn-sm" onclick="docmodal(<?=$rv['id']?>,<?=$rv['tipo_veicolo']?>);" ><i class="fa fa-upload" aria-hidden="true"></i> Carica documento</button>
+                                                                                <button type="button" class="btn btn-success btn-sm" onclick="docmodal(<?=$rv['progressivo']?>,<?=$rv['tipo_veicolo']?>,<?=$rv['id_RAM']?>);" ><i class="fa fa-upload" aria-hidden="true"></i> Carica documento</button>
                                                                             </th>
                                                                         
                                                                         </tr>
