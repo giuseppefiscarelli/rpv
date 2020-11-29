@@ -35,23 +35,51 @@ function getIstanza(int $id){
   
   
 }
+
 function getIstanzaUser($email){
+
+  /**
+   * @var $conn mysqli
+   */
+
+    $conn = $GLOBALS['mysqli'];
+    $result = [];
+      $sql ="SELECT * FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and '$email' = xml.pec and (istanza.eliminata is null or trim(eliminata) = '') and xml.data_invio between '2020-10-01 10:00:00' and '2020-11-16 08:00:00'";
+      //echo $sql;
+      $res = $conn->query($sql);
+      
+     
+      if($res && $res->num_rows){
+        $result = $res->fetch_assoc();
+        
+      }
+    return $result;
+  
+  
+}
+function getIstanzeUser($email){
 
     /**
      * @var $conn mysqli
      */
   
       $conn = $GLOBALS['mysqli'];
-        $result=[];
-        $sql ="SELECT * FROM istanza WHERE pec_impr = '$email'";
+      $records = [];
+        $sql ="SELECT * FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and '$email' = xml.pec";
         //echo $sql;
         $res = $conn->query($sql);
         
-        if($res && $res->num_rows){
-          $result = $res->fetch_assoc();
-          
+       
+        if($res) {
+
+          while( $row = $res->fetch_assoc()) {
+              $records[] = $row;
+              
+          }
+
         }
-      return $result;
+
+    return $records;
     
     
 }
@@ -272,8 +300,9 @@ function createSrtructure($data){
 
       $result=0;
       $id_RAM=$data['id_RAM'];
-      $sql ='INSERT INTO rendicontazione (id, id_RAM, aperta) ';
-      $sql .= "VALUES (NULL, $id_RAM, 1) ";
+      $user=getUserLoggedEmail();
+      $sql ='INSERT INTO rendicontazione (id, id_RAM, aperta,user) ';
+      $sql .= "VALUES (NULL, $id_RAM, 1,'$user') ";
       
      // echo $sql;
       $res = $conn->query($sql);
@@ -639,7 +668,7 @@ function upVeicolo($data){
   $modello = $conn->escape_string($data['modello']);
   $tipo_acquisizione = $conn->escape_string($data['tipo']);
   $costo = $conn->escape_string($data['costo']);
-  $user = $_SESSION['userData']['username'];
+  $user = $_SESSION['userData']['email'];
  
 
 
@@ -1153,14 +1182,14 @@ function checkSelectTipoDoc($data){
 
 
 }
-function getXml($pec){
+function getXml($pec_msg_identificativo,$pec_msg_id){
   /**
   * @var $conn mysqli
   */
 
   $conn = $GLOBALS['mysqli'];
 
-  $sql = "SELECT * FROM xml WHERE pec='$pec'";
+  $sql = "SELECT * FROM xml WHERE msg_id='$pec_msg_identificativo' and identificativo='$pec_msg_id'";
   //echo $sql;
   $result = [];
 
@@ -1183,8 +1212,10 @@ function closeRend($id_ram){
   $conn = $GLOBALS['mysqli'];
   $result=0;
   $aperta = 0;
+  $data_chiusura = date("Y-m-d H:i:s");
   $sql ='UPDATE rendicontazione SET ';
   $sql .= "aperta = '$aperta'";
+  $sql .= ", data_chiusura = '$data_chiusura'";
   $sql .=' WHERE id_RAM = '.$id_ram;
   //print_r($data);
  // echo $sql;die;

@@ -1,0 +1,21 @@
+vadidate datapicker
+cartella "investimenti2020"
+log password errata
+alert "credenziali non corrette"
+//area di test note allegato
+\\xml msg id 12 
+
+
+\\tabella le mie istanze "data chiusura rendicontazione"
+
+
+contenuto
+
+td_campi
+
+campi_documento
+
+td_tv
+
+
+//check cambio categoria, tipo veicolo

@@ -126,7 +126,7 @@ require_once 'headerInclude.php';
                                             
                                            if (v.tipo_valore=='d'){
                                                 field='<div class="it-datepicker-wrapper "><div class="form-group">'
-                                                field+='<input class="form-control it-date-datepicker" id="'+namecampo+'"name="'+namecampo+'" type="text"  placeholder="inserisci la data">'
+                                                field+='<input onblur="testDate(this)" onkeypress="return event.charCode >= 47 && event.charCode <= 57" class="form-control it-date-datepicker" id="'+namecampo+'"name="'+namecampo+'" maxlength="10"type="text"  placeholder="inserisci la data">'
                                                 field+='<label for="'+namecampo+'">'+v.nome_campo+'</label></div></div>'
                                                 
                                                 $('#campi_allegati').append(field)
@@ -148,7 +148,7 @@ require_once 'headerInclude.php';
                                            if (v.tipo_valore=='i'){
                                                 field='<label for="'+namecampo+'" class="input-number-label">'+v.nome_campo+'</label>'
                                                 field+='<span class="input-number input-number-currency">'
-                                                field+='<input type="number" id="'+namecampo+'" name="'+namecampo+'" value="0.00" min="0" >'
+                                                field+='<input type="number" id="'+namecampo+'" name="'+namecampo+'" value="0"  >'
                                                 field+='</span>'
                                                 
                                                 $('#campi_allegati').append(field)
@@ -169,9 +169,9 @@ require_once 'headerInclude.php';
 
                                           field='<div class="form-group" style="margin-top: inherit;">'
                                                 field+='<label for="note_allegato">Note</label>'
-                                                field+='<input type="text" class="form-control" id="note_allegato" name="note_allegato">'
+                                                field+='<textarea  class="form-control" id="note_allegato" rows="3" id="note_allegato" name="note_allegato"></textarea>'
                                                 field+='</div>'
-                                                $('#campi_allegati').append(field) 
+                                                $('#campi_allegati').append(field); 
                                                 field='<div class="form-group">'
                                                 field+='<label for="file_allegato" class="active">Documento</label>'
                                                 field+='<input type="file" accept="application/pdf" class="form-control-file" id="file_allegato" name="file_allegato"required></div>'
@@ -264,18 +264,20 @@ require_once 'headerInclude.php';
       })
       $('#form_allegato_mag').submit(function(event){
             $('#docMaggiorazione').modal('toggle');
-            
             var htmltext='<div class="progress"><div class="progress-bar" role="progressbar" id="progress-bar"style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div></div>'
       
-        Swal.fire({ 
-                html:true,
-                title: "Upload in Corso",
-                html:htmltext,
-                type: "info"
-        });
-           
+                  Swal.fire({ 
+                        html:true,
+                        title: "Upload in Corso",
+                        html:htmltext,
+                        type: "info",
+                        allowOutsideClick:false,
+                        showConfirmButton:false
+                  });
+                  
             event.preventDefault();
-            tipo=$('#tipo_alle').val()
+            tipo=$('#tipo_documento option:selected').attr("data-content")
+            tipo= tipo.replace(/(<([^>]+)>)/ig,"");
             console.log(tipo)
             formData = new FormData(this);
             
@@ -283,8 +285,10 @@ require_once 'headerInclude.php';
                               xhr: function() {
                               var xhr = new window.XMLHttpRequest();
                               xhr.upload.addEventListener("progress", function(evt) {
+                                    console.log(evt)
                                   if (evt.lengthComputable) {
                                       var percentComplete = ((evt.loaded / evt.total) * 100);
+                                      //console.log(evt)
                                       $("#progress-bar").width(percentComplete + '%');
                                      
                                       //$(".progress-bar").html(percentComplete+'%');
@@ -292,7 +296,7 @@ require_once 'headerInclude.php';
                               }, false);
                               return xhr;
                           },
-                        url: "controller/updateIstanze.php?action=newAllegatoMag",
+                        url: "controller/updateIstanze.php?action=newAllegato",
                         type:"POST",
                         data: formData,
                         dataType: 'json',
@@ -390,6 +394,8 @@ require_once 'headerInclude.php';
       }     
       function infomodal(id){
          $('#form_infovei')[0].reset();
+         $("#tipo_acquisizione").html('<option value="" disabled>Scegli una opzione</option><option value="01">Acquisto</option><option value="02">Leasing</option>');
+        
          $("#tipo_acquisizione").val('').selectpicker("refresh");
 
             //alert(id);
@@ -792,7 +798,34 @@ require_once 'headerInclude.php';
 
 
       }
-         
+      function testDate(str) {
+            console.log(str.value)
+            console.log(str.id)
+            data= str.value
+            var t = data.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+            if(t === null)
+            Swal.fire({ 
+                //html:true,
+                title: "Inserire una Data",
+                text:"formato gg/mm/aaaa",
+                icon: "warning"
+                
+            });
+            var d = +t[1], m = +t[2], y = +t[3];
+
+            // Below should be a more acurate algorithm
+            if(m >= 1 && m <= 12 && d >= 1 && d <= 31) {
+            return true;  
+            }
+            $('#'+str.id).val("");
+            Swal.fire({ 
+                //html:true,
+                title: "Inserire la Data in modo corretto!",
+                text:"formato gg/mm/aaaa",
+                icon: "warning"
+                
+            });
+      }   
             
 </script>
 

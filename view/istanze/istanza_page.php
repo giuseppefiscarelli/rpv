@@ -262,7 +262,7 @@
 
                                                     </div>
                                                     <div class="modal-footer">
-                                                      <button class="btn btn-primary btn-sm" data-dismiss="modal" type="button">Close</button>
+                                                      <button class="btn btn-secondary btn-sm" data-dismiss="modal" type="button">Chiudi</button>
                                                       <button class="btn btn-primary btn-sm" form="form_allegato"type="submit">Salva Allegato Veicolo</button>
                                                     </div>
                                                   </div>
@@ -307,7 +307,7 @@
                                                           <div class="bootstrap-select-wrapper" style="margin-top:50px;">
                                                               <label for="roletype" >Tipo Acquisizione</label>
                                                               <select class="form-control" accept="application/pdf" id="tipo_acquisizione" name="tipo_acquisizione" required >
-                                                                  <option >Scegli una opzione</option>
+                                                                  <option disabled>Scegli una opzione</option>
                                                                   <option value="01">Acquisto</option>
                                                                   <option value="02">Leasing</option>
                                                                   

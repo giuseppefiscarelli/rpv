@@ -157,7 +157,7 @@ if(!empty($_SESSION['message'])){
               <a href="#">
                 <div class="img-responsive-wrapper">
                   <div class="img-responsive">
-                    <div class="img-wrapper"><img src="images/img1.jpg" title="img title" alt="imagealt"></div>
+                    <div class="img-wrapper"><img src="images/img1.jpg" title="img title" alt="ima1"></div>
                   </div>
                 </div>
               </a>
@@ -169,8 +169,9 @@ if(!empty($_SESSION['message'])){
                         <!-- category heading--><a class="category" href="#">Category</a>
                         <!-- category data--><span class="data">10/12/2018</span>
                       </div>
-                      <h5 class="card-title big-heading">Mit. Pubblicato il decreto sui costi indicativi di riferimento per l’attività di Autotrasporto</h5>
-                      <p class="card-text"><em>27 novembre 2020</em> - E’ stato pubblicato oggi sul sito del Ministero delle Infrastrutture e dei Trasporti l’atteso decreto sui costi indicativi di riferimento dell’attività di autotrasporto merci.&nbsp;</p>
+                      <h5 class="card-title big-heading">Decreto del Ministero delle infrastrutture e dei trasporti n. 203 del 12 maggio 2020</h5>
+                      <h4 class="card-title big-heading">       Incentivo agli investimenti nel settore dell’autotrasporto</h4>
+                      <p style="text-align:justify;"class="card-text">Il D.M. 12 maggio 2020 n. 203, recante modalità di erogazione dei contributi a favore degli investimenti delle imprese di autotrasporto, per l'annualità 2020, è stato pubblicato nella Gazzetta Ufficiale Serie Generale n. 187 del 27 luglio 2020. Il connesso Decreto direttoriale prot. 145 del 07 agosto 2020 recante disposizioni di attuazione del suddetto D.M. 203/2020 è stato pubblicato nella Gazzetta Ufficiale Serie Generale n. 206 del 19 agosto 2020.</p>
                       
                     </div>
                   </div>
@@ -181,7 +182,7 @@ if(!empty($_SESSION['message'])){
               <a href="#">
                 <div class="img-responsive-wrapper">
                   <div class="img-responsive">
-                    <div class="img-wrapper"><img src="https://www.mit.gov.it/sites/default/files/media/notizia/2020-11/foto%20mit_0.jpg" title="img title" alt="imagealt"></div>
+                    <div class="img-wrapper"><img src="images/img2.jpg" title="img title" alt="ima2"></div>
                   </div>
                 </div>
               </a>
@@ -190,8 +191,8 @@ if(!empty($_SESSION['message'])){
                   <div class="card">
                     <div class="card-body">
                      
-                      <h5 class="card-title big-heading">Mit: De Micheli ad Anas e Rfi, applicare Art. 2 Semplificazioni</h5>
-                      <p class="card-text"><em>25 novembre 2020</em> - Un invito ad adottare tutti gli atti necessari ad esercitare, fin da subito, i poteri derogatori previsti dall'articolo 2 del decreto Semplificazioni (DL 76/2020). Questo il contenuto della lettera inviata oggi dalla ministra delle Infrastrutture e dei Trasporti Paola de Micheli alle due principali stazioni appaltanti del Gruppo FS, Anas e Rete Ferroviaria Italiana.</p>
+                      <h5 class="card-title big-heading">Decreto Interministeriale MIT - MEF fer il ricambio del parco veicolare</h5>
+                      <p style="text-align:justify;"class="card-text">In data 30 ottobre 2020 è stato pubblicato nella Gazzetta Ufficiale Serie Generale n. 270 il decreto direttoriale prot. 187 del 21 ottobre 2020 recante disposizioni di attuazione delle misure incentivanti per le imprese di autotrasporto di cui al Decreto interministeriale (MIT-MEF) 14 agosto 2020, n. 355. Nella Gazzetta Ufficiale Serie Generale n. 278 del 07 novembre 2020 è stato pubblicato il decreto direttoriale n.189 del 29 ottobre 2020 recante modifiche al decreto direttoriale n. 187 del 21 ottobre 2020 sopra menzionato.</p>
                     
                       
                     </div>
@@ -199,49 +200,7 @@ if(!empty($_SESSION['message'])){
                 </div>
               </div>
             </div>
-            <div class="it-single-slide-wrapper">
-              <a href="#">
-                <div class="img-responsive-wrapper">
-                  <div class="img-responsive">
-                    <div class="img-wrapper"><img src="https://www.mit.gov.it/sites/default/files/media/notizia/2020-11/17860a58-c0dd-4d2c-b492-2b5d1f518427.jpg" title="img title" alt="imagealt"></div>
-                  </div>
-                </div>
-              </a>
-              <div class="it-text-slider-wrapper-outside">
-                <div class="card-wrapper">
-                  <div class="card">
-                    <div class="card-body">
-                      
-                      <h5 class="card-title big-heading">Mit, pubblicato il nuovo contatore: nei primi 14 mesi cantieri per oltre di 17 miliardi e investimenti per più di 11 miliardi</h5>
-                      <p class="card-text"><em>23 novembre 2020 </em>- Ammontano a più di 17 miliardi le opere infrastrutturali - tra cantieri conclusi, appaltati e avviati - messe a terra dal Ministero delle Infrastrutture e dei Trasporti da settembre 2019 ad oggi.</p>
-                     
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="it-single-slide-wrapper">
-              <a href="#">
-                <div class="img-responsive-wrapper">
-                  <div class="img-responsive">
-                    <div class="img-wrapper"><img src="https://www.mit.gov.it/sites/default/files/media/notizia/2020-11/cortina%202021.jpg" title="img title" alt="imagealt"></div>
-                  </div>
-                </div>
-              </a>
-              <div class="it-text-slider-wrapper-outside">
-                <div class="card-wrapper">
-                  <div class="card">
-                    <div class="card-body">
-                      
-                      <h5 class="card-title big-heading">Cortina: avanzano i lavori Anas del piano di potenziamento della viabilità per i Mondiali di sci 2021</h5>
-                      <p class="card-text"><em>20 novembre 2020 </em>- Proseguono senza sosta le attività di Anas (Gruppo FS Italiane) previste nell’ambito del Piano straordinario di potenziamento della viabilità per i Mondiali di Sci di Cortina 2021</p>
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
         
@@ -268,7 +227,7 @@ $(document).ready(function() {
   $(".owl-carousel").owlCarousel();
   var owl = $('.owl-carousel');
 
-owl.trigger('play.owl.autoplay',[5000])
+owl.trigger('play.owl.autoplay',[8000])
 
 
 });

@@ -48,7 +48,7 @@
                           </div>
                           <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <span><?=$_SESSION['userData']['nome']." ".$_SESSION['userData']['cognome']?></span>
+                            <span><?=$_SESSION['userData']['nome']." ".$_SESSION['userData']['email']?></span>
                             </a>
                             <div class="dropdown-menu">
                               <div class="row">

@@ -22,16 +22,17 @@
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
     if(!$email){
       $result=[
-        'message' => 'Email Errata',
+        'message' => 'Credenziali non corrette',
         'success' => false
       ];
+     
       return $result;
     }
 
     
     if(strlen($password)<6){
       $result=[
-        'message' => 'Password Troppo Corta',
+        'message' => 'Credenziali non corrette',
         'success' => false
       ];
       return $result;
@@ -40,7 +41,7 @@
     $resEmail = getUserbyEmail($email);
     if(!$resEmail){
       $result=[
-        'message' => 'User not Found',
+        'message' => 'Credenziali non corrette',
         'success' => false
       ];
     return $result;
@@ -49,9 +50,12 @@
       
     if(!password_verify($password, $resEmail['password'])){
       $result=[
-        'message' => 'Password errata',
+        'message' => 'Credenziali non corrette',
         'success' => false
       ];
+      $result['log_funzione']= 'Procedura Login';
+      $result['user']['email'] = $email;
+      writelog($result);
       return $result;  
     }
 
@@ -141,8 +145,8 @@
 
           $sql = 'SELECT * FROM users';
           if ($search1){
-            $sql .=" WHERE username LIKE '%$search1%' ";
-            $sql .=" OR roletype LIKE '%$search1%' ";
+            $sql .=" WHERE email LIKE '%$search1%' ";
+            //$sql .=" OR roletype LIKE '%$search1%' ";
           }
           $sql .= " ORDER BY $orderBy $orderDir LIMIT $start, $limit";
           
@@ -374,7 +378,7 @@
     $result=0;
     //$id_RAM=$data['id_RAM'];
     $sql ='INSERT INTO log (id,  log_cod_user,log_funzione,log_descrizione,log_IP,log_ok) ';
-    $sql .= "VALUES (NULL, '$log_cod_user','$log_funzione','$log_descrizione','$log_IP',$log_ok) ";
+    $sql .= "VALUES (NULL, '$log_cod_user','$log_funzione','$log_descrizione','$log_IP','$log_ok') ";
     
     //echo $sql;
     $res = $conn->query($sql);

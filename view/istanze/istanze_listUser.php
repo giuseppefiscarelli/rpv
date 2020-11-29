@@ -24,7 +24,9 @@
                 </thead>
                 <tbody>
                 <?php
-                    foreach($istanze as $i){?>
+                $ist=getIstanzeUser($_SESSION['userData']['email']);
+                //var_dump($test);
+                    foreach($ist as $i){?>
                     <tr>
                     <td>2020/<?=$i['id_RAM']?></td>
                     <td>Investimenti 2020</td>
@@ -38,7 +40,8 @@
                           <span class="badge badge-primary">In Rendicontazione</span>
                         <?php
                         }else{?>
-                          <span class="badge badge-success">In Istruttoria</span>
+                          <span class="badge badge-success">In Istruttoria</span><br>
+                          Rendicondazione chiusa il <?=date("d/m/Y",strtotime($status['data_chiusura']))?>
                         <?php
                         }
 
@@ -52,9 +55,10 @@
                           
                     </td>
                     <td><?php
-                      $xmldata = getXml($i['pec_impr']);
-                   if($xmldata){
-                     echo date("d/m/Y", strtotime($xmldata['data_invio']));
+                      //$xmldata = getXml($i['pec_msg_identificativo'],$i['pec_msg_id']);
+                      //var_dump($xmldata);
+                   if($ist){
+                     echo date("d/m/Y", strtotime($i['data_invio']));
 
                    }else{
 
@@ -64,7 +68,20 @@
                     ?></td>
                     <td>
                         <div  class="btn-group btn-group-sm" role="group">
+                        <?php
+                          if($status){
+
+                              if($status['aperta']==true){?>
                         <a type="button" href="istanza.php"class="btn btn-primary" style="color:white;"> Accedi a Istanza</a>
+                            <?php
+                            }
+                        }else{?>
+                        <a type="button" href="istanza.php"class="btn btn-primary" style="color:white;"> Avvia Istanza</a>
+                        <?php
+
+                        }
+                        ?>
+
                         </div>
                     </td>
                     </tr>

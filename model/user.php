@@ -86,7 +86,8 @@ function storeUser(array $data, int $id){
       $sql .= "username = '$username', cognome = '$cognome', nome = '$nome', email = '$email'";
       if($data['password']){
         $data['password']=$data['password']?? 'password';
-        $password = password_hash($data['password'], PASSWORD_DEFAULT);
+        
+        $password = addslashes(password_hash($data['password'], PASSWORD_ARGON2I));
         $sql.= ", password = '$password'";
       } 
       if ($data['roletype']){
@@ -121,13 +122,16 @@ function saveUser(array $data){
       $cognome = $conn->escape_string($data['cognome']);
       $nome = $conn->escape_string($data['nome']);
       $email = $conn->escape_string($data['email']);
+      $ragione_sociale = $conn->escape_string($data['ragione_sociale']);
+      $piva = $conn->escape_string($data['piva']);
+      $note = $conn->escape_string($data['note']);
       
       $roletype = in_array($data['roletype'], getConfig('roletype',[]))? $data['roletype']:'user';
       $data['password']= $data['password']?$data['password']:'testuser';
-      $password = password_hash($data['password'], PASSWORD_DEFAULT);
+      $password = addslashes(password_hash($data['password'], PASSWORD_ARGON2I));
       $result=0;
-      $sql ='INSERT INTO users (id, password, username, cognome, nome, email,  roletype) ';
-      $sql .= "VALUES (NULL, '$password', '$username', '$cognome', '$nome', '$email', '$roletype') ";
+      $sql ='INSERT INTO users (id, password, username, cognome, nome, email,  roletype,ragione_sociale,piva,note) ';
+      $sql .= "VALUES (NULL, '$password', '$username', '$cognome', '$nome', '$email', '$roletype','$ragione_sociale','$piva','$note') ";
       
       //echo $sql;die;
       $res = $conn->query($sql);
@@ -141,21 +145,29 @@ function saveUser(array $data){
     return $result;
   
   
-}
-
-function abGuida(array $data){ 
+} 
+function saveUserP(array $data){
 
   /**
    * @var $conn mysqli
    */
 
     $conn = $GLOBALS['mysqli'];
-      $id = $data['id'];
-      $ab = $data['ab_guida'];
-      $sql ='UPDATE users SET ';
-      $sql .= "ab_guida = '$ab'";
-      $sql .=' WHERE id = '.$id;
-      //print_r($data);
+      $username = $conn->escape_string($data['username']);
+      $cognome = $conn->escape_string($data['cognome']);
+      $nome = $conn->escape_string($data['nome']);
+      $email = $conn->escape_string($data['email']);
+      $ragione_sociale = $conn->escape_string($data['ragione_sociale']);
+      $piva = $conn->escape_string($data['piva']);
+      $note = $conn->escape_string($data['note']);
+      
+      $roletype = in_array($data['roletype'], getConfig('roletype',[]))? $data['roletype']:'user';
+      $password=  $conn->escape_string($data['password']);
+     
+      $result=0;
+      $sql ='INSERT INTO users (id, password, username, cognome, nome, email,  roletype,ragione_sociale,piva,note) ';
+      $sql .= "VALUES (NULL, '$password', '$username', '$cognome', '$nome', '$email', '$roletype','$ragione_sociale','$piva','$note') ";
+      
       //echo $sql;die;
       $res = $conn->query($sql);
       
@@ -168,6 +180,44 @@ function abGuida(array $data){
     return $result;
   
   
-}
+}     
+function getUsersP( array $params = []){
 
-    
+  /**
+   * @var $conn mysqli
+   */
+
+      $conn = $GLOBALS['mysqli'];
+
+      $records = [];
+
+      
+
+      $sql = 'SELECT * FROM user_parameter';
+     
+      
+
+      $res = $conn->query($sql);
+      if($res) {
+
+        while( $row = $res->fetch_assoc()) {
+            $records[] = $row;
+            
+        }
+
+      }
+
+  return $records;
+
+}
+function saveCred($p){
+   /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+
+
+
+
+}
