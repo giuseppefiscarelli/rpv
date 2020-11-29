@@ -28,17 +28,17 @@ $countdocIstanzaInfo=countDocIstanzaInfo($i['id_RAM']);
             }?> 
             Dati Veicoli Inseriti <?=$countdatveiinfo?> di <?=$countdatvei?><br>
             <?php
-                    if($countdocIstanzaInfo==$countdocIstanza){?>
-                <i class="fa fa-check" aria-hidden="true" style="color:green;"></i>
+               //     if($countdocIstanzaInfo==$countdocIstanza){?>
+               <!-- <i class="fa fa-check" aria-hidden="true" style="color:green;"></i>
                 <?php
-            }else{?>
-                <i class="fa fa-ban" aria-hidden="true" style="color:red;"></i>
+           // }else{?>
+                <i class="fa fa-ban" aria-hidden="true" style="color:red;"></i>-->
                 <?php
-            }?> 
+            //}?> 
 
 
-                 Documenti Veicoli caricati  <?=$countdocIstanzaInfo?> di <?=$countdocIstanza?></p>
-                </p>
+                <!-- Documenti Veicoli caricati  <?=$countdocIstanzaInfo?> di <?=$countdocIstanza?></p>
+                </p>-->
             
                 
                 </div>
@@ -48,7 +48,7 @@ $countdocIstanzaInfo=countDocIstanzaInfo($i['id_RAM']);
           <div class="it-header-slim-right-zone">
             
             <div class="it-access-top-wrapper">
-              <a class="btn btn-primary btn-sm" href="#">Chiudi Rendicontazione</a>
+              <button type="button" class="btn btn-primary btn-sm" onclick="closeRend(<?=$i['id_RAM']?>)">Chiudi Rendicontazione</button>
             </div>
           </div>
               <?php

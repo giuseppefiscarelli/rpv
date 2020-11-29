@@ -551,6 +551,7 @@ require_once 'headerInclude.php';
            })
       }
       function tipoDoc(tipo){
+            //id_RAM = '<?=$i['id_RAM']?>';
             $.ajax({
                         type: "POST",
                         url: "controller/updateIstanze.php?action=getTipoDoc",
@@ -559,7 +560,9 @@ require_once 'headerInclude.php';
                         success: function(data){
                               $.each(data, function(k,v){
                                     console.log(v.tdoc_descrizione)
-                                    $('#tipo_documento').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + ' <i class=\'fa fa-ban\' aria-hidden=\'true\' style=\'color:red;\'></i>" value="' + v.tdoc_codice + '"></option>');
+                                    //$('#tipo_documento').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + ' <i class=\'fa fa-ban\' aria-hidden=\'true\' style=\'color:red;\'></i>" value="' + v.tdoc_codice + '"></option>');
+
+                                    $('#tipo_documento').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + '" value="' + v.tdoc_codice + '"></option>');
                                     $('.bootstrap-select-wrapper select').selectpicker('refresh')
                               })
 
@@ -696,17 +699,17 @@ require_once 'headerInclude.php';
             }else{
                   docvei = false
             }
-            console.log(checkvp)
-            console.log(checkvt)
-            console.log(docvei)
+            //console.log(checkvp)
+            //console.log(checkvt)
+            //console.log(docvei)
             if(checkcatp==checkcatt){
                   catvei = true
             }else{
                   catvei = false
             }
-            console.log(checkcatp)
-            console.log(checkcatt)
-            console.log(catvei)
+            //console.log(checkcatp)
+            //console.log(checkcatt)
+            //console.log(catvei)
 
             
             id_RAM =<?=$i['id_RAM']?>,
@@ -717,7 +720,7 @@ require_once 'headerInclude.php';
                         data: {id_RAM:id_RAM,tipo_veicolo:tipo,progressivo:prog},
                         dataType: "json",
                         success: function(data){
-                              console.log(data)
+                              //console.log(data)
                               if(data.n==data.of){
                                     ic="check"
                                     color="green"
@@ -751,6 +754,43 @@ require_once 'headerInclude.php';
       }
       function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+      function closeRend(id_ram){
+            Swal.fire({
+                  title: 'Vuoi chiudere la Rendicontazione?',
+                  text: "Non potrai più aggiornarla",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'SI Chiudila!',
+                  cancelButtonText: 'NO, Annulla!'
+                  }).then((result) => {
+                        if (result.isConfirmed) {
+                              $.ajax({
+                                    url: "controller/updateIstanze.php?action=closeRend",
+                                    data: {id_ram:id_ram},
+                                    dataType: "json",
+                                    success: function(results){
+                                         
+                                          if(results)
+                                          {
+                                                Swal.fire(
+                                                      'Rendicontazione Chiusa!',
+                                                      'La rendicontazione è stata chiusa correttamente.',
+                                                      'success'
+                                                )
+                                          }
+                                          //console.log(results)
+                                    }
+
+                              })
+
+
+                        }
+                  })
+
+
       }
          
             

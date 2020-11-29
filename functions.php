@@ -364,9 +364,9 @@
 
     $conn = $GLOBALS['mysqli'];
     
-//var_dump($result);die;
+      //var_dump($result);die;
      $log_cod_user = $result['user']['email'];
-     $log_funzione = "Procedura Login";
+     $log_funzione = $result['log_funzione'];
      $log_descrizione = $result['message'];
      $log_ok = $result['success'];
      $log_IP = $_SERVER['REMOTE_ADDR'];
@@ -376,7 +376,7 @@
     $sql ='INSERT INTO log (id,  log_cod_user,log_funzione,log_descrizione,log_IP,log_ok) ';
     $sql .= "VALUES (NULL, '$log_cod_user','$log_funzione','$log_descrizione','$log_IP',$log_ok) ";
     
-    echo $sql;
+    //echo $sql;
     $res = $conn->query($sql);
     
     if($res ){

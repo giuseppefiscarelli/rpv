@@ -242,9 +242,9 @@ function createSrtructure($data){
   $tip_vei_9=$data['nv9'];
   $tip_vei_10=$data['nv10'];
   $tip_vei_11=$data['nv11'];
-  $tip_vei_12=$data['r_nv_1'];
-  $tip_vei_13=$data['r_nv_2'];
-  $tip_vei_14=$data['r_nv_3'];
+  $tip_vei_12=min($data['r_nv_1'],$data['r_rott_1']);
+  $tip_vei_13=min($data['r_nv_2'],$data['r_rott_2']);
+  $tip_vei_14=min($data['r_nv_3'],$data['r_rott_3']);
   $tip_vei_15=$data['nr_1'];
   $tip_vei_16=$data['nr_2'];
   $tip_vei_17=$data['ng_1'];
@@ -280,6 +280,13 @@ function createSrtructure($data){
       
       if($res ){
         $result =  $conn->affected_rows;
+        $log=[];
+        $log['user']['email']=$_SESSION['userData']['email'];
+        $log['log_funzione']="Apertura Rendicontazione";
+        $log['message']="Primo Accesso";
+        $log['success']=true;
+        writelog($log);
+
         
       }else{
         $result -1;  
@@ -573,6 +580,7 @@ function delAllegatoID($id){
   */
   $conn = $GLOBALS['mysqli'];
   $result=0;
+  
   $sql ='UPDATE allegato SET ';
   $sql .= "attivo = 'c'";
   $sql .=' WHERE id = '.$id;
@@ -1129,7 +1137,7 @@ function checkSelectTipoDoc($data){
 
   $conn = $GLOBALS['mysqli'];
 
-  $sql = "SELECT distinct tipo_documento FROM allegato WHERE id_ram =$id_ram and tipo_veicolo=$tipo_veicolo and progressivo=$progressivo and tipo_documento=$tipo_documento";
+  $sql = "SELECT distinct tipo_documento FROM allegato WHERE id_ram =$id_ram and tipo_veicolo=$tipo_veicolo and progressivo=$progressivo and tipo_documento=$tipo_documento and attivo='s'";
   //echo $sql;
   $result = [];
 
@@ -1141,6 +1149,54 @@ function checkSelectTipoDoc($data){
     }
   return $result;
 
+
+
+
+}
+function getXml($pec){
+  /**
+  * @var $conn mysqli
+  */
+
+  $conn = $GLOBALS['mysqli'];
+
+  $sql = "SELECT * FROM xml WHERE pec='$pec'";
+  //echo $sql;
+  $result = [];
+
+  $res = $conn->query($sql);
+        
+    if($res && $res->num_rows){
+      $result = $res->fetch_assoc();
+      
+    }
+  return $result;
+
+
+
+}
+function closeRend($id_ram){
+
+  /**
+  * @var $conn mysqli
+  */
+  $conn = $GLOBALS['mysqli'];
+  $result=0;
+  $aperta = 0;
+  $sql ='UPDATE rendicontazione SET ';
+  $sql .= "aperta = '$aperta'";
+  $sql .=' WHERE id_RAM = '.$id_ram;
+  //print_r($data);
+ // echo $sql;die;
+  $res = $conn->query($sql);
+  
+  if($res ){
+    $result =  $conn->affected_rows;
+    
+  }else{
+    $result -1;  
+  }
+  return $result;
 
 
 

@@ -20,6 +20,7 @@ if(!empty($_POST)){
     $homeAmb = $_POST['ambiente'] ?? '';
 
     $result = verifyLogin($token, $email, $password);
+    $result['log_funzione']='procedura Login';
     writelog($result);
     
     unset($_SESSION['csrf']);
