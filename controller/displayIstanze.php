@@ -41,7 +41,7 @@ if(!empty($_SESSION['message'])){
           $totalUsers= countIstanze($params);
           $numPages= ceil($totalUsers/$recordsPerPage);
          $email=$_SESSION['userData']['email'];
-          $istanze = getIstanzeUser($email);
+          $istanze = getIstanze($params);
           //var_dump($istanze);
          
 

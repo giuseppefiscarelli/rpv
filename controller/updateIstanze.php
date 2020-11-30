@@ -130,7 +130,9 @@ switch ($action){
     case 'getDocVei':
       $data=$_REQUEST['tipovei'];
       $id_RAM = $_REQUEST['id_RAM'];
+      var_dump($data);
       $res = getTipoDocumento($data);
+      var_dump($res);
       /*  if($res){
         $check = array();
           foreach($res as $r){
