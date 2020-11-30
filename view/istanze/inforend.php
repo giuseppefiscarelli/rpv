@@ -43,9 +43,7 @@ $countdocIstanzaInfo=countDocIstanzaInfo($i['id_RAM']);
                 
                 </div>
             </div>
-            <div class="it-access-top-wrapper">
-              <button type="button" class="btn btn-primary btn-sm" onclick="checkIstanza();">test</button>
-            </div>
+            
             <?php
               if(!isUserAdmin()){?> 
           <div class="it-header-slim-right-zone">
