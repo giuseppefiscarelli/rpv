@@ -178,6 +178,49 @@ function countIstanze( array $params = []){
     return $totalUser;
 
 }
+function countTotIstanze( array $params = []){
+
+  /**
+   * @var $conn mysqli
+   */
+
+      $conn = $GLOBALS['mysqli'];
+
+      $orderBy = array_key_exists('orderBy', $params) ? $params['orderBy'] : 'id';
+      $orderDir = array_key_exists('orderDir', $params) ? $params['orderDir'] : 'ASC';
+      $limit = (int)array_key_exists('recordsPerPage', $params) ? $params['recordsPerPage'] : 10;
+      $search1 = array_key_exists('search1', $params) ? $params['search1'] : '';
+      $search1 = $conn->escape_string($search1);
+      $search2 = array_key_exists('search2', $params) ? $params['search2'] : '';
+      $search2 = $conn->escape_string($search2);
+      if($orderDir !=='ASC' && $orderDir !=='DESC'){
+        $orderDir = 'ASC';
+      }
+      $totalUser = 0;
+
+      
+
+      $sql ="SELECT count(*) as totalUser FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id ";
+      if ($search1){
+        $sql .=" AND xml.pec LIKE '%$search1%' ";
+        
+      }
+      if ($search2){
+          $sql .=" AND istanza.id_RAM LIKE '%$search2%' ";
+          
+        }
+      
+
+      $res = $conn->query($sql);
+      if($res) {
+
+       $row = $res->fetch_assoc();
+       $totalUser = $row['totalUser'];
+      }
+
+  return $totalUser;
+
+}
 function getCatInc(){
   
     /**
@@ -1230,5 +1273,36 @@ function closeRend($id_ram){
   return $result;
 
 
+
+}
+
+function countRendicontazione($stato){
+
+  /**
+   * @var $conn mysqli
+   */
+
+      $conn = $GLOBALS['mysqli'];
+
+    
+      $total = 0;
+
+      
+
+      $sql = 'SELECT count(*) as total FROM rendicontazione';
+
+          $sql .=" WHERE aperta = $stato ";
+       
+    
+         // echo $sql;
+      
+
+      $res = $conn->query($sql);
+      if($res) {
+
+       $row = $res->fetch_assoc();
+       $total = $row['total'];
+      }
+      return $total;
 
 }

@@ -1,4 +1,7 @@
-<div class="row">
+       
+
+
+     <div class="row">
         <div class="col-12 ">
           <div class="card-wrapper card-space">
             <div class="card card-bg">
@@ -16,8 +19,8 @@
                       <h5 class="card-title">
                         Totali
                       </h5>
-                      <div class="card-text">
-                      <b style="float:right;font-size: xx-large;"><?=$totalIstanze?></b>
+                      <div class="card-text" style="margin-top:30px;">
+                      <b style="float:right;font-size: xx-large;"><?=$istTotali?> <small>istanze</small></b>
                       </div>
                     </div>
                   </div>
@@ -31,8 +34,8 @@
                       <h5 class="card-title">
                       Attive
                       </h5>
-                      <div class="card-text">
-                      <b style="float:right;font-size: xx-large;"><?=$totalIstanze?></b>
+                      <div class="card-text" style="margin-top:30px;">
+                      <b style="float:right;font-size: xx-large;"><?=$totalIstanze?> <small>istanze</small></b>
                       </div>
                     </div>
                   </div>
@@ -46,8 +49,10 @@
                       <h5 class="card-title">
                     In Rendicontazione
                       </h5>
-                      <div class="card-text">
-                      <b style="float:right;font-size: xx-large;"><?=$totalIstanze?></b>
+                      <div class="card-text" style="margin-top:30px;">
+                   
+
+                      <b style="float:right;font-size: xx-large;"><?=$istRend?> <small>istanze</small></b>
                       </div>
                     </div>
                   </div>
@@ -61,15 +66,24 @@
                       <h5 class="card-title">
                       In Istruttoria
                       </h5>
-                      <div class="card-text">
-                      <b style="float:right;font-size: xx-large;"><?=$totalIstanze?></b>
+                      <div class="card-text" style="margin-top:30px;">
+                      <b style="float:right;font-size: xx-large;"><?=$istIstr?> <small>istanze</small></b>
                       </div>
                     </div>
                   </div>
                 </div>
+               
+              </div>
+
+              <div class="row" style="margin-top:30px;">
+                <div class="col-12 col-lg-6">
+                <div class="card card-teaser rounded shadow" >
+                  <canvas id="myChart" width="400" height="200"></canvas>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+     

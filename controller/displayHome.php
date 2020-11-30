@@ -33,13 +33,22 @@ if(!empty($_SESSION['message'])){
           if(isUserSuadmin()){
             require_once 'model/istanze.php';
             $totalIstanze= countIstanze($params);
-         
+            $istTotali =countTotIstanze($params);
              $istanze = getIstanze($params);
+             $istRend =countRendicontazione(1);
+             $istIstr =countRendicontazione(0);
 
 
             require 'view/home/homeSuadmin.php';
           }
           if(isUserAdmin()){
+            require_once 'model/istanze.php';
+            $totalIstanze= countIstanze($params);
+            $istTotali =countTotIstanze($params);
+             $istanze = getIstanze($params);
+             $istRend =countRendicontazione(1);
+             $istIstr =countRendicontazione(0);
+
 
             require 'view/home/homeAdmin.php';
           }

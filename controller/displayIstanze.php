@@ -43,6 +43,8 @@ if(!empty($_SESSION['message'])){
 
           $istanze = getIstanze($params);
           //var_dump($istanze);
+          $istRend =countRendicontazione(1);
+          $istIstr =countRendicontazione(0);
 
           require_once 'view/istanze/istanze_list.php';
          }
