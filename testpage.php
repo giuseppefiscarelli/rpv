@@ -143,6 +143,7 @@ if(!empty($_SESSION['message'])){
   } 
       ?>
       <div class="container my-4">
+
       <h3>Benvenuto Ragione Sociale S.r.l</h3>
       <h4>Per visualizzare Le Istanze, Clicca su "Le Mie Istanze"</h4>
         <div class="it-carousel-wrapper it-carousel-landscape-abstract">
@@ -176,6 +177,31 @@ if(!empty($_SESSION['message'])){
             
           </div>
         </div>
+
+<button type="button" onclick="prova();" class="btn btn-primary btn-lg btn-block"></button>
+
+
+
+<script>
+function prova(){
+ 
+  Swal.fire(
+                                                                  'Rendicontazione Chiusa!',
+                                                                  'La rendicontazione è stata chiusa correttamente.',
+                                                                  'success'
+                                                            ).then((result) => {
+                                                                               if (result.isConfirmed) {
+                                                                                          location.href='home.php'
+                                                                              }
+                                                                  })
+    
+
+}
+</script>
+
+
+
+
       </div>
       
      
@@ -188,6 +214,8 @@ if(!empty($_SESSION['message'])){
         $( document ).ready(function() {
             $('#message').delay(3000).fadeOut();
         });
+
+        
        
 </script> 
   </body>

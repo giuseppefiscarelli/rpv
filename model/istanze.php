@@ -755,22 +755,15 @@ function newAllegato($data){
   $docu_nome_file_origine =  $conn->escape_string($data['docu_nome_file_origine']);
   $path_parts = pathinfo($docu_nome_file_origine);
   $docu_id_file_archivio = $conn->escape_string($data['docu_id_file_archivio']);
-  $data_allegato = array_key_exists('data_allegato', $data)? $data['data_allegato']:'';
   $json_data = array_key_exists('json_data', $data)? $data['json_data']:'';
-  if($data_allegato){
-  $data_allegato = DateTime::createFromFormat('d/m/Y', $data_allegato);
-  $data_allegato= $data_allegato->format('Y-m-d');
-  }
-  $importo_allegato = array_key_exists('importo_allegato', $data)? $data['importo_allegato']:'NULL';
-  $testo_allegato = array_key_exists('testo_allegato', $data)? $data['testo_allegato']:'';
-  $numero_allegato = array_key_exists('numero_allegato', $data)? $data['numero_allegato']:'';
-  $note = array_key_exists('note_allegato', $data)? $data['note_allegato']:'';
+  
+  $note = array_key_exists('note_allegato', $data)? $data['note_allegato']:' ';
   $attivo ="s";
   $user = $_SESSION['userData']['email'];
 
   $result=0;
-  $sql ='INSERT INTO allegato (id,id_ram,tipo_veicolo,progressivo,tipo_documento,docu_nome_file_origine,docu_id_file_archivio,data_allegato,importo_allegato,testo_allegato,numero_allegato,note,attivo,user,json_data) ';
-  $sql .= "VALUES (NULL,$id_ram,$tipo_veicolo,$progressivo,$tipo_documento,'$docu_nome_file_origine','$docu_id_file_archivio','$data_allegato',$importo_allegato,'$testo_allegato','$numero_allegato','$note','$attivo','$user','$json_data')  ";
+  $sql ='INSERT INTO allegato (id,id_ram,tipo_veicolo,progressivo,tipo_documento,docu_nome_file_origine,docu_id_file_archivio,note,attivo,user,json_data) ';
+  $sql .= "VALUES (NULL,$id_ram,$tipo_veicolo,$progressivo,$tipo_documento,'$docu_nome_file_origine','$docu_id_file_archivio','$note','$attivo','$user','$json_data')  ";
   
   //echo $sql;die;
   $res = $conn->query($sql);

@@ -156,7 +156,7 @@ require_once 'headerInclude.php';
                                                 $("#"+namecampo).attr("required", req);
                                            }
                                            if (v.tipo_valore=='n'){
-                                                field='<label for="'+namecampo+'" class="input-number-label">'+v.nome_campo+'/label>'
+                                                field='<label for="'+namecampo+'" class="input-number-label">'+v.nome_campo+'</label>'
                                                 field+='<span class="input-number">'
                                                 field+='<input type="number" id="'+namecampo+'" name="'+namecampo+'" value="0" >'
                                                 field+='</span>'
@@ -193,17 +193,17 @@ require_once 'headerInclude.php';
       });
       $('#form_allegato').submit(function(event){
             $('#docModal').modal('toggle');
-            var htmltext='<div class="progress"><div class="progress-bar" role="progressbar" id="progress-bar"style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div></div>'
+            var htmltext='<div class="progress"><div class="progress-bar" role="progressbar" id="progress-bar"style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div>'
       
-      
-      Swal.fire({ 
-            html:true,
-            title: "Upload in Corso",
-            html:htmltext,
-            type: "info",
-            allowOutsideClick:false,
-            showConfirmButton:false
-      });
+       
+            Swal.fire({ 
+                  html:true,
+                  title: "Upload in Corso",
+                  html:htmltext,
+                  type: "info",
+                  allowOutsideClick:false,
+                  showConfirmButton:false
+            });
            
             event.preventDefault();
             tipo=$('#tipo_documento option:selected').attr("data-content")
@@ -267,7 +267,7 @@ require_once 'headerInclude.php';
       })
       $('#form_allegato_mag').submit(function(event){
             $('#docMaggiorazione').modal('toggle');
-            var htmltext='<div class="progress"><div class="progress-bar" role="progressbar" id="progress-bar"style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div></div>'
+            var htmltext='<div class="progress"><div class="progress-bar" role="progressbar" id="progress-bar"style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div>'
       
                   Swal.fire({ 
                         html:true,
@@ -789,11 +789,17 @@ require_once 'headerInclude.php';
                                          
                                           if(results)
                                           {
-                                                Swal.fire(
-                                                      'Rendicontazione Chiusa!',
-                                                      'La rendicontazione è stata chiusa correttamente.',
-                                                      'success'
-                                                )
+                                                Swal.fire({
+                                                                  allowOutsideClick:false,
+
+                                                                  title: 'Rendicontazione Chiusa!',
+                                                                  html:'La rendicontazione è stata chiusa correttamente.',
+                                                                  icon:'success'
+                                                            }).then((result) => {
+                                                                               if (result.isConfirmed) {
+                                                                                          location.href='home.php'
+                                                                              }
+                                                                  })
                                           }
                                           //console.log(results)
                                     }
@@ -838,11 +844,23 @@ require_once 'headerInclude.php';
                                                 
                                                       if(results)
                                                       {
-                                                            Swal.fire(
-                                                                  'Rendicontazione Chiusa!',
-                                                                  'La rendicontazione è stata chiusa correttamente.',
-                                                                  'success'
-                                                            )
+                                                            Swal.fire({
+                                                                  allowOutsideClick:false,
+
+                                                                  title: 'Rendicontazione Chiusa!',
+                                                                  html:'La rendicontazione è stata chiusa correttamente.',
+                                                                  icon:'success'
+                                                            }).then((result) => {
+                                                                               if (result.isConfirmed) {
+                                                                                          location.href='home.php'
+                                                                              }
+                                                                  })
+
+
+
+
+
+
                                                       }
                                                       //console.log(results)
                                                 }

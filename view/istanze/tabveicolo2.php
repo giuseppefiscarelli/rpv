@@ -66,7 +66,7 @@
                                                                         <tr >
                                                                         <th>
                                                                         <?php
-                                                                            if(!isUserAdmin()){
+                                                                            if(!isUserAdmin()&&$rend['aperta']==1){
                                                                         
                                                                                 if(!$rv['targa']&&!$rv['marca']&&!$rv['modello']&&!$rv['tipo_acquisizione']&&!$rv['costo']){?>
                                                                             <button type="button" id="btn_up_<?=$rv['id']?>"class="btn btn-success btn-sm" onclick="infomodal(<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Inserisci dati veicolo</button>
@@ -126,7 +126,7 @@
 
                                                                         <thead>
                                                                         <?php
-                                                                            if(!isUserAdmin()){?> 
+                                                                           if(!isUserAdmin()&&$rend['aperta']==1){?>
                                                                         <tr>
                                                                             <th colspan="5">
                                                                                 <button type="button" class="btn btn-success btn-sm" onclick="docmodal(<?=$rv['progressivo']?>,<?=$rv['tipo_veicolo']?>,<?=$rv['id_RAM']?>);" ><i class="fa fa-upload" aria-hidden="true"></i> Carica documento</button>
@@ -165,7 +165,7 @@
                                                                                             <button type="button" onclick="window.open('allegato.php?id=<?=$alle['id']?>', '_blank')"title="Vedi Documento"class="btn btn-xs btn-primary " style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
                                                                                             <a type="button" href="download.php?id=<?=$alle['id']?>" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>
                                                                                             <?php
-                                                                                            if(!isUserAdmin()){?> 
+                                                                                                    if(!isUserAdmin()&&$rend['aperta']==1){?>
                                                                                             <button type="button" onclick="delAll(<?=$alle['id']?>,this)"title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                                                             <?php
                                                                                             }

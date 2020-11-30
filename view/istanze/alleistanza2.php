@@ -14,7 +14,7 @@ $alleampl = getAllegato($ampl,$i['id_RAM'],0);
 
 //var_dump($pmidoc);
 //var_dump($retedoc);
-//var_dump($ampldoc);
+///var_dump($ampldoc);
 //var_dump($allepmi);
 //var_dump($allerete);
 //var_dump($alleampl);

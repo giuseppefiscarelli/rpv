@@ -33,8 +33,8 @@ if(!empty($_SESSION['message'])){
            $params['search1']= $_SESSION['userData']['email'];
           $totalUsers= countIstanze($params);
           $numPages= ceil($totalUsers/$recordsPerPage);
-
-          $istanze = getIstanze($params);
+           $email =  $_SESSION['userData']['email'];
+          $istanze = getIstanzeUser($email);
           //var_dump($istanze);
           require_once 'view/istanze/istanze_listUser.php';
          }else{

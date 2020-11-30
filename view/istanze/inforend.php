@@ -45,7 +45,8 @@ $countdocIstanzaInfo=countDocIstanzaInfo($i['id_RAM']);
             </div>
             
             <?php
-              if(!isUserAdmin()){?> 
+           // var_dump($rend);
+           if(!isUserAdmin()&&$rend['aperta']==1){?>
           <div class="it-header-slim-right-zone">
             
             <div class="it-access-top-wrapper">

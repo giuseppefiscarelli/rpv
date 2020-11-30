@@ -74,6 +74,10 @@
                               if($status['aperta']==true){?>
                         <a type="button" href="istanza.php"class="btn btn-primary" style="color:white;"> Accedi a Istanza</a>
                             <?php
+                            }else{?>
+                              <a type="button" href="istanza.php"class="btn btn-primary" style="color:white;"> Consulta Istanza</a>
+
+                          <?php    
                             }
                         }else{?>
                         <a type="button" href="istanza.php"class="btn btn-primary" style="color:white;"> Avvia Istanza</a>
