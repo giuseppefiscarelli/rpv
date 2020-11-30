@@ -96,31 +96,36 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                                 <td><?=date("d/m/Y",strtotime($i['data_invio']))?></td></td>
                                 <td><?=$i['ragione_sociale']?></td>
                                 <td><?=$i['pec']?></td>
-                                <td><?php
+                                <?php
                                  if($status){
 
                                   if($status['aperta']==true){?>
+                                  <td>
                                     <span class="badge badge-primary">In Rendicontazione</span>
+                                    </td>
+                                    <td>
+                                      <button onclick="window.location.href='istanza.php?id=<?=$i['id_RAM']?>'" type="button" class="btn btn-warning" title="Visualizza Istanza"><i class="fa fa-list" aria-hidden="true"></i></button>
+                                    </td>
                                   <?php
                                   }else{?>
+                                  <td>
                                     <span class="badge badge-success">In Istruttoria</span><br>
                                     Rendicondazione chiusa il <?=date("d/m/Y",strtotime($status['data_chiusura']))?>
+                                    </td>
+                                    <td>
+                                      <button onclick="window.location.href='istanza.php?id=<?=$i['id_RAM']?>'" type="button" class="btn btn-warning" title="Visualizza Istanza"><i class="fa fa-list" aria-hidden="true"></i></button>
+                                    </td>
                                   <?php
+                                  
                                   }
           
                                 }else{?>
+                                <td>
                                   <span class="badge badge-warning">Attiva</span>
+                                  </td><td></td>
                                 <?php
                                 }
-                                ?></td>
-                               
-                                
-                                
-                                <td>
-                                <button onclick="window.location.href='istanza.php?id=<?=$i['id_RAM']?>'" type="button" class="btn btn-warning" title="Visualizza Istanza"><i class="fa fa-list" aria-hidden="true"></i></button>
-
-                                   
-                                </td>
+                                ?>
                             </tr>
                             <?php
 
