@@ -280,7 +280,7 @@ require_once 'headerInclude.php';
                   
             event.preventDefault();
             tipo=$('#tipo_documento option:selected').attr("data-content")
-            tipo= tipo.replace(/(<([^>]+)>)/ig,"");
+           // tipo= tipo.replace(/(<([^>]+)>)/ig,"");
             console.log(tipo)
             formData = new FormData(this);
             
@@ -299,7 +299,7 @@ require_once 'headerInclude.php';
                               }, false);
                               return xhr;
                           },
-                        url: "controller/updateIstanze.php?action=newAllegato",
+                        url: "controller/updateIstanze.php?action=newAllegatoMag",
                         type:"POST",
                         data: formData,
                         dataType: 'json',
