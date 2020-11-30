@@ -69,12 +69,12 @@
                                                                             if(!isUserAdmin()){
                                                                         
                                                                                 if(!$rv['targa']&&!$rv['marca']&&!$rv['modello']&&!$rv['tipo_acquisizione']&&!$rv['costo']){?>
-                                                                            <button type="button" class="btn btn-success btn-sm" onclick="infomodal(<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Inserisci dati veicolo</button>
+                                                                            <button type="button" id="btn_up_<?=$rv['id']?>"class="btn btn-success btn-sm" onclick="infomodal(<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Inserisci dati veicolo</button>
 
                                                                                 <?php 
                                                                             }else{?>
                                                                                                                                                     
-                                                                            <button type="button" class="btn btn-success btn-sm" onclick="infomodalup(<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Aggiorna dati veicolo</button>
+                                                                            <button type="button"  id="btn_up_<?=$rv['id']?>"class="btn btn-success btn-sm" onclick="infomodalup(<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Aggiorna dati veicolo</button>
 
 
                                                                             <?php }

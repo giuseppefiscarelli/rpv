@@ -7,14 +7,18 @@
     $iconType = $_SESSION['success'] ? 'check':'exclamation-triangle';
     require 'view/template/message.php';
     unset($_SESSION['message'],$_SESSION['success']);
-  }                
+  }
+  if(!isUserUser()){
   $id = getParam('id',0);
   if($id){
       $i = getIstanza($id);
-  }else{
+  }
+  }else
+  {
     $utente= $_SESSION['userData']['email'];
     $i = getIstanzaUser($utente);
   }
+
   $rend = checkRend($i['id_RAM']);
   //var_dump($rend);die;
   if(!$rend){

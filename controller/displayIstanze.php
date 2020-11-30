@@ -40,11 +40,10 @@ if(!empty($_SESSION['message'])){
          }else{
           $totalUsers= countIstanze($params);
           $numPages= ceil($totalUsers/$recordsPerPage);
-
-          $istanze = getIstanze($params);
+         $email=$_SESSION['userData']['email'];
+          $istanze = getIstanzeUser($email);
           //var_dump($istanze);
-          $istRend =countRendicontazione(1);
-          $istIstr =countRendicontazione(0);
+         
 
           require_once 'view/istanze/istanze_list.php';
          }
