@@ -40,7 +40,7 @@ $alleampl = getAllegato($ampl,$i['id_RAM'],0);
                                             <thead>
                                                 <tr>
                                                     <th style="width:75%">Tipo</th>
-                                                    <th style="width:11%">Data Upload</th>
+                                                    <th style="width:11%">Data Caricamento</th>
                                                     <th style="width:14%"></th>
                                                 </tr>
                                             </thead>

@@ -198,7 +198,7 @@ require_once 'headerInclude.php';
        
             Swal.fire({ 
                   html:true,
-                  title: "Upload in Corso",
+                  title: "Caricamento in Corso",
                   html:htmltext,
                   type: "info",
                   allowOutsideClick:false,
@@ -271,7 +271,7 @@ require_once 'headerInclude.php';
       
                   Swal.fire({ 
                         html:true,
-                        title: "Upload in Corso",
+                        title: "Caricamento in Corso",
                         html:htmltext,
                         type: "info",
                         allowOutsideClick:false,
