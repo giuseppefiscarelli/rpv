@@ -117,7 +117,7 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                                 
                                 
                                 <td>
-                                <button onclick="window.location.href='istanza.php?id=<?=$i['id']?>'" type="button" class="btn btn-warning" title="Visualizza Istanza"><i class="fa fa-list" aria-hidden="true"></i></button>
+                                <button onclick="window.location.href='istanza.php?id=<?=$i['id_RAM']?>'" type="button" class="btn btn-warning" title="Visualizza Istanza"><i class="fa fa-list" aria-hidden="true"></i></button>
 
                                    
                                 </td>

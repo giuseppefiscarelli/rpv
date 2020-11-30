@@ -23,7 +23,7 @@ function getIstanza(int $id){
 
     $conn = $GLOBALS['mysqli'];
       $result=[];
-      $sql ='SELECT * FROM istanza WHERE id = '.$id;
+      $sql ='SELECT * FROM istanza WHERE id_RAM = '.$id;
       //echo $sql;
       $res = $conn->query($sql);
       
