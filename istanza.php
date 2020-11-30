@@ -81,7 +81,7 @@ require_once 'headerInclude.php';
                                           $("#message2").delay(6000).slideUp(200, function() {
                                                 $(".alert").alert('close')
                                           });
-                                          $("#btn_up_"+)
+                                         // $("#btn_up_"+)
     
 
                                     },
