@@ -72,15 +72,15 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th class="<?=$orderBy === 'id'?$orderDirClass: '' ?> ">
+                                <th class="<?=$orderBy === 'id_RAM'?$orderDirClass: '' ?> ">
                                     <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=id&orderDir=<?=$orderDir?>">id RAM</a></th>
                                 <th class="<?=$orderBy === 'data_invio'?$orderDirClass: '' ?> " >
                                     <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=username&orderDir=<?=$orderDir?>">Data Invio</a></th>
-                                <th class="<?=$orderBy === 'username'?$orderDirClass: '' ?> " >
+                                <th class="<?=$orderBy === 'ragione_sociale'?$orderDirClass: '' ?> " >
                                     <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=username&orderDir=<?=$orderDir?>">Ragione Sociale</a></th>
 
                                 
-                                <th class="<?=$orderBy === 'cognome'?$orderDirClass: '' ?> " >
+                                <th class="<?=$orderBy === 'pec_impr'?$orderDirClass: '' ?> " >
                                     <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=cognome&orderDir=<?=$orderDir?>">Pec Impresa</a></th>    
                                 <th>Stato Istanza</th>
                                 <th>Action</th>

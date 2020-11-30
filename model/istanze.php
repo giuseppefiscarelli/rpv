@@ -91,7 +91,7 @@ function getIstanze( array $params = []){
 
         $conn = $GLOBALS['mysqli'];
 
-        $orderBy = array_key_exists('orderBy', $params) ? $params['orderBy'] : 'id';
+        $orderBy = array_key_exists('orderBy', $params) ? $params['orderBy'] : 'data_invio';
         $orderDir = array_key_exists('orderDir', $params) ? $params['orderDir'] : 'ASC';
         $limit = (int)array_key_exists('recordsPerPage', $params) ? $params['recordsPerPage'] : 10;
         $page = (int)array_key_exists('page', $params) ? $params['page'] : 0;
@@ -119,7 +119,7 @@ function getIstanze( array $params = []){
             $sql .=" AND istanza.id_RAM LIKE '%$search2%' ";
             
           }
-        $sql .= " ORDER BY istanza.$orderBy $orderDir LIMIT $start, $limit";
+        $sql .= " ORDER BY xml.data_invio  $orderDir LIMIT $start, $limit";
         //echo $sql;
 
         $res = $conn->query($sql);
