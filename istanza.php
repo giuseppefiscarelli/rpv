@@ -194,13 +194,15 @@ require_once 'headerInclude.php';
             $('#docModal').modal('toggle');
             var htmltext='<div class="progress"><div class="progress-bar" role="progressbar" id="progress-bar"style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div></div>'
       
-        Swal.fire({ 
-                html:true,
-                title: "Upload in Corso",
-                text:htmltext,
-                icon: "info"
-                
-        });
+      
+      Swal.fire({ 
+            html:true,
+            title: "Upload in Corso",
+            html:htmltext,
+            type: "info",
+            allowOutsideClick:false,
+            showConfirmButton:false
+      });
            
             event.preventDefault();
             tipo=$('#tipo_documento option:selected').attr("data-content")
