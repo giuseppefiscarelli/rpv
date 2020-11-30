@@ -210,7 +210,7 @@
                     $idCat = 'B';
                     require "tabcat.php";  
                   }elseif($ca['ctgi_categoria']=='C'&&$catC){
-                    $idCat =' C';
+                    $idCat ='C';
                     require "tabcat.php";    
                   }elseif($ca['ctgi_categoria']=='D'&&$catD){
                     $idCat = 'D';
