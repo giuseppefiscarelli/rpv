@@ -1,9 +1,9 @@
-                  <div class="collapse-header " id="heading1-sc<?=$ca['ctgi_codice']?>-<?=$idCat?>">
-                    <button data-toggle="collapse" data-target="#collapse1-sc<?=$ca['ctgi_codice']?>-<?=$idCat?>" aria-expanded="<?=$ca['ctgi_codice']==1?'true':'false'?>" aria-controls="collapse1-sc<?=$ca['ctgi_codice']?>-<?=$idCat?>">
+                  <div class="collapse-header " id="heading1-sc<?=$ca['ctgi_codice']?>">
+                    <button data-toggle="collapse" data-target="#collapse1-sc<?=$ca['ctgi_codice']?>" aria-expanded="<?=$ca['ctgi_codice']==1?'true':'false'?>" aria-controls="collapse1-sc<?=$ca['ctgi_codice']?>-<?=$idCat?>">
                        Categoria <?=utf8_decode($ca['ctgi_categoria'])?><br> <small><?=$ca['ctgi_descrizione']?></small>
                     </button>
                   </div>
-                  <div id="collapse1-sc<?=$ca['ctgi_codice']?>" class="collapse" role="tabpanel" aria-labelledby="heading1-sc<?=$ca['ctgi_codice']?>-<?=$idCat?>" data-parent="#collapseDiv1-sc1">
+                  <div id="collapse1-sc<?=$ca['ctgi_codice']?>" class="collapse" role="tabpanel" aria-labelledby="heading1-sc<?=$ca['ctgi_codice']?>" data-parent="#collapseDiv1-sc1">
                     <div class="collapse-body">
 
                         <div class="bd-example-tabs">
