@@ -85,7 +85,7 @@
                           <tbody>
                               <tr>
                               <th scope="row">Ragione Sociale</th>
-                              <td><?=$i['cognome']?></td>
+                              <td><?=$i['ragione_sociale']?></td>
                               
                               </tr>
                               <tr>
