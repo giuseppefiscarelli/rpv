@@ -93,7 +93,7 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                                       $status=checkRend($i['id_RAM']);?>
                             <tr>
                                 <td><?=$i['id_RAM']?></td>
-                                <td><?=date("d/m/Y",strtotime($i['data_invio']))?></td></td>
+                                <td><?=date("d/m/Y H:i",strtotime($i['data_invio']))?></td></td>
                                 <td><?=$i['ragione_sociale']?></td>
                                 <td><?=$i['pec']?></td>
                                 <?php
