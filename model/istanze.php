@@ -110,16 +110,16 @@ function getIstanze( array $params = []){
 
         
 
-        $sql = 'SELECT * FROM istanza';
+        $sql ="SELECT * FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and (istanza.eliminata is null or trim(eliminata) = '') and xml.data_invio between '2020-10-01 10:00:00' and '2020-11-16 08:00:00'";
         if ($search1){
-          $sql .=" WHERE pec_impr LIKE '%$search1%' ";
+          $sql .=" AND xml.pec LIKE '%$search1%' ";
           
         }
         if ($search2){
-            $sql .=" WHERE email_impr LIKE '%$search2%' ";
+            $sql .=" AND istanza.id_RAM LIKE '%$search2%' ";
             
           }
-        $sql .= " ORDER BY $orderBy $orderDir LIMIT $start, $limit";
+        $sql .= " ORDER BY istanza.$orderBy $orderDir LIMIT $start, $limit";
         //echo $sql;
 
         $res = $conn->query($sql);
@@ -157,15 +157,15 @@ function countIstanze( array $params = []){
 
         
 
-        $sql = 'SELECT COUNT(*) as totalUser FROM istanza';
+        $sql ="SELECT count(*) as totalUser FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and (istanza.eliminata is null or trim(eliminata) = '') and xml.data_invio between '2020-10-01 10:00:00' and '2020-11-16 08:00:00'";
         if ($search1){
-            $sql .=" WHERE pec_impr LIKE '%$search1%' ";
+          $sql .=" AND xml.pec LIKE '%$search1%' ";
+          
+        }
+        if ($search2){
+            $sql .=" AND istanza.id_RAM LIKE '%$search2%' ";
             
           }
-          if ($search2){
-              $sql .=" WHERE email_impr LIKE '%$search2%' ";
-              
-            }
         
 
         $res = $conn->query($sql);

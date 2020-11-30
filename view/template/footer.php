@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
         $( document ).ready(function() {
-            $('#message').delay(3000).fadeOut();
+           $('#message').delay(3000).fadeOut();
         });
         $(window).on( 'scroll', function(){
             var team = $('#header_menu').offset().top;

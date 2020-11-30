@@ -306,8 +306,8 @@
                                                         
                                                           <div class="bootstrap-select-wrapper" style="margin-top:50px;">
                                                               <label for="roletype" >Tipo Acquisizione</label>
-                                                              <select class="form-control" accept="application/pdf" id="tipo_acquisizione" name="tipo_acquisizione" required >
-                                                                  <option disabled>Scegli una opzione</option>
+                                                              <select title="Scegli una opzione"  class="selectpicker required" id="tipo_acquisizione" name="tipo_acquisizione"  >
+                                                                  
                                                                   <option value="01">Acquisto</option>
                                                                   <option value="02">Leasing</option>
                                                                   

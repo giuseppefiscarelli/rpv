@@ -42,5 +42,7 @@ if(!empty($_SESSION['message'])){
           $numPages= ceil($totalUsers/$recordsPerPage);
 
           $istanze = getIstanze($params);
+          //var_dump($istanze);
+
           require_once 'view/istanze/istanze_list.php';
          }

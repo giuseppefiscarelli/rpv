@@ -394,9 +394,9 @@ require_once 'headerInclude.php';
       }     
       function infomodal(id){
          $('#form_infovei')[0].reset();
-         $("#tipo_acquisizione").html('<option value="" disabled>Scegli una opzione</option><option value="01">Acquisto</option><option value="02">Leasing</option>');
-        
-         $("#tipo_acquisizione").val('').selectpicker("refresh");
+         $("#tipo_acquisizione").html('<option value="01">Acquisto</option><option value="02">Leasing</option>');
+         $("#tipo_acquisizione").prop('required',true);
+         $("#tipo_acquisizione").selectpicker("refresh");
 
             //alert(id);
             $("#infoModal").modal("toggle");
@@ -762,9 +762,14 @@ require_once 'headerInclude.php';
             return string.charAt(0).toUpperCase() + string.slice(1);
       }
       function closeRend(id_ram){
-            Swal.fire({
+            check=checkIstanza();
+            console.log(check);
+            textAlert="";
+            if(check==0){
+                  Swal.fire({
+                  
                   title: 'Vuoi chiudere la Rendicontazione?',
-                  text: "Non potrai più aggiornarla",
+                  html: "Non potrai più aggiornarla",
                   icon: 'warning',
                   showCancelButton: true,
                   confirmButtonColor: '#3085d6',
@@ -796,6 +801,64 @@ require_once 'headerInclude.php';
                         }
                   })
 
+            }else{
+             textAlert= check; 
+             Swal.fire({
+                  
+                  title: 'La rendicontazione è incompleta! ',
+                  html: textAlert,
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'SI Procedi!',
+                  cancelButtonText: 'NO, Annulla!'
+                  }).then((result) => {
+                        if (result.isConfirmed) {
+                              Swal.fire({
+                              
+                              title: 'Vuoi chiudere la Rendicontazione?',
+                              html: "Non potrai più aggiornarla",
+                              icon: 'warning',
+                              showCancelButton: true,
+                              confirmButtonColor: '#3085d6',
+                              cancelButtonColor: '#d33',
+                              confirmButtonText: 'SI Chiudila!',
+                              cancelButtonText: 'NO, Annulla!'
+                              }).then((result) => {
+                                    if (result.isConfirmed) {
+                                          $.ajax({
+                                                url: "controller/updateIstanze.php?action=closeRend",
+                                                data: {id_ram:id_ram},
+                                                dataType: "json",
+                                                success: function(results){
+                                                
+                                                      if(results)
+                                                      {
+                                                            Swal.fire(
+                                                                  'Rendicontazione Chiusa!',
+                                                                  'La rendicontazione è stata chiusa correttamente.',
+                                                                  'success'
+                                                            )
+                                                      }
+                                                      //console.log(results)
+                                                }
+
+                                          })
+
+
+                                    }
+                              })
+
+
+
+
+                        }
+                  })    
+
+            }
+           
+
 
       }
       function testDate(str) {
@@ -826,6 +889,41 @@ require_once 'headerInclude.php';
                 
             });
       }   
+
+      function checkIstanza(){
+
+            veiok=0;
+            veitot=0
+            //checkvei=$("[id^=ch_p_]").html();
+            //console.log(checkvei);
+            $("[id^=ch_p_]").each(function() {
+                  value=$(this).text()
+                       //console.log(value)
+                       value = parseFloat(value);
+                       if(!isNaN(value) && value.length != 0) {
+                        veiok += value;
+                       }
+   
+                      
+                   });
+            $("[id^=ch_t_]").each(function() {
+                  valuet=$(this).text()
+                       //console.log(value)
+                       valuet = parseFloat(valuet);
+                       if(!isNaN(valuet) && valuet.length != 0) {
+                        veitot += valuet;
+                       }
+   
+                      
+                   });
+
+                   if(veitot==veiok){
+                         return 0;
+                   }else{
+                         return "<b>Hai inserito i documenti di "+veiok+" veicoli su "+ veitot+"!</b><br>Vuoi Procedere con la Chiusura?";
+                   }
+                 
+      }
             
 </script>
 

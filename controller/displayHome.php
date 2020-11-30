@@ -31,6 +31,11 @@ if(!empty($_SESSION['message'])){
          // $users = getUsers($params);
           //var_dump($users);
           if(isUserSuadmin()){
+            require_once 'model/istanze.php';
+            $totalIstanze= countIstanze($params);
+         
+             $istanze = getIstanze($params);
+
 
             require 'view/home/homeSuadmin.php';
           }

@@ -16,15 +16,15 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                    Ricerca
                 </h4>
                 <div class="form-group row">
-                  <label for="search1" class="col-sm-6 col-form-label">Email Richiedente</label>
+                  
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" id="search1" name="search1" value="<?=$search1?>" placeholder="Inserisci Email Richiedente">
+                    <input type="text" class="form-control" id="search1" name="search1" value="<?=$search1?>" placeholder="Inserisci Pec Richiedente">
                   </div>
                 </div> 
                 <div class="form-group row">
-                  <label for="search1" class="col-sm-6 col-form-label">Email Impresa</label>
+                 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" id="search2" name="search2" value="<?=$search2?>" placeholder="Inserisci Email Impresa">
+                    <input type="text" class="form-control" id="search2" name="search2" value="<?=$search2?>" placeholder="Inserisci Id Protocollo RAM ">
                   </div>
                 </div>    
 
@@ -73,33 +73,47 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                         <thead>
                             <tr>
                                 <th class="<?=$orderBy === 'id'?$orderDirClass: '' ?> ">
-                                    <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=id&orderDir=<?=$orderDir?>">id</a></th>
-                                <th class="<?=$orderBy === 'username'?$orderDirClass: '' ?> " >
-                                    <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=username&orderDir=<?=$orderDir?>">data</a></th>
+                                    <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=id&orderDir=<?=$orderDir?>">id RAM</a></th>
+                                <th class="<?=$orderBy === 'data_invio'?$orderDirClass: '' ?> " >
+                                    <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=username&orderDir=<?=$orderDir?>">Data Invio</a></th>
                                 <th class="<?=$orderBy === 'username'?$orderDirClass: '' ?> " >
                                     <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=username&orderDir=<?=$orderDir?>">Ragione Sociale</a></th>
 
-                                <th class="<?=$orderBy === 'roletype'?$orderDirClass: '' ?> " >
-                                    <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=roletype&orderDir=<?=$orderDir?>">Email richiedente</a></th>
-                                <th class="<?=$orderBy === 'email'?$orderDirClass: '' ?> " >
-                                    <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=email&orderDir=<?=$orderDir?>">Email impresa</a></th>
-                                <th class="<?=$orderBy === 'cognome'?$orderDirClass: '' ?> " >
-                                    <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=cognome&orderDir=<?=$orderDir?>">pec</a></th>    
                                 
+                                <th class="<?=$orderBy === 'cognome'?$orderDirClass: '' ?> " >
+                                    <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=cognome&orderDir=<?=$orderDir?>">Pec Impresa</a></th>    
+                                <th>Stato Istanza</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                                 if ($istanze){
-                                    foreach ($istanze as $i){?>
+                                    foreach ($istanze as $i){
+                                      $status=checkRend($i['id_RAM']);?>
                             <tr>
-                                <td><?=$i['id']?></td>
-                                <td>data</td>
+                                <td><?=$i['id_RAM']?></td>
+                                <td><?=date("d/m/Y",strtotime($i['data_invio']))?></td></td>
                                 <td><?=$i['ragione_sociale']?></td>
-                                <td><?=$i['email_richiedente']?></td>
-                                <td><?=$i['email_impr']?></td>
-                                <td><?=$i['pec_impr']?></td>
+                                <td><?=$i['pec']?></td>
+                                <td><?php
+                                 if($status){
+
+                                  if($status['aperta']==true){?>
+                                    <span class="badge badge-primary">In Rendicontazione</span>
+                                  <?php
+                                  }else{?>
+                                    <span class="badge badge-success">In Istruttoria</span><br>
+                                    Rendicondazione chiusa il <?=date("d/m/Y",strtotime($status['data_chiusura']))?>
+                                  <?php
+                                  }
+          
+                                }else{?>
+                                  <span class="badge badge-warning">Attiva</span>
+                                <?php
+                                }
+                                ?></td>
+                               
                                 
                                 
                                 <td>

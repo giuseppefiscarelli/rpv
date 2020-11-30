@@ -63,12 +63,10 @@
     return $result;
     
   }
-
   function isUserLoggedin(){
 
     return $_SESSION['loggedin'] ?? false;
   }
-
   function getUserLoggedInFullname(){
     return $_SESSION['userData']['username'] ?? '';
   }
@@ -77,47 +75,33 @@
   }
   function getUserRole(){
     return $_SESSION['userData']['roletype'] ?? '';
-  }
-
-  
-  
+  } 
   function isUserAdmin(){
     return getUserRole() === 'admin';
   }
-
   function isUserSuadmin(){
     return getUserRole() === 'suadmin';
   }
-
   function isUserUser(){
     return getUserRole() === 'user';
-  }
-  
+  } 
   function isUserEditor(){
     return getUserRole() === 'editor';
   }
-
-
   function getUserLoggedInName(){
 
     $extName = $_SESSION['userData']['nome'].' '.$_SESSION['userData']['cognome'];
     return $extName ?? '';
   }
-
   function getUserLoggedEmail(){
     return $_SESSION['userData']['email'] ?? '';
   }
-
-  
-  
-
   function getConfig($param, $default = null){
 
       $config = require 'config.php';
 
       return array_key_exists($param, $config) ? $config[$param] : $default;
   }
-
   function getUsers( array $params = []){
 
       /**
@@ -195,7 +179,6 @@
     return $result;
 
   }
-
   function countUsers( array $params = []){
 
     /**
@@ -233,15 +216,11 @@
     return $totalUser;
 
   }
-  
-
   function getParam ($param, $default = null){
 
     return !empty($_REQUEST[$param])? $_REQUEST[$param]: $default;
   
-  }
-
-  
+  } 
   function getSubMenu1($subParMenu){
 
     /**
@@ -269,8 +248,7 @@
 
     return $records;
 
-  }
-  
+  } 
   function checkAuthPage($authPage,$authThisPage){
 
     /**
@@ -298,8 +276,7 @@
 
     return $records;
 
-  }
-   
+  }   
   function isMobile() {
     return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
   }
@@ -389,6 +366,6 @@
     }else{
       $result -1;  
     }
-  return $result;
+    return $result;
   }
   
