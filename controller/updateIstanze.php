@@ -182,7 +182,7 @@ switch ($action){
       
       $json = array(
         "allegato" => $res,
-        "test" =>$res
+        //"test" =>$res
         
       );
       echo json_encode($json);
