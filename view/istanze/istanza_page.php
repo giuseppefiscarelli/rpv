@@ -203,12 +203,17 @@
 
               foreach($cat as $ca){
                   if($ca['ctgi_categoria']=='A'&&$catA){
+                    $idCat = 'A';
+
                       require "tabcat.php";
                   }elseif($ca['ctgi_categoria']=='B'&&$catB){
+                    $idCat = 'B';
                     require "tabcat.php";  
                   }elseif($ca['ctgi_categoria']=='C'&&$catC){
+                    $idCat =' C';
                     require "tabcat.php";    
                   }elseif($ca['ctgi_categoria']=='D'&&$catD){
+                    $idCat = 'D';
                       require "tabcat.php";   
                   }
                 }?>  
