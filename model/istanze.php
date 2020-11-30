@@ -757,7 +757,7 @@ function newAllegato($data){
   $docu_id_file_archivio = $conn->escape_string($data['docu_id_file_archivio']);
   $json_data = array_key_exists('json_data', $data)? $data['json_data']:'';
   
-  $note = array_key_exists('note_allegato', $data)? $data['note_allegato']:' ';
+  $note = array_key_exists('note_allegato', $data)? addslashes($data['note_allegato']):' ';
   $attivo ="s";
   $user = $_SESSION['userData']['email'];
 

@@ -46,7 +46,7 @@ switch ($action){
       
        array_splice($json,0,3);
 
-       $data['json_data'] = json_encode($json);
+       $data['json_data'] = addslashes(json_encode($json));
       /* var_dump($data['json_data']);
        
        die;
