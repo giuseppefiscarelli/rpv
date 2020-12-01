@@ -1259,6 +1259,12 @@ function closeRend($id_ram){
   
   if($res ){
     $result =  $conn->affected_rows;
+    $log=[];
+        $log['user']['email']=$_SESSION['userData']['email'];
+        $log['log_funzione']="Chiusura Rendicontazione";
+        $log['message']="Chiusura";
+        $log['success']=true;
+        writelog($log);
     
   }else{
     $result -1;  

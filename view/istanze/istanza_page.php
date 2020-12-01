@@ -1,4 +1,4 @@
-<h3 class="card-title">Istanza n° <?=date("Y")?>/<?=$i['id_RAM']?></h3>
+<h3 class="card-title">Istanza n° <?=$i['id_RAM']?>/<?=date("Y")?></h3>
 
 
 
