@@ -200,7 +200,21 @@ function prova(){
 </script>
 
 
+<form id="test">
+<div class="bootstrap-select-wrapper">
+  <label>Etichetta</label>
+  <select title="Scegli una opzione" id="testselect"required="required">
+    <option value="Value 1">Opzione 1</option>
+    <option value="Value 2">Opzione 2</option>
+    <option value="Value 3">Opzione 3</option>
+    <option value="Value 4">Opzione 4</option>
+    <option value="Value 5">Opzione 5</option>
+  </select>
+</div>
 
+
+<button type="submit" name="" id="testbtn" onclick="testbtn();"class="btn btn-primary btn-lg btn-block"></button>
+</form>
 
       </div>
       
@@ -214,9 +228,18 @@ function prova(){
         $( document ).ready(function() {
             $('#message').delay(3000).fadeOut();
         });
+   
+$('#testbtn').on('click', function(){
 
-        
-       
+val= $('#testselect option:selected').val()
+
+if(val==""){
+  alert(val);
+  return false;
+  break;
+}
+
+})
 </script> 
   </body>
   <script>

@@ -48,6 +48,8 @@ require_once 'headerInclude.php';
       
       });  
       $('#form_infovei').submit(function( event ) {
+            prog=$('#info_prog').val()
+            console.log(prog)
             idvei = $('#info_idvei').val()
             targa=$('#targa').val()
             marca=$('#marca').val()
@@ -81,7 +83,11 @@ require_once 'headerInclude.php';
                                           $("#message2").delay(6000).slideUp(200, function() {
                                                 $(".alert").alert('close')
                                           });
-                                         // $("#btn_up_"+)
+                                          $("#btn_up_"+prog+"_"+idvei).attr('onclick','infomodalup('+prog+','+idvei+');')
+                                          html='<i class="fa fa-info" aria-hidden="true"></i> Aggiorna dati veicolo'
+                                          $("#btn_up_"+prog+"_"+idvei).html(html)
+                                          htmlck ='<i class="fa fa-check" style="color:green" aria-hidden="true"></i> Dati Veicolo presenti'
+                                          $("#ckeck_info_vei_"+prog+"_"+idvei).html(htmlck)
     
 
                                     },
@@ -140,7 +146,7 @@ require_once 'headerInclude.php';
                                            if (v.tipo_valore=='t'){
                                                 field='<div class="form-group" style="margin-top: inherit;">'
                                                 field+='<label for="'+namecampo+'">'+v.nome_campo+'</label>'
-                                                field+='<input type="text" class="form-control" id="'+namecampo+'" name="'+namecampo+'" >'
+                                                field+='<input oninput="this.value = this.value.toUpperCase();" type="text" class="form-control" id="'+namecampo+'" name="'+namecampo+'" >'
                                                 field+='</div>'
                                                
                                                 $('#campi_allegati').append(field)
@@ -149,7 +155,7 @@ require_once 'headerInclude.php';
                                            if (v.tipo_valore=='i'){
                                                 field='<label for="'+namecampo+'" class="input-number-label">'+v.nome_campo+'</label>'
                                                 field+='<span class="input-number input-number-currency">'
-                                                field+='<input type="number" id="'+namecampo+'" name="'+namecampo+'" value="0"  >'
+                                                field+='<input type="number" id="'+namecampo+'" name="'+namecampo+'" step="any" value="0"  >'
                                                 field+='</span>'
                                                 
                                                 $('#campi_allegati').append(field)
@@ -158,7 +164,7 @@ require_once 'headerInclude.php';
                                            if (v.tipo_valore=='n'){
                                                 field='<label for="'+namecampo+'" class="input-number-label">'+v.nome_campo+'</label>'
                                                 field+='<span class="input-number">'
-                                                field+='<input type="number" id="'+namecampo+'" name="'+namecampo+'" value="0" >'
+                                                field+='<input type="number" id="'+namecampo+'" name="'+namecampo+'" step="any" value="0" >'
                                                 field+='</span>'
                                               
                                                 $('#campi_allegati').append(field)
@@ -358,7 +364,11 @@ require_once 'headerInclude.php';
 
       }
       function infoAlle(id){
-
+            const formatter = new Intl.NumberFormat('it-IT', {
+                  style: 'currency',
+                  currency: 'EUR',
+                  minimumFractionDigits: 2
+            })
             $('#infoAllegato').modal('toggle');
             $('#info_tab_alle tbody').empty();
             $.ajax({
@@ -376,6 +386,10 @@ require_once 'headerInclude.php';
                                     campo = k.split("_")
                                     campo= capitalizeFirstLetter(campo[0])+' '+ capitalizeFirstLetter(campo[1])
                                     console.log(campo)
+                                    if(campo=="Importo "){
+                                          v = formatter.format(v);
+
+                                    }
                                     $('#info_tab_alle').append('<tr><td>'+campo+'</td><td>'+v+'</td></tr>');
 
                               });
@@ -395,7 +409,7 @@ require_once 'headerInclude.php';
 
 
       }     
-      function infomodal(id){
+      function infomodal(prog,id){
          $('#form_infovei')[0].reset();
          $("#tipo_acquisizione").html('<option value="01">Acquisto</option><option value="02">Leasing</option>');
          $("#tipo_acquisizione").prop('required',true);
@@ -404,6 +418,7 @@ require_once 'headerInclude.php';
             //alert(id);
             $("#infoModal").modal("toggle");
             $("#info_idvei").val(id);
+            $("#info_prog").val(prog);
 
       } 
       function infomodalup(id){
@@ -483,7 +498,8 @@ require_once 'headerInclude.php';
                 
 
                   
-      }     
+      } 
+      /////////////////////    
       function tipDoc(tip){
        $('#row_doc').empty();
 
@@ -529,10 +545,10 @@ require_once 'headerInclude.php';
                                     // ';
                                     input+='<label for="'+id+'" class="input-number-label">'+v.nome_campo+'</label>'
                                     input +='<span class="input-number input-number-currency">'
-                                    input +='<input type="number" id="'+id+'" name="'+id+'" value="0.00" min="0">'
+                                    input +='<input type="number" id="'+id+'" name="'+id+'" step="any" value="0.00" min="0">'
                                    
                                     //input +='<button class="input-number-add">'
-                                   // input +='<span class="sr-only">Aumenta valore Euro</span>'
+                                   // input +='<span class="sr-only">Aumenta valore Euro</spstep="any"an>'
                                     ////input +='</button>'
                                     //input +='<button class="input-number-sub">'
                                     //input +='<span class="sr-only">Diminuisci valore Euro</span>'

@@ -32,7 +32,7 @@
 
                                                         }?>
                                                         <div class="row">
-                                                <small class="form-text text-muted" style="padding-left:50px"><i class="fa fa-<?=$icon?>" style="color:<?=$color?>;"aria-hidden="true"></i> Dati Veicolo<?=$text?> presenti</small>
+                                                <small class="form-text text-muted" id="ckeck_info_vei_<?=$rv['progressivo']?>_<?=$rv['id']?>" style="padding-left:50px"><i class="fa fa-<?=$icon?>" style="color:<?=$color?>;"aria-hidden="true"></i> Dati Veicolo<?=$text?> presenti</small>
                                                 <?php
                                                         $colorDoc="red";
                                                         
@@ -69,12 +69,12 @@
                                                                             if(!isUserAdmin()&&$rend['aperta']==1){
                                                                         
                                                                                 if(!$rv['targa']&&!$rv['marca']&&!$rv['modello']&&!$rv['tipo_acquisizione']&&!$rv['costo']){?>
-                                                                            <button type="button" id="btn_up_<?=$rv['progressivo']?>_<?=$rv['id']?>"class="btn btn-success btn-sm" onclick="infomodal(<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Inserisci dati veicolo</button>
+                                                                            <button type="button" id="btn_up_<?=$rv['progressivo']?>_<?=$rv['id']?>"class="btn btn-success btn-sm" onclick="infomodal(<?=$rv['progressivo']?>,<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Inserisci dati veicolo</button>
 
                                                                                 <?php 
                                                                             }else{?>
                                                                                                                                                     
-                                                                            <button type="button"  id="btn_up_<?=$rv['progressivo']?>_<?=$rv['id']?>"class="btn btn-success btn-sm" onclick="infomodalup(<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Aggiorna dati veicolo</button>
+                                                                            <button type="button"  id="btn_up_<?=$rv['progressivo']?>_<?=$rv['id']?>"class="btn btn-success btn-sm" onclick="infomodalup(<?=$rv['progressivo']?>,<?=$rv['id']?>);" ><i class="fa fa-info" aria-hidden="true"></i> Aggiorna dati veicolo</button>
 
 
                                                                             <?php }

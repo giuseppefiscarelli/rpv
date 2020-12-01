@@ -24,4 +24,4 @@ input max size html
 impoerto 
 
 
-se infoveicolo select leasing =>includi tipo documento 9
+se infoveicolo select acquisto =>escudi tipo documento 9

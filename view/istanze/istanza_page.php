@@ -287,6 +287,7 @@
                                                       <div class="container">
                                                         <form method="post" id="form_infovei">
                                                           <input type="hidden" id="info_idvei" value="" >
+                                                          <input type="hidden"id="info_prog" value="">
                                                           <div class="form-group">
                                                               <input type="text" required placeholder="Inserire targa" oninput="this.value = this.value.toUpperCase();"value="<?=$rv['targa']?>" class="form-control" id="targa" name="targa" required>
                                                           
@@ -305,7 +306,7 @@
                                                           </div>
                                                           <label for="costo" class="input-number-label" style="margin-top: -25px;">Costo</label>
                                                           <span class="input-number input-number-currency">
-                                                            <input type="number" id="costo" name="costo" value="0.00" min="1.00" required>
+                                                            <input type="number" id="costo" name="costo" value="0.00" step="any"min="1.00" required>
                                                             
                                                           </span>
                                                         
