@@ -421,7 +421,7 @@ require_once 'headerInclude.php';
             $("#info_prog").val(prog);
 
       } 
-      function infomodalup(id){
+      function infomodalup(prog,id){
 
             //alert(id);
             $("#infoModal").modal("toggle");
