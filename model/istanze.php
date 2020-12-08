@@ -35,7 +35,6 @@ function getIstanza(int $id){
   
   
 }
-
 function getIstanzaUser($email){
 
   /**
@@ -309,18 +308,9 @@ function createSrtructure($data){
   $tip_vei_5=$data['nv5'];
   $tip_vei_6=$data['nv6'];
   $tip_vei_7=$data['nv7'];
-  $tip_vei_8=$data['nv8'];
-  $tip_vei_9=$data['nv9'];
-  $tip_vei_10=$data['nv10'];
-  $tip_vei_11=$data['nv11'];
-  $tip_vei_12=min($data['r_nv_1'],$data['r_rott_1']);
-  $tip_vei_13=min($data['r_nv_2'],$data['r_rott_2']);
-  $tip_vei_14=min($data['r_nv_3'],$data['r_rott_3']);
-  $tip_vei_15=$data['nr_1'];
-  $tip_vei_16=$data['nr_2'];
-  $tip_vei_17=$data['ng_1'];
+ 
 
- for ($i = 1; $i<=17;++$i){
+ for ($i = 1; $i<=7;++$i){
       $tipo = "tip_vei_$i";
       //$tipo = intval($tipo);
       //var_dump($$tipo);
@@ -1274,7 +1264,6 @@ function closeRend($id_ram){
 
 
 }
-
 function countRendicontazione($stato){
 
   /**

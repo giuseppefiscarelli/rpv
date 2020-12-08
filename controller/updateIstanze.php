@@ -225,4 +225,10 @@ switch ($action){
 
       echo json_encode($res);
     break;
+
+    case 'countDocVeicolo':
+      $tipo_veicolo = $_REQUEST['tipo_veicolo'];
+      $res = countDocVeicolo($tipo_veicolo);
+      echo  json_encode($res);
+    break;
    }

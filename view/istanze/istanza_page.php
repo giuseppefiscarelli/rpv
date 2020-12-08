@@ -195,11 +195,12 @@
               $cat=getCatInc();
               $accord=1; 
 
-              $catA=$i['nv1']||$i['nv2']||$i['nv3']||$i['nv4']||$i['nv5']||$i['nv6']||$i['nv7']||$i['nv8']||$i['nv9']||$i['nv10']||$i['nv11'];
-              $catB=$i['r_nv_1']||$i['r_nv_2']||$i['r_nv_3'];
-              $catC=$i['nr_1']||$i['nr_2'];
-              $catD=$i['ng_1'];
-
+             // $catA=$i['nv1']||$i['nv2']||$i['nv3']||$i['nv4']||$i['nv5']||$i['nv6']||$i['nv7']||$i['nv8']||$i['nv9']||$i['nv10']||$i['nv11'];
+             $catA=$i['nv1']||$i['nv2']||$i['nv3']||$i['nv4'];
+              //categoria A da 1 a 4 ..... cat b da 5 a 7
+              $catB=$i['nv5']||$i['nv6']||$i['nv7'];
+              
+ 
 
               foreach($cat as $ca){
                   if($ca['ctgi_categoria']=='A'&&$catA){
@@ -209,13 +210,7 @@
                   }elseif($ca['ctgi_categoria']=='B'&&$catB){
                    
                     require "tabcat.php";  
-                  }elseif($ca['ctgi_categoria']=='C'&&$catC){
-                   
-                    require "tabcat.php";    
-                  }elseif($ca['ctgi_categoria']=='D'&&$catD){
-                   
-                      require "tabcat.php";   
-                  }
+                  } 
                 }?>  
 
             </div>
@@ -288,6 +283,7 @@
                                                         <form method="post" id="form_infovei">
                                                           <input type="hidden" id="info_idvei" value="" >
                                                           <input type="hidden"id="info_prog" value="">
+                                                          <input type="hidden" id="info_tipo_veicolo" value="">
                                                           <div class="form-group">
                                                               <input type="text" required placeholder="Inserire targa" oninput="this.value = this.value.toUpperCase();"value="<?=$rv['targa']?>" class="form-control" id="targa" name="targa" required>
                                                           

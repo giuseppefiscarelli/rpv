@@ -51,7 +51,7 @@
                                                         ?>
                                                 <small id="check_vei_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>" class="form-text text-muted" style="padding-left:50px"><i class="fa fa-<?=$iconDoc?>" style="color:<?=$colorDoc?>;"aria-hidden="true"></i> 
 
-                                                Documenti veicoli caricati <b id="c_p_d_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>"><?=$countDocVeicoloInfo?></b> di <b id="c_t_d_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>"><?=$countDocVeicolo?></b></small>
+                                                Documenti veicoli caricati <b id="c_p_d_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>"><?=$countDocVeicoloInfo?></b> di <b id="c_t_d_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>"><?=$rv['tipo_acquisizione']=='01'?$countDocVeicolo-1:$countDocVeicolo?></b></small>
                                             </div>
                                                                 
                                             </div>
@@ -129,7 +129,7 @@
                                                                            if(!isUserAdmin()&&$rend['aperta']==1){?>
                                                                         <tr>
                                                                             <th colspan="5">
-                                                                                <button type="button" class="btn btn-success btn-sm" onclick="docmodal(<?=$rv['progressivo']?>,<?=$rv['tipo_veicolo']?>,<?=$rv['id_RAM']?>);" ><i class="fa fa-upload" aria-hidden="true"></i> Carica documento</button>
+                                                                                <button type="button" id="btn_docmodal_<?=$rv['tipo_veicolo']?>" class="btn btn-success btn-sm" onclick="docmodal(<?=$rv['progressivo']?>,<?=$rv['tipo_veicolo']?>,<?=$rv['id_RAM']?>,'<?=$rv['id']?>');" ><i class="fa fa-upload" aria-hidden="true"></i> Carica documento</button>
                                                                             </th>
                                                                         
                                                                         </tr>

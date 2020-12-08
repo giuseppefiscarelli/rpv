@@ -49,12 +49,14 @@ require_once 'headerInclude.php';
       });  
       $('#form_infovei').submit(function( event ) {
             prog=$('#info_prog').val()
-            console.log(prog)
+            //console.log(prog)
             idvei = $('#info_idvei').val()
             targa=$('#targa').val()
             marca=$('#marca').val()
-            modello=$('#modello').val()
+            modello=$('#modello').val() 
             costo=$('#costo').val()
+            tipo_veicolo = $('#info_tipo_veicolo').val()
+            totdoc =getTotDoc(tipo_veicolo)
             tipo=$('#tipo_acquisizione option:selected').val()
                               $.ajax({
                                     type: "POST",
@@ -63,6 +65,9 @@ require_once 'headerInclude.php';
                                     dataType: "html",
                                     success: function(msg)
                                     {     
+                                          
+                                          //console.log(totdoc)
+                                          
                                           $('#targa_'+idvei).html(targa)
                                           $('#marca_'+idvei).html(marca)
                                           $('#modello_'+idvei).html(modello)
@@ -71,9 +76,15 @@ require_once 'headerInclude.php';
                                           $('#costo_'+idvei).html(deuro)
                                           if(tipo=='01'){
                                                 tipo="Acquisto";
+                                                checkdoc = $('#c_t_d_'+tipo_veicolo+'_'+prog).html()
+                                                checkdoc = parseInt(checkdoc)
+                                                checkdoc =parseInt(totdoc)-1;
+                                                $('#c_t_d_'+tipo_veicolo+'_'+prog).html(checkdoc)
+
                                           }
                                           if(tipo=='02'){
                                                 tipo='Leasing';
+                                                $('#c_t_d_'+tipo_veicolo+'_'+prog).html(parseInt(totdoc))
                                           }
                                           $('#tipo_acquisizione_'+idvei).html(tipo)
                                           alert='<div id="message2"style="position: fixed;z-index: 1000;right: 0;bottom: 0px;">' 
@@ -116,8 +127,8 @@ require_once 'headerInclude.php';
                                     success: function(results){     
                                         
                                           $.each(results,function(k,v){
-                                               console.log(k)
-                                               console.log(v)
+                                               //console.log(k)
+                                               //console.log(v)
                                                
                                                   
                                                required= v.richiesto
@@ -128,7 +139,7 @@ require_once 'headerInclude.php';
                                                      req=false
                                                }
                                                //conter=1
-                                               console.log(req)
+                                               //console.log(req)
                                                var namecampo = v.nome_campo.replace(" ", "_");
                                             
                                            if (v.tipo_valore=='d'){
@@ -214,7 +225,7 @@ require_once 'headerInclude.php';
             event.preventDefault();
             tipo=$('#tipo_documento option:selected').attr("data-content")
             tipo= tipo.replace(/(<([^>]+)>)/ig,"");
-            console.log(tipo)
+           // console.log(tipo)
             formData = new FormData(this);
             
                   $.ajax({
@@ -287,14 +298,14 @@ require_once 'headerInclude.php';
             event.preventDefault();
             tipo=$('#tipo_alle').val()
             //tipo= tipo.replace(/(<([^>]+)>)/ig,"");
-            console.log(tipo)
+            //console.log(tipo)
             formData = new FormData(this);
             
                   $.ajax({
                               xhr: function() {
                               var xhr = new window.XMLHttpRequest();
                               xhr.upload.addEventListener("progress", function(evt) {
-                                    console.log(evt)
+                                    //console.log(evt)
                                   if (evt.lengthComputable) {
                                       var percentComplete = ((evt.loaded / evt.total) * 100);
                                       //console.log(evt)
@@ -345,7 +356,26 @@ require_once 'headerInclude.php';
       $('#docModal').on('hidden.bs.modal', function (e) {
             $('#campi_allegati').empty();
       }) 
-      
+      function getTotDoc(tipo){
+            $.ajax({
+                        type: "POST",
+                        url: "controller/updateIstanze.php?action=countDocVeicolo",
+                        data: {tipo_veicolo:tipo},
+                        dataType: "json",
+                        success: function(data){
+                             // console.log("conta documenti "+data)
+                             totdoc = parseInt(data)
+                             //console.log("conta documenti "+data)
+                              return totdoc;
+                            
+                                                          
+                        }
+                       
+                  })
+
+               //   return totdoc;
+
+      }
       function getCampo(cod){
             $.ajax({
                         type: "POST",
@@ -377,15 +407,15 @@ require_once 'headerInclude.php';
                         data: {id:id},
                         dataType: "json",
                         success: function(data){
-                              console.log(data)
-                              console.log(data['allegato'].json_data)
+                              //console.log(data)
+                             // console.log(data['allegato'].json_data)
                               test = $.parseJSON(data['allegato'].json_data)
-                              console.log(test)
+                             // console.log(test)
                               //test = $.parseJSON(data.json_data)
                               $.each(test, function(k, v) {
                                     campo = k.split("_")
                                     campo= capitalizeFirstLetter(campo[0])+' '+ capitalizeFirstLetter(campo[1])
-                                    console.log(campo)
+                                   // console.log(campo)
                                     if(campo=="Importo "){
                                           v = formatter.format(v);
 
@@ -426,6 +456,7 @@ require_once 'headerInclude.php';
             //alert(id);
             $("#infoModal").modal("toggle");
             getInfoVei(id);
+            $("#info_prog").val(prog);
             $("#info_idvei").val(id);
            
 
@@ -436,7 +467,7 @@ require_once 'headerInclude.php';
             $("#tipo_doc_mag").val(tipodoc);
             $("#tipo_alle").val(id);
             tipo = $('#tipo_magg_'+id).text();
-            console.log(tipo);
+           // console.log(tipo);
             $('#tipo_documento_magg').val(tipo);
 
 
@@ -450,11 +481,13 @@ require_once 'headerInclude.php';
                         data: {id:id},
                         dataType: "json",
                         success: function(data){
-                              console.log(data)
+                             // console.log(data)
                               $('#targa').val(data.targa)
                               $('#marca').val(data.marca)
                               $('#modello').val(data.modello)
                               $('#costo').val(data.costo)
+                              //$('#info_prog').val(data.progressivo)
+                              $('#info_tipo_veicolo').val(data.tipo_veicolo)
                               
                               $('.bootstrap-select-wrapper select').val(data.tipo_acquisizione);
                               $('.bootstrap-select-wrapper select').selectpicker('render');
@@ -466,9 +499,11 @@ require_once 'headerInclude.php';
 
 
       }
-      function docmodal(prog,tipovei,istanza){
-            id_RAM =istanza,
-
+     
+      function docmodal(prog,tipovei,istanza,id){
+            id_RAM =istanza;
+            var ckdoc = ckInfoVei(id);
+            
             //$('#tipo_documento').remove();
             $(".bootstrap-select-wrapper option").remove();
             $('.bootstrap-select-wrapper select').selectpicker('refresh')
@@ -484,9 +519,11 @@ require_once 'headerInclude.php';
                         dataType: "json",
                         success: function(data){
                               //console.log(data)
+                              
                               $.each(data, function(k,v){
-                                    //console.log(v.codice_tipo_documento)
+                                    console.log(v.codice_tipo_documento)
                                     tip=v.codice_tipo_documento
+                                    console.log(ckdoc)
                                     tipoDoc(tip)
 
 
@@ -499,7 +536,29 @@ require_once 'headerInclude.php';
 
                   
       } 
-      /////////////////////    
+      /////////////////////   
+      function ckInfoVei(id){
+                  $.ajax({
+                        type: "POST",
+                        url: "controller/updateIstanze.php?action=getInfoVei",
+                        data: {id:id},
+                        dataType: "json",
+                        success: function(data){
+                             console.log(data.tipo_acquisizione)
+                             // return data;
+                              if(data.tipo_acquisizione=='01'){
+                                    return true;
+                              }else{
+                                    return false;
+                              }
+                              
+                            
+                                                          
+                        }
+                  })
+
+
+      } 
       function tipDoc(tip){
        $('#row_doc').empty();
 
@@ -577,6 +636,8 @@ require_once 'headerInclude.php';
       }
       function tipoDoc(tipo){
             //id_RAM = '<?=$i['id_RAM']?>';
+           // var cktipac = ckInfoVei(id);
+           // console.log(cktipac)
             $.ajax({
                         type: "POST",
                         url: "controller/updateIstanze.php?action=getTipoDoc",
@@ -584,11 +645,13 @@ require_once 'headerInclude.php';
                         dataType: "json",
                         success: function(data){
                               $.each(data, function(k,v){
-                                    console.log(v.tdoc_descrizione)
+                                   
+                                    //console.log(v.tdoc_descrizione)
                                     //$('#tipo_documento').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + ' <i class=\'fa fa-ban\' aria-hidden=\'true\' style=\'color:red;\'></i>" value="' + v.tdoc_codice + '"></option>');
 
                                     $('#tipo_documento').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + '" value="' + v.tdoc_codice + '"></option>');
                                     $('.bootstrap-select-wrapper select').selectpicker('refresh')
+                                    
                               })
 
                               }
@@ -899,8 +962,8 @@ require_once 'headerInclude.php';
 
       }
       function testDate(str) {
-            console.log(str.value)
-            console.log(str.id)
+            //console.log(str.value)
+            //console.log(str.id)
             data= str.value
             var t = data.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
             if(t === null)

@@ -25,3 +25,6 @@ impoerto
 
 
 se infoveicolo select acquisto =>escudi tipo documento 9
+
+
+funzione ban login >5

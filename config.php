@@ -4,7 +4,7 @@ return [
     'mysql_host' => 'localhost',
     'mysql_user' => 'italia',
     'mysql_password' => 'Salt002@db',
-    'mysql_db' => 'inv2020',
+    'mysql_db' => 'rpv2020',
     'recordsPerPage' => 10,
     'recordsPerPageOptions' => [ 
         5,10,15,20,30,50,100
@@ -14,7 +14,7 @@ return [
 
     ],
     'numLinkNavigator' => 4,
-    $pathAlle = "/inv2020/allegati/"
+    $pathAlle = "/rpv2020/allegati/"
 ]
     
 ;
