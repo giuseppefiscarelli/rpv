@@ -1056,6 +1056,9 @@ require_once 'headerInclude.php';
                    }
                  
       }
+      function checkDocVei(){
+            
+      }
             
 </script>
 

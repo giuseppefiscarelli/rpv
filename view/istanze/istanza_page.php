@@ -134,13 +134,13 @@
                       <table class="table table-sm">
                           <tbody>
                           <?php
-                           $tipoimpresa = getTipoImpresa($i['tipo_impresa']);
-                           $tipImr = $tipoimpresa['descrizione_tipo'];
+                           //$tipoimpresa = getTipoImpresa($i['tipo_impresa']);
+                           //$tipImr = $tipoimpresa['descrizione_tipo'];
                            ?>
-                              <tr>
+                            <!--  <tr>
                               <th scope="row">Tipo Impresa</th>
                               <td><?=$tipImr?></td>
-                              </tr>
+                              </tr>-->
                               <tr>
                               <th scope="row">Codice Albo</th>
                               <td><?=$i['codice_albo']?></td>
@@ -268,8 +268,6 @@
                                                   </div>
                                                 </div>
                                               </div> 
-
-
                                               <div class="modal fade" tabindex="-1" role="dialog" id="infoModal">
                                                 <div class="modal-dialog modal-lg" role="document">
                                                   <div class="modal-content">

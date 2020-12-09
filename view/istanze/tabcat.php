@@ -20,21 +20,28 @@
                                 <?php
                                   foreach($tipVei as $tve){
                                     $countCatVei=countCatVei($tve['tpvc_codice'],$i['id_RAM']);
+                                   
                                     if($countCatVei==!0){
-                                      $check = countDocVeicolo($tve['tpvc_codice']);//numero tipi documento
-                                       $totalDoc = 0;
-                                       $checkVei=0;
-                                      //var_dump($check);
-                                      //var_dump(intval($countCatVei));
+                                      $totalDoc = 0;
+                                      $checkVei=0;
                                       $b= intval($countCatVei);
                                       for ($iii=1; $iii <$b; $iii++) { 
+                                        $check = countDocVeicolo($tve['tpvc_codice']);//numero tipi documento
                                         $checkb =countDocVeicoloInfo($i['id_RAM'],$tve['tpvc_codice'],$iii);
+                                        $checktipoac = countCatVeiTipoac($tve['tpvc_codice'],$i['id_RAM'],$iii);
                                         $checkb = intval($checkb);
+                                       if($checktipoac){
+                                          $totvei = $check-1;
+                                        }else{
+                                          $totvei=$check;
+                                        }
                                         $totalDoc = $totalDoc + $checkb;
-                                        if($checkb==$check&&$checkb>0){
+                                       
+                                        if($checkb==$totvei&&$checkb>0){
+                                       
                                           $checkVei = $checkVei+1;
                                         }
-
+                                       
                                       }
                                       //var_dump($totalDoc);
                                       //var_dump($checkVei);
