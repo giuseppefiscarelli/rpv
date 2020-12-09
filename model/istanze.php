@@ -1084,7 +1084,7 @@ function countDocVeicoloInfo($id_RAM,$tipo_veicolo,$progressivo){
      
                 $sql = 'SELECT count(DISTINCT tipo_documento) as total FROM allegato';
 
-                $sql .=" WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo and attivo='s'";
+                $sql .=" WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo and attivo = 's'";
                 //  echo $sql;
                 
 

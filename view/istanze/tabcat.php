@@ -25,21 +25,29 @@
                                       $totalDoc = 0;
                                       $checkVei=0;
                                       $b= intval($countCatVei);
-                                      for ($iii=1; $iii <$b; $iii++) { 
+                                      $iii=1;
+                                      for ($iii; $iii <=$b; $iii++) { 
                                         $check = countDocVeicolo($tve['tpvc_codice']);//numero tipi documento
+                                       // var_dump($check);
                                         $checkb =countDocVeicoloInfo($i['id_RAM'],$tve['tpvc_codice'],$iii);
+                                       // var_dump($tve['tpvc_codice']);
                                         $checktipoac = countCatVeiTipoac($tve['tpvc_codice'],$i['id_RAM'],$iii);
                                         $checkb = intval($checkb);
                                        if($checktipoac){
                                           $totvei = $check-1;
                                         }else{
-                                          $totvei=$check;
+                                          $totvei=intval($check);
                                         }
                                         $totalDoc = $totalDoc + $checkb;
-                                       
+                                       //var_dump($checkb);var_dump($totvei);
+                                      //var_dump($totvei);
                                         if($checkb==$totvei&&$checkb>0){
+                                         //var_dump('ok');
                                        
                                           $checkVei = $checkVei+1;
+                                          
+                                        }else{
+                                        //  var_dump('no');
                                         }
                                        
                                       }
