@@ -10,11 +10,10 @@
   }
   if(!isUserUser()){
   $id = getParam('id',0);
-  if($id){
-      $i = getIstanza($id);
-  }
-  }else
-  {
+    if($id){
+        $i = getIstanza($id);
+    }
+  }else{
     $utente= $_SESSION['userData']['email'];
     $i = getIstanzaUser($utente);
   }
@@ -24,5 +23,6 @@
   if(!$rend){
     createSrtructure($i);
   } 
+  $rend = checkRend($i['id_RAM']);
   require_once 'view/istanze/istanza_page.php';
 ?>
