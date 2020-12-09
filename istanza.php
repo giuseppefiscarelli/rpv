@@ -263,18 +263,19 @@ require_once 'headerInclude.php';
                             },
                         success: function(data){
                               
-                              
-                                Swal.fire("Operazione Completata!", "Allegato caricato correttamente.", "success");
-                              tipoalle=data.tipo_veicolo
-                              progalle=data.progressivo
-                              checkDocVei(tipoalle,progalle)
-                              data_ins=convData(data.data_agg)
-                              ora_ins= convOre(data.data_agg)
+                              console.log('newallegato')
+                              Swal.fire("Operazione Completata!", "Allegato caricato correttamente.", "success");
+                              tipoalle=data.tipo_veicolo;
+                              console.log(tipoalle);
+                              progalle=data.progressivo;
+                              checkDocVei(tipoalle,progalle);
+                              data_ins=convData(data.data_agg);
+                              ora_ins= convOre(data.data_agg);
                               //tipo_vei= formData.get('doc_idvei')
-                              buttonA='<button type="button" onclick="infoAlle('+data.id+');"class="btn btn-warning btn-xs" title="Visualizza Info Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-list" aria-hidden="true"></i></button>'
-                              buttonB='<button type="button" onclick="window.open(\''+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-xs btn-primary " style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
-                              buttonC='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>'
-                              buttonD='<button type="button" onclick="delAll('+data.id+',this)"title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>'
+                              buttonA='<button type="button" onclick="infoAlle('+data.id+');"class="btn btn-warning btn-xs" title="Visualizza Info Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-list" aria-hidden="true"></i></button>';
+                              buttonB='<button type="button" onclick="window.open(\''+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-xs btn-primary " style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>';
+                              buttonC='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>';
+                              buttonD='<button type="button" onclick="delAll('+data.id+',this)"title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>';
 
                               
                               
@@ -802,7 +803,7 @@ require_once 'headerInclude.php';
                  })
       }
       function checkDocVei(tipo,prog){
-
+            console.log('check')
             checkvp=$('#c_p_d_'+tipo+'_'+prog).html()
             checkvt=$('#c_t_d_'+tipo+'_'+prog).html()
             
@@ -1056,9 +1057,7 @@ require_once 'headerInclude.php';
                    }
                  
       }
-      function checkDocVei(){
-            
-      }
+     
             
 </script>
 
