@@ -48,6 +48,8 @@ require_once 'headerInclude.php';
       
       });  
       $('#form_infovei').submit(function( event ) {
+            id_RAM = <?=$i['id_RAM']?>;
+
             prog=$('#info_prog').val()
             //console.log(prog)
             idvei = $('#info_idvei').val()
@@ -80,11 +82,13 @@ require_once 'headerInclude.php';
                                                 checkdoc = parseInt(checkdoc)
                                                 checkdoc =parseInt(totdoc)-1;
                                                 $('#c_t_d_'+tipo_veicolo+'_'+prog).html(checkdoc)
-
+                                                $('#btn_docmodal_'+idvei).attr('onclick','docmodal('+prog+','+tipo_veicolo+','+id_RAM+',\'01\');')
+                                                
                                           }
                                           if(tipo=='02'){
                                                 tipo='Leasing';
                                                 $('#c_t_d_'+tipo_veicolo+'_'+prog).html(parseInt(totdoc))
+                                                $('#btn_docmodal_'+idvei).attr('onclick','docmodal('+prog+','+tipo_veicolo+','+id_RAM+',\'02\');')
                                           }
                                           $('#tipo_acquisizione_'+idvei).html(tipo)
                                           alert='<div id="message2"style="position: fixed;z-index: 1000;right: 0;bottom: 0px;">' 
@@ -443,8 +447,8 @@ require_once 'headerInclude.php';
          $('#form_infovei')[0].reset();
          $("#tipo_acquisizione").html('<option value="01">Acquisto</option><option value="02">Leasing</option>');
          $("#tipo_acquisizione").prop('required',true);
-         $("#tipo_acquisizione").selectpicker("refresh");
-
+         $(".bootstrap-select-wrapper select").selectpicker("refresh");
+         getInfoVei2(id);
             //alert(id);
             $("#infoModal").modal("toggle");
             $("#info_idvei").val(id);
@@ -475,22 +479,24 @@ require_once 'headerInclude.php';
             
       }
       function getInfoVei(id){
+            //$(".selinfo option").remove();
+            //$('.selinfo select').selectpicker('refresh')
                   $.ajax({
                         type: "POST",
                         url: "controller/updateIstanze.php?action=getInfoVei",
                         data: {id:id},
                         dataType: "json",
                         success: function(data){
-                             // console.log(data)
-                              $('#targa').val(data.targa)
+                              console.log(data.tipo_acquisizione)
+                             $('#targa').val(data.targa)
                               $('#marca').val(data.marca)
                               $('#modello').val(data.modello)
                               $('#costo').val(data.costo)
                               //$('#info_prog').val(data.progressivo)
                               $('#info_tipo_veicolo').val(data.tipo_veicolo)
                               
-                              $('.bootstrap-select-wrapper select').val(data.tipo_acquisizione);
-                              $('.bootstrap-select-wrapper select').selectpicker('render');
+                              $('#tipo_acquisizione').val(data.tipo_acquisizione);
+                              $('.selinfo select').selectpicker('render');
                               
                             
                                                           
@@ -498,15 +504,35 @@ require_once 'headerInclude.php';
                   })
 
 
-      }
-     
-      function docmodal(prog,tipovei,istanza,id){
+      }  
+      function getInfoVei2(id){
+            //$(".selinfo option").remove();
+            //$('.selinfo select').selectpicker('refresh')
+                  $.ajax({
+                        type: "POST",
+                        url: "controller/updateIstanze.php?action=getInfoVei",
+                        data: {id:id},
+                        dataType: "json",
+                        success: function(data){
+                            
+                            
+                              $('#info_tipo_veicolo').val(data.tipo_veicolo)
+                              
+                             
+                            
+                                                          
+                        }
+                  })
+
+
+      }      
+      function docmodal(prog,tipovei,istanza,tipoac){
             id_RAM =istanza;
-            var ckdoc = ckInfoVei(id);
+           // var ckdoc = ckInfoVei(id);
             
             //$('#tipo_documento').remove();
-            $(".bootstrap-select-wrapper option").remove();
-            $('.bootstrap-select-wrapper select').selectpicker('refresh')
+            $(".seldoc option").remove();
+            $('.seldoc select').selectpicker('refresh')
             //alert(id);
             $("#docModal").modal("toggle");
             //$("#doc_idvei").val(id);
@@ -523,8 +549,8 @@ require_once 'headerInclude.php';
                               $.each(data, function(k,v){
                                     console.log(v.codice_tipo_documento)
                                     tip=v.codice_tipo_documento
-                                    console.log(ckdoc)
-                                    tipoDoc(tip)
+                                    //console.log(ckdoc)
+                                    tipoDoc(tip,tipoac)
 
 
                               })
@@ -536,7 +562,7 @@ require_once 'headerInclude.php';
 
                   
       } 
-      /////////////////////   
+       /////////////////////   
       function ckInfoVei(id){
                   $.ajax({
                         type: "POST",
@@ -634,10 +660,10 @@ require_once 'headerInclude.php';
                  }
            })
       }
-      function tipoDoc(tipo){
+      function tipoDoc(tipo,tipoac){
             //id_RAM = '<?=$i['id_RAM']?>';
            // var cktipac = ckInfoVei(id);
-           // console.log(cktipac)
+         //console.log(tipoac)
             $.ajax({
                         type: "POST",
                         url: "controller/updateIstanze.php?action=getTipoDoc",
@@ -645,12 +671,18 @@ require_once 'headerInclude.php';
                         dataType: "json",
                         success: function(data){
                               $.each(data, function(k,v){
-                                   
+                                   if(v.tdoc_codice=='9' && tipoac=='01'){
+                                         console.log('entra '+v.tdoc_codice)
+                                  //  $('.bootstrap-select-wrapper select').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + '" value="' + v.tdoc_codice + '"></option>');
+                                   // $('.bootstrap-select-wrapper select').selectpicker('refresh')
+                                   }else{
+                                    $('.seldoc select').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + '" value="' + v.tdoc_codice + '"></option>');
+                                    $('.seldoc select').selectpicker('refresh')
+
+                                   }
                                     //console.log(v.tdoc_descrizione)
                                     //$('#tipo_documento').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + ' <i class=\'fa fa-ban\' aria-hidden=\'true\' style=\'color:red;\'></i>" value="' + v.tdoc_codice + '"></option>');
 
-                                    $('#tipo_documento').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + '" value="' + v.tdoc_codice + '"></option>');
-                                    $('.bootstrap-select-wrapper select').selectpicker('refresh')
                                     
                               })
 
@@ -788,7 +820,7 @@ require_once 'headerInclude.php';
                   docvei = false
             }
             //console.log(checkvp)
-            //console.log(checkvt)
+            console.log('chech ' +checkvt)
             //console.log(docvei)
             if(checkcatp==checkcatt){
                   catvei = true
@@ -809,7 +841,7 @@ require_once 'headerInclude.php';
                         dataType: "json",
                         success: function(data){
                               //console.log(data)
-                              if(data.n==data.of){
+                              if(data.n==checkvt){
                                     ic="check"
                                     color="green"
                                     if(catvei == false){
@@ -829,7 +861,7 @@ require_once 'headerInclude.php';
                                     color="red"
                               }
                               
-                              icon='<i class="fa fa-'+ic+'" style="color:'+color+';"aria-hidden="true"></i> Documenti veicoli caricati <b id="c_p_d_'+tipo+'_'+prog+'">'+data.n+'</b> di  <b id="c_t_d_'+tipo+'_'+prog+'">'+data.of+'</b>'
+                              icon='<i class="fa fa-'+ic+'" style="color:'+color+';"aria-hidden="true"></i> Documenti veicoli caricati <b id="c_p_d_'+tipo+'_'+prog+'">'+data.n+'</b> di  <b id="c_t_d_'+tipo+'_'+prog+'">'+checkvt+'</b>'
                               $('#check_vei_'+tipo+'_'+prog).html(icon);
                              
                               

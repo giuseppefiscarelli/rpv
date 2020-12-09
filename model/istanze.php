@@ -109,7 +109,7 @@ function getIstanze( array $params = []){
 
         
 
-        $sql ="SELECT * FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and (istanza.eliminata is null or trim(eliminata) = '') and xml.data_invio between '2020-10-01 10:00:00' and '2020-11-16 08:00:00'";
+        $sql ="SELECT * FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and (istanza.eliminata is null or trim(eliminata) = '') and xml.data_invio between '2020-11-11 10:00:00' and '2020-11-30 08:00:00'";
         if ($search1){
           $sql .=" AND xml.pec LIKE '%$search1%' ";
           
@@ -156,7 +156,7 @@ function countIstanze( array $params = []){
 
         
 
-        $sql ="SELECT count(*) as totalUser FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and (istanza.eliminata is null or trim(eliminata) = '') and xml.data_invio between '2020-10-01 10:00:00' and '2020-11-16 08:00:00'";
+        $sql ="SELECT count(*) as totalUser FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and (istanza.eliminata is null or trim(eliminata) = '') and xml.data_invio between '2020-11-11 10:00:00' and '2020-11-30 08:00:00'";
         if ($search1){
           $sql .=" AND xml.pec LIKE '%$search1%' ";
           

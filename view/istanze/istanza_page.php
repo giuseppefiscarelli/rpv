@@ -185,7 +185,7 @@
 
             
 
-            require "alleistanza2.php";
+           // require "alleistanza2.php";
             ?>
        
         <div class="row">
@@ -250,9 +250,9 @@
                                                       
                                                       <input type="hidden" name="tipo_veicolo" id="tipo_veicolo" value="">
                                                       <input type="hidden" name="progressivo" id="progressivo" value="">
-                                                        <div class="bootstrap-select-wrapper">
+                                                        <div class="bootstrap-select-wrapper seldoc">
                                                             <label>Tipo Documento</label>
-                                                            <select id="tipo_documento" name="tipo_documento"title="Scegli un tipo di documento">
+                                                            <select id="tipo_documento" class="selectpicker" name="tipo_documento"title="Scegli un tipo di documento">
                                                           
                                                           </select>
                                                         </div>
@@ -306,9 +306,9 @@
                                                             
                                                           </span>
                                                         
-                                                          <div class="bootstrap-select-wrapper" style="margin-top:50px;">
+                                                          <div class="bootstrap-select-wrapper selinfo" style="margin-top:50px;">
                                                               <label for="roletype" >Tipo Acquisizione</label>
-                                                              <select title="Scegli una opzione"  class="selectpicker required" id="tipo_acquisizione" name="tipo_acquisizione"  >
+                                                              <select title="Scegli una opzione"  class="selectpicker required " id="tipo_acquisizione" name="tipo_acquisizione"  >
                                                                   
                                                                   <option value="01">Acquisto</option>
                                                                   <option value="02">Leasing</option>
