@@ -1,4 +1,4 @@
-                                        <div id="accordionDivVeicoli" class="collapse-div collapse-background-active" role="tablist">
+                                        <div id="accordionDivVeicoli_<?=$tvei["tpvc_codice"]?>" class="collapse-div " role="tablist">
 
                                             <?php
                                                     $veicolo = getRowVeicolo($tvei["tpvc_codice"],$i['id_RAM']);
@@ -21,11 +21,11 @@
 
 
                                             
-                                            <div class="collapse-header" id="headingA<?=$rv['progressivo']?>">
-                                                <button data-toggle="collapse" data-target="#accordion<?=$rv['progressivo']?>_<?=$rv['id']?>" aria-expanded="false" aria-controls="accordion<?=$rv['progressivo']?>_<?=$rv['id']?>">
-                                                Veicolo #<?=$rv['progressivo']?> <?=$rv['targa']?' - Targa '.$rv['targa']:''?>
+                                            <div class="collapse-header" id="headingA<?=$rv['progressivo']?>_<?=$rv['id']?>">
+                                                <button data-toggle="collapse" data-target="#accordion<?=$rv['progressivo']?>_<?=$rv['id']?>" aria-expanded="true" aria-controls="accordion<?=$rv['progressivo']?>_<?=$rv['id']?>">
+                                                    Veicolo #<?=$rv['progressivo']?> <?=$rv['targa']?' - Targa '.$rv['targa']:''?>
                                                 </button>
-                                                <?php
+                                                    <?php
                                                         if(!$rv['targa']&&!$rv['marca']&&!$rv['modello']&&!$rv['tipo_acquisizione']&&!$rv['costo']){
                                                             $color="red";
                                                             $text=" non";
@@ -36,31 +36,31 @@
                                                             $icon="check";
 
                                                         }?>
-                                                        <div class="row">
-                                                <small class="form-text text-muted" id="ckeck_info_vei_<?=$rv['progressivo']?>_<?=$rv['id']?>" style="padding-left:50px"><i class="fa fa-<?=$icon?>" style="color:<?=$color?>;"aria-hidden="true"></i> Dati Veicolo<?=$text?> presenti</small>
-                                                <?php
-                                                        $colorDoc="red";
-                                                        
-                                                        $iconDoc="ban";
-                                                        
+                                                <div class="row">
+                                                    <small class="form-text text-muted" id="ckeck_info_vei_<?=$rv['progressivo']?>_<?=$rv['id']?>" style="padding-left:50px"><i class="fa fa-<?=$icon?>" style="color:<?=$color?>;"aria-hidden="true"></i> Dati Veicolo<?=$text?> presenti</small>
+                                                        <?php
+                                                            $colorDoc="red";
+                                                            
+                                                            $iconDoc="ban";
+                                                            
 
-                                                    if($countDocVeicoloInfo==$countDocVeicolo){
-                                                        $colorDoc="green";
-                                                        
-                                                        $iconDoc="check";
-                                                        
-                                                        
-                                                        }
-                                                   
+                                                        if($countDocVeicoloInfo==$countDocVeicolo){
+                                                            $colorDoc="green";
+                                                            
+                                                            $iconDoc="check";
+                                                            
+                                                            
+                                                            }
                                                     
-                                                        ?>
-                                                <small id="check_vei_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>" class="form-text text-muted" style="padding-left:50px"><i class="fa fa-<?=$iconDoc?>" style="color:<?=$colorDoc?>;"aria-hidden="true"></i> 
+                                                        
+                                                            ?>
+                                                    <small id="check_vei_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>" class="form-text text-muted" style="padding-left:50px"><i class="fa fa-<?=$iconDoc?>" style="color:<?=$colorDoc?>;"aria-hidden="true"></i> 
 
-                                                Documenti veicoli caricati <b id="c_p_d_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>"><?=$countDocVeicoloInfo?></b> di <b id="c_t_d_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>"><?=$countDocVeicolo?></b></small>
-                                            </div>
+                                                    Documenti veicoli caricati <b id="c_p_d_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>"><?=$countDocVeicoloInfo?></b> di <b id="c_t_d_<?=$rv['tipo_veicolo'].'_'.$rv['progressivo']?>"><?=$countDocVeicolo?></b></small>
+                                                </div>
                                                                 
                                             </div>
-                                            <div id="accordion<?=$rv['progressivo']?>_<?=$rv['id']?>" class="collapse " role="tabpanel" aria-labelledby="headingA<?=$rv['progressivo']?>" data-parent="#accordionDivVeicoli">
+                                            <div id="accordion<?=$rv['progressivo']?>_<?=$rv['id']?>" class="collapse " role="tabpanel" aria-labelledby="headingA<?=$rv['progressivo']?>_<?=$rv['id']?>" data-parent="#accordionDivVeicoli_<?=$tvei["tpvc_codice"]?>">
                                                 <div class="collapse-body">
                                             
                                                     <div class="row">
