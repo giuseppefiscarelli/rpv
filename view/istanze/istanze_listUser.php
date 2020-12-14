@@ -29,7 +29,7 @@
                     foreach($ist as $i){?>
                     <tr>
                     <td>2020/<?=$i['id_RAM']?></td>
-                    <td>Investimenti 2020</td>
+                    <td>Ricambio Parco Veicolare</td>
                     <td> 
                     <?php
                       $status= checkRend($i['id_RAM']);

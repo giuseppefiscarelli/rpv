@@ -275,7 +275,7 @@ require_once 'headerInclude.php';
                               buttonA='<button type="button" onclick="infoAlle('+data.id+');"class="btn btn-warning btn-xs" title="Visualizza Info Allegato"style="padding-left:12px;padding-right:12px;"><i class="fa fa-list" aria-hidden="true"></i></button>';
                               buttonB='<button type="button" onclick="window.open(\''+data.id+'\', \'_blank\')"title="Vedi Documento"class="btn btn-xs btn-primary " style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>';
                               buttonC='<a type="button" href="download.php?id='+data.id+'" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>';
-                              buttonD='<button type="button" onclick="delAll('+data.id+',this)"title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                              buttonD='<button type="button" onclick="delAll('+data.id+','+tipoalle+','+progalle+',this)"title="Elimina Documento"class="btn btn-xs btn-danger " style="padding-left:12px;padding-right:12px;"><i class="fa fa-trash" aria-hidden="true"></i></button>';
 
                               
                               
@@ -673,7 +673,7 @@ require_once 'headerInclude.php';
                         success: function(data){
                               $.each(data, function(k,v){
                                    if(v.tdoc_codice=='9' && tipoac=='01'){
-                                         console.log('entra '+v.tdoc_codice)
+                                    //     console.log('entra '+v.tdoc_codice)
                                   //  $('.bootstrap-select-wrapper select').append('<option data-subtext="Documento già inserito" data-content="' + v.tdoc_descrizione + '" value="' + v.tdoc_codice + '"></option>');
                                    // $('.bootstrap-select-wrapper select').selectpicker('refresh')
                                    }else{
@@ -760,7 +760,7 @@ require_once 'headerInclude.php';
                         }
                   })
       }
-      function delAll(ida,elem){
+      function delAll(ida,tipo,prog,elem){
            
            
 
@@ -785,7 +785,7 @@ require_once 'headerInclude.php';
                                         
                                          if(results)
                                          {
-                                               
+                                          checkDocVei(tipo,prog);  
                                           $(elem).closest('tr').remove();
                                                Swal.fire(
                                                      'Eliminato!',
