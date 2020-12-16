@@ -90,7 +90,7 @@ function getIstanze( array $params = []){
      */
 
         $conn = $GLOBALS['mysqli'];
-
+ 
         $orderBy = array_key_exists('orderBy', $params) ? $params['orderBy'] : 'data_invio';
         $orderDir = array_key_exists('orderDir', $params) ? $params['orderDir'] : 'ASC';
         $limit = (int)array_key_exists('recordsPerPage', $params) ? $params['recordsPerPage'] : 10;
