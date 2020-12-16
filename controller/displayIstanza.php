@@ -24,5 +24,7 @@
     createSrtructure($i);
   } 
   $rend = checkRend($i['id_RAM']);
+  var_dump($i['eliminata']);
   require_once 'view/istanze/istanza_page.php';
+ 
 ?>
