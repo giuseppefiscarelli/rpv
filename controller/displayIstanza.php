@@ -17,14 +17,14 @@
     $utente= $_SESSION['userData']['email'];
     $i = getIstanzaUser($utente);
   }
-
+  //$tipiCom= getTipiComunicazione();
   $rend = checkRend($i['id_RAM']);
   //var_dump($rend);die;
   if(!$rend){
     createSrtructure($i);
   } 
   $rend = checkRend($i['id_RAM']);
-  var_dump($i['eliminata']);
+  //var_dump($i['eliminata']);
   require_once 'view/istanze/istanza_page.php';
  
 ?>

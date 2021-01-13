@@ -11,7 +11,7 @@
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane p-4 fade show active" id="nav-tab1" role="tabpanel" aria-labelledby="nav-tab1-tab">
+  <div class="tab-pane p-4 fade show active" id="nav-tab1" role="tabpanel" aria-labelledby="nav-tab1-tab">
       <div class="row">
         <div class="col-12 col-lg-4">
           <!--start card-->
@@ -134,14 +134,10 @@
                   <div class="col-lg-6 col-12"> 
                       <table class="table table-sm">
                           <tbody>
-                          <?php
-                           //$tipoimpresa = getTipoImpresa($i['tipo_impresa']);
-                           //$tipImr = $tipoimpresa['descrizione_tipo'];
-                           ?>
-                            <!--  <tr>
-                              <th scope="row">Tipo Impresa</th>
-                              <td><?=$tipImr?></td>
-                              </tr>-->
+                          
+                          
+                              
+                              
                               <tr>
                               <th scope="row">Codice Albo</th>
                               <td><?=$i['codice_albo']?></td>
@@ -164,6 +160,7 @@
                                   Agenzia <?=$i['banca_agenzia']?><br>
                                   IBAN <?=$i['iban_it']?> <?=$i['iban_num_chk']?> <?=$i['iban_cin']?> <?=$i['iban_abi']?> <?=$i['iban_cab']?> <?=$i['iban_cc']?></td>
                               </tr>
+                              
                           </tbody>
                       </table>
                   </div>
@@ -353,7 +350,7 @@
 
                                                           <div class="form-group">
                                                             <label for="file_allegato" class="active">Allegato</label>
-                                                            <input type="file" accept="application/pdf" class="form-control-file" id="file_allegato" name="file_allegato"required>
+                                                            <input type="file" accept="application/pdf" class="form-control-file" id="file_allegato"onchange="checkAlle();" name="file_allegato"required><small>Dimensioni Max 3MB - accettati solo PDF</small>
                                                           </div>
 
                                                         

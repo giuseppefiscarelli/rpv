@@ -46,7 +46,38 @@ require_once 'headerInclude.php';
             });
       
       
-      });  
+      });
+      function checkAlle(){
+           
+            
+           var fa = document.getElementById("file_allegato");
+           var f = fa.files[0]
+           
+           //var len = fa.files.length;
+           console.log(f)
+          // console.log(len)
+           
+
+                
+
+                 if (f.type==='application/pdf') {
+                       if (f.size > 3388608 || f.fileSize > 3388608)
+                 {
+                 //show an alert to the user
+                 
+                 Swal.fire("Operazione Non Completata!", " L'allegato supera le dimensioni di 3MB", "warning");
+
+                 //reset file upload control
+                 fa.value = null;
+                 }
+                      
+                 }else{
+                       Swal.fire("Operazione Non Completata!", " L'allegato è del tipo errato. Selezionare un file PDF", "warning");
+                       fa.value = null;
+                 }
+           
+           
+      }  
       $('#form_infovei').submit(function( event ) {
             id_RAM = <?=$i['id_RAM']?>;
 
@@ -196,7 +227,7 @@ require_once 'headerInclude.php';
                                                 $('#campi_allegati').append(field); 
                                                 field='<div class="form-group">'
                                                 field+='<label for="file_allegato" class="active">Documento</label>'
-                                                field+='<input type="file" accept="application/pdf" class="form-control-file" id="file_allegato" name="file_allegato"required></div>'
+                                                field+='<input type="file" accept="application/pdf" class="form-control-file" id="file_allegato" onchange="checkAlle();" name="file_allegato"required><small>dimensioni max 3MB  - accettati solo PDF</small></div>'
 
                                                 $('#campi_allegati').append(field) 
     
@@ -858,8 +889,16 @@ require_once 'headerInclude.php';
 
                                     }
                               }else{
-                                    ic="ban"
-                                    color="red"
+                                    ic="ban";
+                                    color="red";
+                                    if(docvei == true){
+                                          checkcatp = checkcatp-1; 
+                                        
+                                          $('#ch_p_'+tipo).html(checkcatp);
+                                          $('#ch_i_'+tipo).removeClass();
+                                                $('#ch_i_'+tipo).addClass("fa fa-ban");
+                                                $('#ch_i_'+tipo).css("color", "red");
+                                    }
                               }
                               
                               icon='<i class="fa fa-'+ic+'" style="color:'+color+';"aria-hidden="true"></i> Documenti veicoli caricati <b id="c_p_d_'+tipo+'_'+prog+'">'+data.n+'</b> di  <b id="c_t_d_'+tipo+'_'+prog+'">'+checkvt+'</b>'

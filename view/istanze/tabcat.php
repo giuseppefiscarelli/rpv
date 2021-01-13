@@ -20,7 +20,6 @@
                                 <?php
                                   foreach($tipVei as $tve){
                                     $countCatVei=countCatVei($tve['tpvc_codice'],$i['id_RAM']);
-                                   
                                     if($countCatVei==!0){
                                       $totalDoc = 0;
                                       $checkVei=0;
