@@ -119,14 +119,14 @@ require_once 'view/template/top.php';
                     <div class="it-brand-wrapper" style="min-width: -webkit-fill-available;">
                       <div class="row">
                         <a href="#">
-                          <img src="images/logo.svg" alt="Home" style="max-height: -webkit-fill-available;    padding: 7px;">
+                          <img src="images/logo.svg" alt="Home" style="max-height: 50%;    padding: 7px;">
                           <div class="it-brand-text">
                             <h2 class="no_toc">Ministero
                             </h2>
-                            <h3 class="no_toc  d-md-block"> delle Infrastrutture e dei Trasporti</h3>
+                            <b class="no_toc d-none d-md-block" style="color:white;font-size: 15px;">delle Infrastrutture<br> e della Mobiltà Sostenibili</b>
                           </div>
                           <div style="padding: 20px;">
-                           <img src="images/logo-ram-2018.png" alt="Home" style="max-height: -webkit-fill-available;">
+                           <img src="images/logo-ram-2018.png" alt="Home" style="height: 70px;">
                           </div>
                         </a>
                       

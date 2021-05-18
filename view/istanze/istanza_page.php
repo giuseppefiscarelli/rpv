@@ -1,5 +1,48 @@
-<h3 class="card-title">Istanza n° <?=$i['id_RAM']?>/<?=date("Y")?></h3>
-<h4>Ricambio Parco Veicolare</h4>
+<?php
+ $activeIst = true;
+if(date("Y-m-d",strtotime($tipo_istanza['data_rendicontazione_fine']))<date("Y-m-d")){
+  $span='<span class="badge badge-success">In Istruttoria</span><br>Termine per la rendicondazione scaduti il '.date("d/m/Y",strtotime($tipo_istanza['data_rendicontazione_fine']));
+  $activeIst = false;
+  
+
+}else{
+ $status= checkRend($i['id_RAM']);
+ 
+ if($status){
+
+  if($status['aperta']==1){
+    $stato= getStatoIstanza('C');
+    $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span>';
+   
+  }elseif($status['aperta']==0){
+    $stato= getStatoIstanza('D');
+    $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Rendicondazione chiusa il '.date("d/m/Y",strtotime($status['data_chiusura']));
+    $activeIst = false;
+  }
+  if($status['data_annullamento']){
+    $stato= getStatoIstanza('B');
+    $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Annullata da Impresa ';
+
+    $activeIst = false;
+  }
+  if(($tipo_istanza['data_rendicontazione_fine']<date("Y-m-d H:i:s")&&$status['aperta']==1)){
+    $stato= getStatoIstanza('E');
+    $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Tempi di rendicontazione scaduti il '.date("d/m/Y",strtotime($tipo_istanza['data_rendicontazione_fine']));
+    $activeIst = false;
+  } 
+}else{
+  $span='<span class="badge badge-warning">Attiva</span>';
+}
+}
+
+
+
+
+
+?>
+<h3 class="card-title">Istanza n° <?=$i['id_RAM']?>/<?=$tipo_istanza['anno']?> - <span style="font-size:17px;"><?=$i['ragione_sociale']?></span></h3>Stato Istanza <?=$span?>
+
+<h4><?=$tipo_istanza['des']?></h4>
 
 
 
@@ -7,7 +50,7 @@
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <a class="nav-item nav-link active" id="nav-tab1-tab" data-toggle="tab" href="#nav-tab1" role="tab" aria-controls="nav-tab1" aria-selected="true">Dati della Domanda</a>
       <a class="nav-item nav-link" id="nav-tab2-tab" data-toggle="tab" href="#nav-tab2" role="tab" aria-controls="nav-tab2" aria-selected="false">Investimento / Rendicontazione</a>
-      <a class="nav-item nav-link" id="nav-tab3-tab" data-toggle="tab" href="#nav-tab3" role="tab" aria-controls="nav-tab3" aria-selected="false">Comunicazioni</a>
+      <!--<a class="nav-item nav-link" id="nav-tab3-tab" data-toggle="tab" href="#nav-tab3" role="tab" aria-controls="nav-tab3" aria-selected="false">Comunicazioni</a>-->
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">

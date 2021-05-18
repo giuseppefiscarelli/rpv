@@ -231,4 +231,26 @@ switch ($action){
       $res = countDocVeicolo($tipo_veicolo);
       echo  json_encode($res);
     break;
+    case 'getIstanza':
+    
+      $id = $_REQUEST['id'];
+      //var_dump($id);
+      $res=getIstanza($id);
+      $res['data_nascita']= date("d/m/Y",strtotime($res['data_nascita']));
+      $res['luogo_nascita']=$res['luogo_nascita']."(".$res['prov_nascita'].")";
+
+      $res['indirizzo_residenza']= $res['indirizzo_residenza'].", ".$res['civico_residenza'];
+      $res['indirizzo_impr']= $res['indirizzo_impr'].", ".$res['civico_impr'];
+
+      $res['comune_residenza']= $res['cap_residenza']." - ".$res['comune_residenza']."(".$res['prov_residenza'].")";
+      $res['comune_impr']= $res['cap_impr']." - ".$res['comune_impr']."(".$res['prov_impr'].")";
+      $res['tel_impr'] = $res['pref_tel_impr']."/".$res['num_tel_impr'];  
+      $tipod=getTipoDich($res['tipo_dichiarante']);
+      $res['tipo']=$tipod['descrizione_tipo'];
+      $res['cciaa']="Provincia ".$res['cciaa_prov']." <br>Codice ".$res['cciaa_codice']."<br>Data ".date("d/m/Y",strtotime($res['cciaa_data']));
+      $res['banca']="Istituto ".$res['banca_istituto']."<br>Agenzia ".$res['banca_agenzia']."<br>IBAN ".$res['iban_it']." ".$res['iban_num_chk']." ".$res['iban_cin']." ".$res['iban_abi']." ".$res['iban_cab']." ".$res['iban_cc'];
+
+      echo json_encode($res);
+      
+    break;
    }

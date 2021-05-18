@@ -11,8 +11,7 @@
         <div class="card-body">
           <h3 class="card-title">Le mie Istanze</h3>
           <p class="card-text">pec impresa: <?=$_SESSION['userData']['email']?></p>
-
-            <table class="table table-striped">
+          <table class="table table-striped">
                 <thead>
                     <tr>
                     <th scope="col">Protocollo RAM</th>
@@ -24,32 +23,22 @@
                 </thead>
                 <tbody>
                 <?php
-                $ist=getIstanzeUser($_SESSION['userData']['email']);
-                //var_dump($test);
-                    foreach($ist as $i){?>
+               // $ist=getIstanzeUser($_SESSION['userData']['email']);
+               // var_dump($ist);
+                    foreach($ist as $i){
+                      $tipo_istanza = getTipoIstanza($i['tipo_istanza']);
+                      $stato_istanza = getStatoIstanza($i['stato']);
+                      $status=checkRend($i['id_RAM']);?>
                     <tr>
-                    <td>2020/<?=$i['id_RAM']?></td>
-                    <td>Ricambio Parco Veicolare</td>
-                    <td> 
-                    <?php
-                      $status= checkRend($i['id_RAM']);
+                    <td><?=$i['id_RAM']?>/<?=$tipo_istanza['anno']?><br></td>
+                    <td><b><?=$tipo_istanza['des']?></b></td>
+                   
+                    <td><span class="badge badge-pill badge-<?=$stato_istanza['style']?>"><?=$stato_istanza['des']?></span>
+                                    <?=$i['stato_des']?>
+                                      <?php
 
-                      if($status){
-
-                        if($status['aperta']==true){?>
-                          <span class="badge badge-primary">In Rendicontazione</span>
-                        <?php
-                        }else{?>
-                          <span class="badge badge-success">In Istruttoria</span><br>
-                          Rendicondazione chiusa il <?=date("d/m/Y",strtotime($status['data_chiusura']))?>
-                        <?php
-                        }
-
-                      }else{?>
-                        <span class="badge badge-warning">Attiva</span>
-                      <?php
-                      }
-                      ?>
+                                      ?>
+                                </td>
 
                           
                           
@@ -68,23 +57,10 @@
                     ?></td>
                     <td>
                         <div  class="btn-group btn-group-sm" role="group">
-                        <?php
-                          if($status){
-
-                              if($status['aperta']==true){?>
-                        <a type="button" href="istanza.php"class="btn btn-primary" style="color:white;"> Vai a Istanza</a>
-                            <?php
-                            }else{?>
-                              <a type="button" href="istanza.php"class="btn btn-primary" style="color:white;"> Vai a Istanza</a>
-
-                          <?php    
-                            }
-                        }else{?>
-                        <a type="button" href="istanza.php"class="btn btn-primary" style="color:white;"> Vai a Istanza</a>
-                        <?php
-
-                        }
-                        ?>
+                       <!-- <button type="button" onclick="infoIstanza(<?=$i['id_RAM']?>);"class="btn btn-success btn-sm" title="Visualizza Info"><i class="fa fa-info" aria-hidden="true"></i> Info Istanza</button>-->
+                   
+                        <a type="button" href="istanza.php"class="btn btn-primary" style="color:white;margin-left:5px;"> Vai a Istanza</a>
+                           
 
                         </div>
                     </td>
@@ -100,3 +76,4 @@
     <!--end card-->
   </div>
 </div>
+<?php require_once 'infomodal.php'; ?>
