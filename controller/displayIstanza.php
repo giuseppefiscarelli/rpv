@@ -28,7 +28,8 @@
   //var_dump($i['eliminata']);
   if(isUserAdmin()){
     
-    require_once 'view/istanze/istanzaAdmin.php';
+    //require_once 'view/istanze/istanzaAdmin.php';
+    require_once 'view/istanze/istanza_page.php';
   }else{
   
  // var_dump(count($notifiche));
