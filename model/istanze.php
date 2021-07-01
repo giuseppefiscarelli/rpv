@@ -119,7 +119,7 @@ function getIstanza(int $id){
   
   
 }
-function getIstanzaUser($email){
+function getIstanzaUser($email,$id){
 
   /**
    * @var $conn mysqli
@@ -127,8 +127,8 @@ function getIstanzaUser($email){
 
     $conn = $GLOBALS['mysqli'];
     $result = [];
-      $sql ="SELECT * FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and '$email' = xml.pec and (istanza.eliminata is null or trim(eliminata) = '') and xml.data_invio between '2020-11-11 10:00:00' and '2020-11-30 08:00:00'";
-      //echo $sql;
+      $sql ="SELECT * FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and '$email' = xml.pec and istanza.eliminata !=1 and istanza.id =$id";
+     // echo $sql;
       $res = $conn->query($sql);
       
      
@@ -154,14 +154,14 @@ function getIstanzeUser(array $params = []){
       $records = [];
       
       $now=date("Y-m-d H:i:s");
-      $tipo= getTipoIstanza($search3);
+        $tipo= getTipoIstanza($search3);
         $data_inizio = $tipo['data_invio_inizio'];
         $data_fine = $tipo['data_invio_fine'];
         $data_rend_inizio = $tipo['data_rendicontazione_inizio'];
         $data_rend_fine = $tipo['data_rendicontazione_fine'];
 
        // $sql ="SELECT * FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and '$email' = xml.pec and (istanza.eliminata is null or trim(eliminata) = '') and xml.data_invio between '2020-11-11 10:00:00' and '2020-11-30 08:00:00'";
-       $sql ="SELECT * FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and '$search1' = xml.pec and (istanza.eliminata is null or trim(eliminata) = '' or istanza.eliminata='2') and xml.data_invio between '$data_inizio' and '$data_fine'";
+       $sql ="SELECT istanza.id as idIst, istanza.*, xml.id as xmlid , xml.* FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and '$search1' = xml.pec and istanza.eliminata !=1 and xml.data_invio between '$data_inizio' and '$data_fine'";
 
         //echo $sql;
         $res = $conn->query($sql);
@@ -169,7 +169,7 @@ function getIstanzeUser(array $params = []){
 
           while( $row = $res->fetch_assoc()) {
 
-
+            $row['id'] = $row['idIst'];
             $stato=checkRend($row['id_RAM']);
             $tipo_ist = getTipoIstanza($row['tipo_istanza']);
            // var_dump($tipo_ist);
@@ -267,6 +267,7 @@ function getIstanze( array $params = []){
         $data_rend_fine = $tipo['data_rendicontazione_fine'];
        
        }
+       //var_dump($tipo);
       if($search4){
 
         if($search4=='A'&&$data_rend_fine>$now){
@@ -305,7 +306,7 @@ function getIstanze( array $params = []){
       }
       
       $sql ="SELECT istanza.*, xml.data_invio, xml.pec FROM istanza  INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id ";
-      //$sql .=" and istanza.eliminata != '1'";
+      $sql .=" and istanza.eliminata != '1'";
 
 
      // $sql ="SELECT istanza.*, xml.data_invio, xml.pec FROM istanza  INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and (istanza.eliminata is null or trim(eliminata) = '' or istanza.eliminata = '2')";
@@ -336,6 +337,7 @@ function getIstanze( array $params = []){
 
 
           $stato=checkRend($row['id_RAM']);
+         
           $tipo_ist = getTipoIstanza($row['tipo_istanza']);
           //var_dump($tipo_ist);
           $row['stato_des']='';
@@ -447,9 +449,10 @@ function countIstanze( array $params = []){
       
       
       
-     // $sql ="SELECT count(*) as totalUser FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and  istanza.eliminata !='1' ";
+      $sql ="SELECT count(*) as totalUser FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and  istanza.eliminata !='1' ";
+   
 
-     $sql ="SELECT count(*) as totalUser FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and (istanza.eliminata is null or trim(eliminata) = '' or istanza.eliminata='2') ";
+     //$sql ="SELECT count(*) as totalUser FROM istanza INNER JOIN xml on istanza.pec_msg_identificativo = xml.identificativo and istanza.pec_msg_id = xml.msg_id and (istanza.eliminata is null or trim(eliminata) = '' or istanza.eliminata='2') ";
       if ($search1){
         $sql .=" AND xml.pec LIKE '%$search1%' ";
         
@@ -466,7 +469,7 @@ function countIstanze( array $params = []){
         if($search4){
           $sql .= $parA;
         }
-       // echo $sql;
+      //  echo $sql;
       $res = $conn->query($sql);
       if($res) {
 
@@ -544,6 +547,29 @@ function getCatInc(){
     }
 
    return $records;
+
+
+
+}
+function getCategoria($cod){
+  
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+
+  $sql = "SELECT * FROM categoria_incentivo where ctgi_codice = '$cod'";
+  
+  
+  $result = [];
+
+  $res = $conn->query($sql);
+  if($res && $res->num_rows){
+    $result = $res->fetch_assoc();
+    
+  }
+  return $result;
 
 
 
@@ -1238,9 +1264,9 @@ function countDocIstanza($id_RAM){
           }
 
         }
-
+        $total = 0;
    if($records){
-    $total = 0;
+   
      foreach($records as $r){
      
 
@@ -1299,9 +1325,9 @@ function countDocIstanzaInfo($id_RAM){
           }
 
         }
-
+        $total = 0;
    if($records){
-    $total = 0;
+  
      foreach($records as $r){
      
 
@@ -1622,4 +1648,111 @@ function countRendicontazione($stato){
       }
       return $total;
 
+}
+function getVeicoli($id_RAM){
+  
+  $conn = $GLOBALS['mysqli'];
+
+  $sql = 'SELECT * FROM veicolo WHERE id_RAM ='.$id_RAM;
+ // echo $sql;
+  $records = [];
+
+  $res = $conn->query($sql);
+  if($res) {
+
+    while( $row = $res->fetch_assoc()) {
+        $records[] = $row;
+        
+    }
+
+  }
+
+  return $records;
+
+}
+function getVeicolo($id_RAM,$tipo_veicolo,$progressivo){
+  
+  $conn = $GLOBALS['mysqli'];
+
+  $sql = "SELECT * FROM veicolo  WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo";
+ // echo $sql;
+ $result = [];
+
+ $res = $conn->query($sql);
+ if($res && $res->num_rows){
+   $result = $res->fetch_assoc();
+   
+ }
+ return $result;
+
+}
+function getAlleOk($id_RAM,$tipo_veicolo,$progressivo){
+  /**
+   * @var $conn mysqli
+   */
+  $conn = $GLOBALS['mysqli'];      
+  $total = 0;
+  $sql = 'SELECT count(*) as total FROM allegato';
+  $sql .=" WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo and attivo = 's' and stato_admin = 'B'";
+      // $sql .=" where stato_admin = 'B'";
+        //echo $sql;
+  $res = $conn->query($sql);
+      if($res) {
+        $row = $res->fetch_assoc();
+        $total = $row['total'];
+        return $total;
+      }
+  return $total;
+          
+}
+function getAlleNo($id_RAM,$tipo_veicolo,$progressivo){ 
+  /**
+   * @var $conn mysqli
+   */
+  $conn = $GLOBALS['mysqli'];  
+  $total = 0;
+  $sql = 'SELECT count(*) as total FROM allegato';
+  $sql .=" WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo and attivo='s' and stato_admin='C'";
+  //  echo $sql;
+  $res = $conn->query($sql);
+  if($res) {
+    $row = $res->fetch_assoc();
+    $total = $row['total'];
+    return $total;
+  }
+          
+}
+function getAlleValid($id_RAM,$tipo_veicolo,$progressivo){
+  /**
+   * @var $conn mysqli
+   */
+  $conn = $GLOBALS['mysqli']; 
+  $total = 0;
+  $sql = 'SELECT count(*) as total FROM allegato';
+  $sql .=" WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo and attivo='s' and stato_admin='C'";
+      //  echo $sql;
+  $res = $conn->query($sql);
+    if($res) {
+      $row = $res->fetch_assoc();
+      $total = $row['total'];
+      return $total;
+    }
+          
+}
+function countAlle($id_RAM,$tipo_veicolo,$progressivo){ 
+  /**
+   * @var $conn mysqli
+   */
+            $conn = $GLOBALS['mysqli'];
+            $total = 0;
+            $sql = 'SELECT count(*) as total FROM allegato';
+            $sql .=" WHERE id_ram = $id_RAM and tipo_veicolo = $tipo_veicolo and progressivo = $progressivo and attivo='s'";
+                //  echo $sql;
+            $res = $conn->query($sql);
+            if($res) {
+                $row = $res->fetch_assoc();
+                $total = $row['total'];
+                return $total;
+            }
+          
 }

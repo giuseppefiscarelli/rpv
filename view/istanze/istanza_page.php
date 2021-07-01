@@ -216,64 +216,64 @@ if(date("Y-m-d",strtotime($tipo_istanza['data_rendicontazione_fine']))<date("Y-m
       </div>
       
     
-    </div>
-    <div class="tab-pane p-4 fade" id="nav-tab2" role="tabpanel" aria-labelledby="nav-tab2-tab">
-                    
+  </div>
+  <div class="tab-pane p-4 fade" id="nav-tab2" role="tabpanel" aria-labelledby="nav-tab2-tab">
+                  
 
-        
-           <?php
-            require "inforend.php";
+      
+          <?php
+          require "inforend.php";
 
+          
+
+          // require "alleistanza2.php";
+          ?>
+      
+      <div class="row">
+        <div class="col-12">
+          <div id="collapseDiv1-sc1" class="collapse-div collapse-background-active " role="tablist">
+            <?php
+            $cat=getCatInc();
+            $accord=1; 
+
+            // $catA=$i['nv1']||$i['nv2']||$i['nv3']||$i['nv4']||$i['nv5']||$i['nv6']||$i['nv7']||$i['nv8']||$i['nv9']||$i['nv10']||$i['nv11'];
+            $catA=$i['nv1']||$i['nv2']||$i['nv3']||$i['nv4'];
+            //categoria A da 1 a 4 ..... cat b da 5 a 7
+            $catB=$i['nv5']||$i['nv6']||$i['nv7'];
             
 
-           // require "alleistanza2.php";
-            ?>
-       
-        <div class="row">
-          <div class="col-12">
-            <div id="collapseDiv1-sc1" class="collapse-div collapse-background-active " role="tablist">
-              <?php
-              $cat=getCatInc();
-              $accord=1; 
 
-             // $catA=$i['nv1']||$i['nv2']||$i['nv3']||$i['nv4']||$i['nv5']||$i['nv6']||$i['nv7']||$i['nv8']||$i['nv9']||$i['nv10']||$i['nv11'];
-             $catA=$i['nv1']||$i['nv2']||$i['nv3']||$i['nv4'];
-              //categoria A da 1 a 4 ..... cat b da 5 a 7
-              $catB=$i['nv5']||$i['nv6']||$i['nv7'];
-              
- 
+            foreach($cat as $ca){
+                if($ca['ctgi_categoria']=='A'&&$catA){
+                  
 
-              foreach($cat as $ca){
-                  if($ca['ctgi_categoria']=='A'&&$catA){
-                    
+                    require "tabcat.php";
+                }elseif($ca['ctgi_categoria']=='B'&&$catB){
+                  
+                  require "tabcat.php";  
+                } 
+              }?>  
 
-                      require "tabcat.php";
-                  }elseif($ca['ctgi_categoria']=='B'&&$catB){
-                   
-                    require "tabcat.php";  
-                  } 
-                }?>  
-
+          </div>
+        </div>
+      </div>
+                                            
+  </div>
+  <div class="tab-pane p-4 fade" id="nav-tab3" role="tabpanel" aria-labelledby="nav-tab3-tab">
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <!--start card-->
+        <div class="card-wrapper">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Comunicazioni</h5>
+              <p>Non Ci sono Comunicazioni!</p>
             </div>
           </div>
         </div>
-                                              
-    </div>
-    <div class="tab-pane p-4 fade" id="nav-tab3" role="tabpanel" aria-labelledby="nav-tab3-tab">
-      <div class="row">
-        <div class="col-12 col-lg-4">
-          <!--start card-->
-          <div class="card-wrapper">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Comunicazioni</h5>
-                <p>Non Ci sono Comunicazioni!</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>          
-    </div>
+      </div>
+    </div>          
+  </div>
     
   </div>
   <!-- Modal -->

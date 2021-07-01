@@ -26,6 +26,7 @@
                // $ist=getIstanzeUser($_SESSION['userData']['email']);
                // var_dump($ist);
                     foreach($ist as $i){
+                    //var_dump($i);
                       $tipo_istanza = getTipoIstanza($i['tipo_istanza']);
                       $stato_istanza = getStatoIstanza($i['stato']);
                       $status=checkRend($i['id_RAM']);?>
@@ -59,7 +60,7 @@
                         <div  class="btn-group btn-group-sm" role="group">
                        <!-- <button type="button" onclick="infoIstanza(<?=$i['id_RAM']?>);"class="btn btn-success btn-sm" title="Visualizza Info"><i class="fa fa-info" aria-hidden="true"></i> Info Istanza</button>-->
                    
-                        <a type="button" href="istanza.php"class="btn btn-primary" style="color:white;margin-left:5px;"> Vai a Istanza</a>
+                        <a type="button" href="istanza.php?id=<?=$i['id']?>"class="btn btn-primary" style="color:white;margin-left:5px;"> Vai a Istanza</a>
                            
 
                         </div>

@@ -10,12 +10,17 @@ if(!empty($_SESSION['message'])){
     unset($_SESSION['message'],$_SESSION['success']);
   }
                   
-
+          $search2 = getParam('search2','');
+          $search3 = getParam('search3','');
+          $search4 = getParam('search4','');
           $params =[
             'orderBy' => $orderBy, 
             'orderDir'=> $orderDir,
             'recordsPerPage' =>$recordsPerPage,
             'search1' => $search1,
+            'search2' => $search2,
+            'search3' => $search3,
+            'search4' => $search4,
             'page' => $page
           ];
 
@@ -43,11 +48,15 @@ if(!empty($_SESSION['message'])){
           }
           if(isUserAdmin()){
             require_once 'model/istanze.php';
+            $params['search3']=1;
             $totalIstanze= countIstanze($params);
+            //var_dump($totalIstanze);
             $istTotali =countTotIstanze($params);
              $istanze = getIstanze($params);
-             $istRend =countRendicontazione(1);
-             $istIstr =countRendicontazione(0);
+             $params['search4']="C";
+             $istRend =countIstanze($params);
+             $params['search4']="D";
+             $istIstr =countIstanze($params);
 
 
             require 'view/home/homeAdmin.php';

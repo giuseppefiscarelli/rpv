@@ -21,7 +21,7 @@ td_tv
 //check cambio categoria, tipo veicolo
 input max size html
 
-impoerto 
+importo 
 
 
 se infoveicolo select acquisto =>escudi tipo documento 9

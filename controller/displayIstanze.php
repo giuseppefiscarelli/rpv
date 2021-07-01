@@ -41,19 +41,18 @@ if(!empty($_SESSION['message'])){
             $params['search1'] =  $_SESSION['userData']['email'];
           
             $ist =[];
-           foreach($tipi_istanze as $ti){
-             
-            $params['search3'] = $ti['id'];
-            
-            $res = getIstanzeUser($params);
-            if($res){
-              foreach($res as $r){
-                array_push($ist,$r);
-              }
-            }
-          
-
-           }
+          foreach($tipi_istanze as $ti){
+              $params['search3'] = $ti['id'];
+              $res = getIstanzeUser($params);
+              
+                if($res){
+                  foreach($res as $r){
+                   
+                    array_push($ist,$r);
+                  }
+                  
+                }
+          }
           
           
          //var_dump($ist);

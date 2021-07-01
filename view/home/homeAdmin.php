@@ -7,9 +7,10 @@
             <div class="card card-bg">
             
               <div class="card-body">
-              <h3 class="card-title" style="align-text:center;">Istanze "Investimenti VII"</h3>
+              <h3 class="card-title" style="align-text:center;">Istanze "Ricambio Parco Veicolare "</h3>
 
               <div class="row">
+              
                 <div class="col-lg-3 col-12">
                   <div class="card card-teaser rounded shadow" style="background-color: #96ceff">
                   <div class="icon">
