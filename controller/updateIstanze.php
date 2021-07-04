@@ -249,7 +249,7 @@ switch ($action){
       $res['tipo']=$tipod['descrizione_tipo'];
       $res['cciaa']="Provincia ".$res['cciaa_prov']." <br>Codice ".$res['cciaa_codice']."<br>Data ".date("d/m/Y",strtotime($res['cciaa_data']));
       $res['banca']="Istituto ".$res['banca_istituto']."<br>Agenzia ".$res['banca_agenzia']."<br>IBAN ".$res['iban_it']." ".$res['iban_num_chk']." ".$res['iban_cin']." ".$res['iban_abi']." ".$res['iban_cab']." ".$res['iban_cc'];
-      var_dump($res);
+      //var_dump($res);
       echo json_encode($res);
       
     break;

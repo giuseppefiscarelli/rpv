@@ -106,9 +106,11 @@ function getIstanza(int $id){
    */
 
     $conn = $GLOBALS['mysqli'];
+    $conn->query('SET CHARACTER SET utf8');
       $result=[];
       $sql ='SELECT * FROM istanza WHERE id_RAM = '.$id;
       //echo $sql;
+
       $res = $conn->query($sql);
       
       if($res && $res->num_rows){
