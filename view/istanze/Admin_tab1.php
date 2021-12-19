@@ -122,14 +122,8 @@
               <div class="col-lg-6 col-12"> 
                   <table class="table table-sm">
                       <tbody>
-                      <?php
-                      $tipoimpresa = getTipoImpresa($i['tipo_impresa']);
-                      $tipImr = $tipoimpresa['descrizione_tipo'];
-                      ?>
-                          <tr>
-                          <th scope="row">Tipo Impresa</th>
-                          <td><?=$tipImr?></td>
-                          </tr>
+                     
+                          
                           <tr>
                           <th scope="row">Codice Albo</th>
                           <td><?=$i['codice_albo']?></td>
@@ -152,14 +146,7 @@
                               Agenzia <?=$i['banca_agenzia']?><br>
                               IBAN <?=$i['iban_it']?> <?=$i['iban_num_chk']?> <?=$i['iban_cin']?> <?=$i['iban_abi']?> <?=$i['iban_cab']?> <?=$i['iban_cc']?></td>
                           </tr>
-                          <tr>
-                          <th scope="row">Maggiorazione PMI</th>
-                          <td><?=$i['pmi']=='Off'?'Non Presente':'Presente'?></td>
-                          </tr>
-                          <tr>
-                          <th scope="row">Maggiorazione Contratto rete d'Imprese</th>
-                          <td><?=$i['rete']=='Off'?'Non Presente':'Presente'?></td>
-                          </tr>
+                          
                       </tbody>
                   </table>
               </div>

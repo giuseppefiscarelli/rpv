@@ -4,7 +4,49 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
 
 ?>
 
+<style type="text/css">
 
+/* @group Blink */
+.blink {
+ -webkit-animation: blink .75s linear infinite;
+ -moz-animation: blink .75s linear infinite;
+ -ms-animation: blink .75s linear infinite;
+ -o-animation: blink .75s linear infinite;
+ animation: blink .75s linear infinite;
+}
+@-webkit-keyframes blink {
+ 0% { opacity: 1; }
+ 50% { opacity: 1; }
+ 50.01% { opacity: 0; }
+ 100% { opacity: 0; }
+}
+@-moz-keyframes blink {
+ 0% { opacity: 1; }
+ 50% { opacity: 1; }
+ 50.01% { opacity: 0; }
+ 100% { opacity: 0; }
+}
+@-ms-keyframes blink {
+ 0% { opacity: 1; }
+ 50% { opacity: 1; }
+ 50.01% { opacity: 0; }
+ 100% { opacity: 0; }
+}
+@-o-keyframes blink {
+ 0% { opacity: 1; }
+ 50% { opacity: 1; }
+ 50.01% { opacity: 0; }
+ 100% { opacity: 0; }
+}
+@keyframes blink {
+ 0% { opacity: 1; }
+ 50% { opacity: 1; }
+ 50.01% { opacity: 0; }
+ 100% { opacity: 0; }
+}
+/* @end */
+
+</style>
 <div class="row">
   <div class="col-md-12">
     <div class="card">
@@ -58,6 +100,21 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                 </div>
               </div>
               <div class="form-group col-lg-2 bootstrap-select-wrapper">
+                <label for="recordsPerPage" class=" col-form-label">Stato Istruttoria</label>
+                <div class="col-sm-12">
+                  <select  
+                  name="search5" 
+                  id="search5" 
+                  onchange="document.forms.searchForm.submit()">
+                        <option value="">Tutti gli stati</option>
+                        <?php foreach ($stati_istruttoria as $si){ ?>
+                        
+                        <option value="<?=$si['cod']?>" <?=$search5 ==$si['cod']?'selected':''?>><?=$si['des']?></option>
+                        <?php }?>
+                    </select>
+                </div>
+              </div>
+              <div class="form-group col-lg-2 bootstrap-select-wrapper">
                 <label for="recordsPerPage" class=" col-form-label">Righe per Pagina</label>
                 <div class="col-sm-6">
                   <select  
@@ -72,15 +129,18 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                     </select>
                 </div>
               </div>
-          
-            
-          </div> 
-      
-          <div class="form-footer" style="margin-top: 0px;">
+              <div class="col-lg-6 col-12">
+              <div class="form-footer" style="margin-top: 0px;">
               <button type="button" onclick="location.href='<?=$pageUrl?>'" id="resetBtn" class="btn btn-danger"><i class="fa fa-trash"></i> Reset</button>
               
               <button type="submit" onclick="document.forms.searchForm.page.value=1" class="btn btn-success"><i class="fa fa-search"></i> Ricerca</button>
           </div> 
+              </div>
+          
+            
+          </div> 
+      
+        
         </form>
       </div>
     </div>
@@ -113,7 +173,8 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                                 <th class="<?=$orderBy === 'pec_impr'?$orderDirClass: '' ?> " >
                                     <a href="<?=$pageUrl?>?<?=$orderByQueryString ?>&orderBy=pec_impr&orderDir=<?=$orderDir?>">Pec Impresa</a></th>    
                                 <th>Stato Istanza</th>
-                                <th>Action</th>
+                                <th>Stato Istruttoria</th>
+                                <th style="min-width:170px;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,13 +182,29 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                                 if ($istanze){
                                     foreach ($istanze as $i){
                                      
-                                    
-                                      $tipo_istanza = getTipoIstanza($i['tipo_istanza']);
+                                   //var_dump($i);
+                                      //$tipo_istanza = getTipoIstanza($i['tipo_istanza']);
                                       $stato_istanza = getStatoIstanza($i['stato']);
-                                      $status=checkRend($i['id_RAM']);
-                                      $now=date("Y-m-d H:i:s");?>
+                                      //$status=checkRend($i['id_RAM']);
+                                      $now=date("Y-m-d H:i:s");
+                                      $status_istr= getStatusIstruttoria($i['id_RAM']);
+                                      $check_stato_istruttoria= getStatusIstruttoria_test($i['id_RAM']);
+                                        //var_dump($status_istr);
+                                        //var_dump($check_stato_istruttoria);
+                                     
+                                        if($status_istr && $check_stato_istruttoria){
+                                          //if($check_stato_istruttoria['tipo_report'] == $status_istr['tipo_report']){
+                                            $status_istr = $check_stato_istruttoria;
+                                            //echo 'qui';
+                                          //}
+                                        }elseif($check_stato_istruttoria){
+                                          $status_istr = $check_stato_istruttoria;
+                                        }
+                                        
+                                      //var_dump($status_istr);
+                                      ?>
                             <tr>
-                                <td><b><?=$tipo_istanza['des']?></b></td>      
+                                <td><b><?=$i['des_edizione']?></b></td>      
                                 <td><?=$i['id_RAM']?></td>
                                 <td><?=date("d/m/Y H:i",strtotime($i['data_invio']))?></td></td>
                                 <td><?=$i['ragione_sociale']?></td>
@@ -135,23 +212,79 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                                 <td>
                                     <span class="badge badge-pill badge-<?=$stato_istanza['style']?>"><?=$stato_istanza['des']?></span>
                                       <?=$i['stato_des']?>
-                                      <?php
-
-                                      ?>
+                                      
+                                </td>
+                                <td>
+                                <?php 
+                                      if ($i['stato_report']&&$i['tipo_report']){
+                                        $tipo_report = getTipoRepFull($i['tipo_report']);
+                                        //var_dump($i['stato_report']);
+                                        $text_istr = $tipo_report['badge_text'];
+                                        $type_istr = $tipo_report['style'];
+                                        if($i['stato_report']=='A'){
+                                          $span_istr = '<b class="blink">Pec da inviare</b>';
+                                        }
+                                        if($i['stato_report']=='B'){
+                                       
+                                          if($i['data_ins_report']){
+                                            $span_istr = '<b class="blink">Pec da convalidare</b>';
+                                          }
+                                          if($i['data_conv_report']){
+                                            $span_istr = '<b class="blink">Pec da inviare</b>';
+                                          }
+                                        }
+                                        if($i['stato_report']=='C'){
+                                            $span_istr = 'Pec inviata il '.date("d/m/Y",strtotime($i['data_invio_report']));
+                                        }?>
+                                        <span class="badge badge-pill badge-<?=$type_istr?>"><?=$text_istr?></span><br>
+                                            <?=$span_istr?>
+                                        <?php
+                                      }
+                                     
+                                        /*if($status_istr){
+                                            if($status_istr['tipo_report'] === '1'){
+                                                $text_istr = 'Integrazione';
+                                                $type_istr = 'warning';
+                                            }
+                                            if($status_istr['tipo_report'] === '3'){
+                                              $text_istr = 'Ammessa';
+                                              $type_istr = 'success';
+                                            }
+                                            if($status_istr['tipo_report'] === '2'){
+                                              $text_istr = 'Preavviso di rigetto';
+                                              $type_istr = 'warning';
+                                            }
+                                            if($status_istr['tipo_report'] === '4'){
+                                              $text_istr = 'Rigettata';
+                                              $type_istr = 'danger';
+                                            }
+                                            if($status_istr['data_invio']){
+                                              $span_istr = 'Pec inviata il '.date("d/m/Y",strtotime($status_istr['data_invio']));
+                                              
+                                            }else{
+                                              //$span_istr='<span class="badge badge-'.$type_istr.' blink">'.$text_istr.'</span>';
+                                              $span_istr = '<b class="blink">Pec da inviare</b> '; 
+                                            }
+                                           
+                                            ?>
+                                             <span class="badge badge-pill badge-<?=$type_istr?>"><?=$text_istr?></span><br>
+                                            <?=$span_istr?>
+                                      <?php   }*/?>
+                                     
                                 </td>
                                
                                 <td>
-                                <button type="button" onclick="infoIstanza(<?=$i['id_RAM']?>);"class="btn btn-success btn-sm" title="Visualizza Info"><i class="fa fa-info" aria-hidden="true"></i></button>
+                                <button type="button" onclick="infoIstanza(<?=$i['id_RAM']?>);"class="btn btn-success btn-xs" title="Visualizza Info" style="width:35px;"><i class="fa fa-info" aria-hidden="true"></i></button>
                                 <?php
                                   
                                   if($i['stato']!='A'){?>
-                                  <button onclick="window.location.href='istanza.php?id=<?=$i['id_RAM']?>'" type="button" class="btn btn-warning btn-sm" title="Visualizza Istanza"><i class="fa fa-list" aria-hidden="true"></i></button>
+                                  <button onclick="window.location.href='istanza.php?id=<?=$i['id_RAM']?>'" type="button" class="btn btn-warning btn-xs" style="width:35px;" title="Visualizza Istanza"><i class="fa fa-list" aria-hidden="true"></i></button>
                                   <?php }
-                                  if($i['stato']!='B'&&$i['stato']!='E'){?>
-                                    <button type="button" class="btn btn-danger btn-sm" title="Annulla Istanza" onclick="annIst(<?=$i['id_RAM']?>);"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                  if($i['stato']!='B'){?>
+                                    <button type="button" class="btn btn-danger btn-xs" title="Annulla Istanza" onclick="annIst(<?=$i['id_RAM']?>);" style="width:35px;"><i class="fa fa-times" aria-hidden="true"></i></button>
                                   <?php }
                                   if($i['stato']=='B'){?>
-                                    <button type="button" class="btn btn-danger btn-sm" title="Info Annullamento Istanza" onclick="annInfo(<?=$i['id_RAM']?>);"><i class="fa fa-user-times" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-danger btn-xs" title="Info Annullamento Istanza" onclick="annInfo(<?=$i['id_RAM']?>);" style="width:35px;"><i class="fa fa-user-times" aria-hidden="true"></i></button>
 
                                   <?php }
                                 ?>
@@ -162,7 +295,7 @@ $orderDir = $orderDir === 'ASC' ? 'DESC' : 'ASC';
                                     }
                                 }else{
                                     
-                                    echo '<tr><td colspan=7>Nessuna Istanza trovata</td></tr>';
+                                    echo '<tr><td colspan=8>Nessuna Istanza trovata</td></tr>';
                                 }?>
 
 

@@ -3,17 +3,14 @@ session_start();
 require_once 'functions.php';
 //var_dump($_SESSION);die;
 if(!empty($_POST)){
-
     if(!empty($_POST['action']) && $_POST['action'] === 'logout'){
         $status = 'offline';
         statusUsers($status,$_SESSION['userData']['username']);
         //var_dump($_SESSION);die;
         $_SESSION = [];
-        
         header('Location: index.php');
         exit;
     }
-
     $token = $_POST['_csrf'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';

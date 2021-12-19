@@ -8,10 +8,12 @@ if(!empty($_SESSION['message'])){
     require 'view/template/message.php';
     unset($_SESSION['message'],$_SESSION['success']);
   }
+
                   
          $search2 = getParam('search2','');
          $search3 = getParam('search3','');
          $search4 = getParam('search4','');
+         $search5 = getParam('search5','');
           $params =[
             'orderBy' => $orderBy, 
             'orderDir'=> $orderDir,
@@ -20,6 +22,7 @@ if(!empty($_SESSION['message'])){
             'search2' => $search2,
             'search3' => $search3,
             'search4' => $search4,
+            'search5' => $search5,
             'page' => $page
           ];
 
@@ -28,59 +31,29 @@ if(!empty($_SESSION['message'])){
           unset($orderByParams['orderDir']);
           unset($orderByNavigatorParams['page']);
           $orderByQueryString = http_build_query($orderByParams,'&amp;');
+          //var_dump(http_build_query($params,'&amp;'));
           $navOrderByQueryString = http_build_query($orderByNavigatorParams,'&amp;');
           $tipi_istanze = getTipiIstanza();
           $stati_istanze = getStatiIstanza();
+          $stati_istruttoria = getStatiIstruttoria();
          
           //var_dump($users);
          
-          if(isUserUser()){
+         if(isUserUser()){
             $params['search1']= $_SESSION['userData']['email'];
             $totalUsers= countIstanze($params);
             $numPages= ceil($totalUsers/$recordsPerPage);
-            $params['search1'] =  $_SESSION['userData']['email'];
-          
             $ist =[];
-          foreach($tipi_istanze as $ti){
-              $params['search3'] = $ti['id'];
-              $res = getIstanzeUser($params);
-              
-                if($res){
-                  foreach($res as $r){
-                   
-                    array_push($ist,$r);
-                  }
-                  
-                }
-          }
-          
-          
-         //var_dump($ist);
-         require_once 'view/istanze/istanze_listUser.php';
+            $ist = getIstanzeUser($params);
+          require_once 'view/istanze/istanze_listUser.php';
          }else{
+        
          
-          
-          $email=$_SESSION['userData']['email'];
-          if(!$search3){
-            $istanze=[];
-            $totalUsers = 0;
-            foreach($tipi_istanze as $ti){
-              $params['search3'] = $ti['id'];
-              $ist = getIstanze($params);
-              foreach($ist as $is){
-                array_push($istanze,$is);
-              
-              }
-              $totalUsers =  $totalUsers + countIstanze($params);
-             
-            }
-          }else{
+         // var_dump($params);
             $istanze = getIstanze($params);
             $totalUsers= countIstanze($params);
-          }
           $numPages= ceil($totalUsers/$recordsPerPage);
-          //var_dump($istanze);
-          
-
+       
+          //var_dump($_SESSION['envData']['paramList']);
           require_once 'view/istanze/istanze_list.php';
          }

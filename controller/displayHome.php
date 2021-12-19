@@ -31,36 +31,14 @@ if(!empty($_SESSION['message'])){
           $orderByQueryString = http_build_query($orderByParams,'&amp;');
           $navOrderByQueryString = http_build_query($orderByNavigatorParams,'&amp;');
 
-         // $totalUsers= countUsers($params);
-         // $numPages= ceil($totalUsers/$recordsPerPage);
-         // $users = getUsers($params);
-          //var_dump($users);
-          if(isUserSuadmin()){
+          if(isUserSuadmin() || isUserAdmin()){
             require_once 'model/istanze.php';
-            $totalIstanze= countIstanze($params);
-            $istTotali =countTotIstanze($params);
-             $istanze = getIstanze($params);
-             $istRend =countRendicontazione(1);
-             $istIstr =countRendicontazione(0);
+           
+         
 
-
-            require 'view/home/homeSuadmin.php';
+           require 'view/home/homeAdmin.php';
           }
-          if(isUserAdmin()){
-            require_once 'model/istanze.php';
-            $params['search3']=1;
-            $totalIstanze= countIstanze($params);
-            //var_dump($totalIstanze);
-            $istTotali =countTotIstanze($params);
-             $istanze = getIstanze($params);
-             $params['search4']="C";
-             $istRend =countIstanze($params);
-             $params['search4']="D";
-             $istIstr =countIstanze($params);
-
-
-            require 'view/home/homeAdmin.php';
-          }
+           
           if(isUserUser()){
             require 'view/home/homeUser.php';
 

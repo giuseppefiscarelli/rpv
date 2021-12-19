@@ -44,7 +44,8 @@ require_once 'headerInclude.php';
                   outputFormat: 'dd/MM/yyyy',
                   
             });
-      
+            $('#loadSpin').fadeOut();
+  $('#istanza_container').fadeIn();
       
       });
       function checkAlle(){
@@ -78,6 +79,16 @@ require_once 'headerInclude.php';
            
            
       }  
+      $('#docModal').on('hidden.bs.modal', function (e) {
+            $('#campi_allegati').empty();
+      })
+      $('#infoAllegato').on('hidden.bs.modal', function (e) {
+            $('.modal-backdrop').css('z-index',1040);          
+      }) 
+      $('#istruttoriaModal').on('hidden.bs.modal', function (e) {
+            $('.modal-backdrop').css('z-index',1040);
+            
+      })
       $('#form_infovei').submit(function( event ) {
             id_RAM = <?=$i['id_RAM']?>;
 
@@ -436,7 +447,11 @@ require_once 'headerInclude.php';
                   minimumFractionDigits: 2
             })
             $('#infoAllegato').modal('toggle');
+            $('#infoAllegato').css("z-index", parseInt($('.modal-backdrop').css('z-index'))+100);
+            $('.modal-backdrop').css('z-index',1050);
+
             $('#info_tab_alle tbody').empty();
+            $('#upinfoalle').empty();
             $.ajax({
                         type: "POST",
                         url: "controller/updateIstanze.php?action=getAllegato",
@@ -450,22 +465,42 @@ require_once 'headerInclude.php';
                               //test = $.parseJSON(data.json_data)
                               $.each(test, function(k, v) {
                                     campo = k.split("_")
-                                    campo= capitalizeFirstLetter(campo[0])+' '+ capitalizeFirstLetter(campo[1])
+                                    console.log(campo)
+                                    if (campo[1]) {
+                                          campo= capitalizeFirstLetter(campo[0])+' '+ capitalizeFirstLetter(campo[1])
+                                    }
+                                    //campo= capitalizeFirstLetter(campo[0])+' '+ capitalizeFirstLetter(campo[1])
                                    // console.log(campo)
                                     if(campo=="Importo "){
                                           v = formatter.format(v);
+
+                                    }
+                                    if(campo=="Tipo Documento"){
+                                          v = data['allegato'].tipo_documento;
 
                                     }
                                     $('#info_tab_alle').append('<tr><td>'+campo+'</td><td>'+v+'</td></tr>');
 
                               });
                               view = '<button type="button" onclick="window.open(\'allegato.php?id='+id+'\', \'_blank\')" title="Vedi Documento"class="btn btn-xs btn-primary " style="padding-left:12px;padding-right:12px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>'
-
+                              if(data['allegato'].note_admin==null){
+                                    data['allegato'].note_admin = '';
+                              }
                               down ='<a type="button" href="download.php?id='+id+'" download title="Scarica Documento"class="btn btn-xs btn-success " style="padding-left:12px;padding-right:12px;"><i class="fa fa-download" aria-hidden="true"></i> </a>'
-
+                              stato_istanza = '<div class="bootstrap-select-wrapper" style="margin-top:30px;"><label>Stato Lavorazione</label><select id="stato_allegato_admin" nome="stato_allegato_admin "title="Seleziona Stato"><option value="A" style="background: #ffda73; color: #fff;">In Lavorazione</option><option value="B" style="background: #5cb85c; color: #fff;">Accettato</option><option value="C"style="background: #d9364f; color: #fff;">Rigettato</option></select></div>'
+                              note_istanza = '<div class="form-group" style="margin-top:30px;"><textarea rows="4" class="form-control" id="note_admin" nome="note_admin"  placeholder="inserire note">'+data['allegato'].note_admin+'</textarea><label for="note_admin" class="active">Scrivi note</label></div>'      
                               $('#info_tab_alle').append('<tr><td>Scarica Allegato</td><td>'+down+'</td></tr>');
                               $('#info_tab_alle').append('<tr><td>Visualizza allegato</td><td>'+view+'</td></tr>');
-
+                              $form = $("<form method='post' id='info_alle_modal'></form>");
+                              id_alle="<input type='hidden' id='id_allegato' name='id_allegato' value='"+id+"'>";
+                              $form.append(id_alle);
+                              $form.append(note_istanza);
+                              $form.append(stato_istanza);
+                            
+                              $('#upinfoalle').append($form);
+                              $('.bootstrap-select-wrapper select').selectpicker('render');
+                              $('#stato_allegato_admin ').val(data['allegato'].stato_admin);
+                              $('.bootstrap-select-wrapper select').selectpicker('refresh');
 
                             
                                                           

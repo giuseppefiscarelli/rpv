@@ -10,6 +10,7 @@ switch ($action){
     case 'store':
       
     break; 
+
     case 'getTipDoc':
 
       $tipo_documento=$_REQUEST['tipo'];
@@ -84,6 +85,54 @@ switch ($action){
         
 
     break; 
+
+    case 'getAllegati':
+      $data=$_REQUEST;
+      $res =getAllegati($data['id_RAM'],$data['tipo_veicolo'],$data['progressivo']);
+      
+      
+      
+      //$tipo = getTipDoc($res['tipo_documento']);
+      //var_dump($res);
+      if($res){
+       
+        
+        echo json_encode($res); 
+      }
+       // var_dump($res);
+       // var_dump($res);
+        
+     // echo json_encode($res);
+     // echo json_encode($res);
+    break;
+    case 'getAllegatiCheck':
+      $data=$_REQUEST;
+      $status= checkRend($data['id_RAM']);
+      $res =getAllegati($data['id_RAM'],$data['tipo_veicolo'],$data['progressivo']);
+
+     
+      $alleok = getAlleOk($data['id_RAM'],$data['tipo_veicolo'],$data['progressivo']);
+      $alleno = getAlleNo($data['id_RAM'],$data['tipo_veicolo'],$data['progressivo']);
+      $countAlle = countAlle($data['id_RAM'],$data['tipo_veicolo'],$data['progressivo']);
+      $ok = ($alleok + $alleno) == $countAlle??false;
+      $json = array(
+        'res' => $res,
+        'ok' => $ok,
+        'rend' => $status['data_chiusura']
+      );
+      //$tipo = getTipDoc($res['tipo_documento']);
+      //var_dump($res);
+      if($res){
+       
+        
+        echo json_encode($json); 
+      }
+       // var_dump($res);
+       // var_dump($res);
+        
+     // echo json_encode($res);
+     // echo json_encode($res);
+    break;
     
     case 'newAllegatoMag':
       $file=$_FILES['file_allegato'];
@@ -168,9 +217,46 @@ switch ($action){
       echo json_encode($res);
     break;  
 
-    case 'getInfoVei':
+    /*case 'getInfoVei':
       $id=$_REQUEST['id'];
       $res =getInfoVei($id);
+      echo json_encode($res);
+
+
+    break;*/  
+    case 'getInfoVei': 
+      $id=$_REQUEST['id'];
+      $res =getInfoVei($id);
+
+      $res['check_rottamazione'] = false;
+     
+      $c_i = checkIstanza($res['id_RAM']);
+     // var_dump($c_i);die;
+      $c_iCheck = false;
+      if($c_i){
+        if(!is_null($c_i['pec'])&&!is_null($c_i['firma'])&&!is_null($c_i['doc'])&&!is_null($c_i['contratto'])&&!is_null($c_i['delega'])&&!is_null($c_i['dim_impresa'])){
+            $c_iCheck = true;
+        }
+      }
+      // var_dump($c_i);die;
+      $contr= calcolaContributo($res);
+      
+      if($contr === '{"result":"KO"}'){
+        $contr = false;
+      }
+      //var_dump($contr);
+      if(!$contr){
+        $res['val_contributo']=0;
+       
+      }else{
+        $res['val_contributo']=$contr[0]['contributo'];
+        
+      }
+     
+
+      $res['check_istruttoria'] = $c_iCheck;
+
+      
       echo json_encode($res);
 
 
@@ -179,6 +265,8 @@ switch ($action){
     case 'getAllegato':
       $id=$_REQUEST['id'];
       $res =getAllegatoID($id);
+      $tipo = getTipDocumento($res['tipo_documento']);
+      $res['tipo_documento']=$tipo[0]['tdoc_descrizione'];
       
       $json = array(
         "allegato" => $res,
@@ -188,6 +276,7 @@ switch ($action){
       echo json_encode($json);
       //echo json_encode($res);
     break;  
+
     case 'getInfoCampo':
       $cod=$_REQUEST['cod'];
       $res = getInfoCampo($cod);
@@ -231,6 +320,7 @@ switch ($action){
       $res = countDocVeicolo($tipo_veicolo);
       echo  json_encode($res);
     break;
+
     case 'getIstanza':
     
       $id = $_REQUEST['id'];
@@ -253,4 +343,331 @@ switch ($action){
       echo json_encode($res);
       
     break;
+
+    case 'displayHome2': 
+      
+      $tipi_istanze=getTipiIstanza();
+      $json = []; 
+      $now =date("Y-m-d H:i:s");
+      foreach ($tipi_istanze as $ti){
+        $params['search4']='';
+        $params['search5']='';
+        $params['search3']=intval($ti['id']);
+        $totIst= getIstanzeHome($params);
+        $totalIstanze =0;
+        $istAttive = 0;
+        $istAnnullate = 0;
+        $istRend = 0;
+        $istIstr = 0;
+        $istScadute = 0;
+        $IstrIntegrazione = 0;
+        $IstrPreavviso = 0;
+        $IstrAmmessa = 0;
+        $IstrRigettata = 0;
+        foreach($totIst as $total){
+         
+          $totalIstanze ++;
+          
+          if(is_null($total['aperta']) && $ti['data_rendicontazione_fine']>$now){
+            $istAttive ++;
+          }
+          if(!is_null($total['data_annullamento'])){
+            $istAnnullate ++;
+          }
+          if($total['aperta'] == 1 && $ti['data_rendicontazione_fine']>$now && is_null($total['data_chiusura']) && is_null($total['data_annullamento'])){
+            $istRend ++;
+          }
+          
+          if($total['aperta'] == 0  && !is_null($total['data_chiusura']) && is_null($total['data_annullamento'])){
+            $istIstr ++;
+            if($total['tipo_report'] ==1){
+              $IstrIntegrazione ++;
+            }
+            if($total['tipo_report'] ==2){
+              $IstrPreavviso ++;
+            }
+            if($total['tipo_report'] ==3){
+              $IstrAmmessa ++;
+            }
+
+          }
+          if($total['tipo_report'] ==4){
+            $IstrRigettata ++;
+          }
+          if(($total['aperta'] == 1 || is_null($total['aperta'])) && $ti['data_rendicontazione_fine']<$now && is_null($total['data_chiusura']) && is_null($total['data_annullamento'])){
+            $istScadute ++;
+          }
+
+        }
+
+        $js = array(
+          'tipo' => $ti['id'],
+          'titolo' => $ti['des'],
+          'totali' => $totalIstanze,
+          'attive' => $istAttive,
+          'annullate' => $istAnnullate,
+          'rendicontazione' => $istRend,
+          'istruttoria' => $istIstr,
+          'scadute' => $istScadute,
+          'integrazione' => $IstrIntegrazione,
+          'preavviso' => $IstrPreavviso,
+          'ammessa' => $IstrAmmessa,
+          'rigettata' => $IstrRigettata
+        
+
+        );
+        array_push($json,$js);
+
+      }
+    
+      echo json_encode($json);
+    
+    
+    break;
+
+    case 'upIstruttoria':
+      $data=$_REQUEST;
+      $res =upIstruttoria($data); 
+      echo json_encode($res);
+    break;
+
+    case 'upAlleAdmin':
+      $data=$_REQUEST;
+
+      $res2 = upAlleAdmin($data);
+      //var_dump($res2);die;
+      $id = $data['id'];
+      $v =  getAllegatoID($id);
+      //var_dump($v);die;
+      $alleok = getAlleOk($v['id_ram'],$v['tipo_veicolo'],$v['progressivo']);
+      $alleno = getAlleNo($v['id_ram'],$v['tipo_veicolo'],$v['progressivo']);
+      $countAlle = countAlle($v['id_ram'],$v['tipo_veicolo'],$v['progressivo']);
+      $vei=getVeicolo($v['id_ram'],$v['tipo_veicolo'],$v['progressivo']);
+
+      //var_dump( $vei);die;
+      $res = array(
+              'response' => intVal($res2),
+              'accettati' =>  intVal($alleok),
+              'respinti' => intVal($alleno),
+              'totali' => intVal($countAlle),
+              'id_veicolo'=> $vei['id'],
+              'tipo_documento'=> $v['tipo_documento']
+      );
+              //var_dump($res);
+
+      //die;
+      echo json_encode($res);
+
+    break;
+    case 'getRiepilogo':
+      $id_RAM = $_REQUEST['idRAM'];
+
+      $veiRiep = getVeicoli($id_RAM);
+      $datavei = array();
+      $totcosto=0;
+      $totcontr =0;
+      $totpmi = 0;
+      $totrete = 0;
+      $tottotale=0;
+      $check_rottamazione = false;
+      //$check_rottamazione = checkMaggRottamazione($id_RAM);
+      foreach($veiRiep as $v){
+       
+            $tipo = getTipoVeicolo($v['tipo_veicolo']);
+            $categ = getCategoria($tipo['codice_categoria_incentivo']);
+            if($v['stato_admin'] == 'B'){
+             
+                $totale = $v['valore_contr'];
+                $totcosto += $v['costo_istr'];
+                $totcontr  +=  $v['valore_contr'];
+                $totpmi +=$v['pmi_istr'];
+                $totrete +=$v['rete_istr'];
+                $tottotale += $totale;
+              }
+            //var_dump($v);
+            $veicolo = array(
+              'stato_admin' =>$v['stato_admin'],
+              'categoria' => $categ['ctgi_categoria'],
+              'tipologia' =>$tipo['tpvc_descrizione_breve'],
+              'prog' => $v['progressivo'],
+              'targa' => $v['targa'],
+              'costo' => $v['costo_istr'],
+              'contributo' => $v['valore_contr'],
+              'pmi' => $v['pmi_istr'],
+              'rete' =>$v['rete_istr'],
+              'totale' =>$v['valore_contr']+$v['pmi_istr']+$v['rete_istr'],
+              'note' => $v['note_admin']??'' 
+            );
+            array_push($datavei,$veicolo); 
+      }
+      
+     
+      $json= array(
+        'datavei' => $datavei,
+        'totcosto' => $totcosto,
+        'totcontr'=> $totcontr,
+        'totpmi' => $totpmi,
+        'totrete' => $totrete,
+        'tottotale' => $tottotale,
+        'rottamazione' => $check_rottamazione?true:false
+      );
+     echo json_encode($json);
+    break;
+    case 'getComunicazioni':
+      $id_RAM = $_REQUEST['id_RAM'];
+      $stato_istruttoria = getStatusIstruttoria_full($id_RAM);
+      $status= checkRend($id_RAM);
+     
+      if($status){
+        if($status['aperta'] == '1'){
+          $statusRend = false;
+        }else{
+          $statusRend = true;
+        }
+      }else{
+        $statusRend = false;
+      }
+     if(!$stato_istruttoria){
+       $stato_istruttoria = 0;
+     }
+      $check_ammissione = 0;
+      
+      $veicoli = getVeicoli($id_RAM);
+      foreach($veicoli as $v){
+        if($v['stato_admin']=='A'||$v['stato_admin']==null){
+            $check_ammissione++;
+        }
+      }
+      //var_dump($check_ammissione);
+      //var_dump($stato_istruttoria);
+      $json = [
+        'check_ammissione' =>$check_ammissione,
+        'stato_istruttoria'=>$stato_istruttoria,
+        'stato_rendicondazione' => $statusRend
+      ];
+      echo json_encode($json);
+    break;
+    case 'delReport': 
+      $data = $_REQUEST;
+      $res= delReport($data['id']);
+      $status_istr= getStatusIstruttoria_full($data['id_RAM']);
+      $veicoli=getVeicoli($data['id_RAM']);
+      $check_ammissione = 0;
+      foreach($veicoli as $v){
+          if($v['stato_admin']=='A'||$v['stato_admin']==null){
+              $check_ammissione++ ;
+          }
+      }
+      $json = array(
+        'res' => $res,
+        'status' => $status_istr,
+        'check'=> $check_ammissione
+      );
+
+      echo json_encode($json);
+    break;
+    case 'getReport': 
+        $id = $_REQUEST['id'];
+        $res= getReportId($id);
+        $res2 = getTipoRep($res['tipo_report']);
+        $res['descrizione_rep'] = $res2;
+        echo json_encode($res);
+    break;
+    case 'saveReport':
+      $data = $_REQUEST;
+      //var_dump($data);die;
+      $res = saveReport($data);
+      $res2 =getReportId($data['id']);
+      
+      $res3 = getTipoRep($res2['tipo_report']);
+      
+      if ($res2['tipo_report'] === 3){
+        $dett= array(
+          'id_RAM' => $res['id_RAM'],
+          'id_report'=> $data['id'],
+          'prog'=> '',
+          'tipo' => 3,
+          'descrizione' => $data['data_verbale']
+        );
+        $nt = newIntDett($dett);
+      }
+      
+      $res2['descrizione'] = $res3;
+      $res2['data_inserimento'] = date("d/m/y H:i", strtotime($res2['data_ins']));
+      //var_dump($res2);
+      //die;
+      echo json_encode($res2);
+    break;
+    case 'upContributo':
+      $id_RAM = $_REQUEST['idRAM'];
+      $veiRiep = getVeicoli($id_RAM);
+      $datavei = array();
+      $tottotale=0;
+      $check_rottamazione = false;
+      $check_rottamazione = checkMaggRottamazione($id_RAM);
+      foreach($veiRiep as $v){
+        if($v['stato_admin'] == 'B'){
+            $totale = $v['valore_contr']+$v['pmi_istr']+$v['rete_istr'];
+            $tottotale += $totale;
+        }    
+      }
+      if($check_rottamazione){
+        $tottotale += 2000;
+      }
+      if($tottotale> 550000){
+        $tottotale = 550000;
+      }
+      $json= array(
+        'id_RAM' => $id_RAM,
+        'tot_contributo' => $tottotale
+      );
+      //var_dump($json);
+      $up = upContributo($json);
+      //var_dump($up);
+      echo json_encode($up);
+
+    break; 
+
+    case 'newInt':
+      $data = $_REQUEST;
+      $res = newInt($data);
+      echo json_encode($res);
+    break;
+    case 'getDocR':
+      $id_RAM =$_REQUEST['id_RAM'];
+      $veicoli = getVeicoli($id_RAM);
+      var_dump($veicoli);
+      $arr =array();
+      foreach ($veicoli as $v){
+        $tipo_veicolo = $v['tipo_veicolo'];
+        $progressivo =$v['progressivo'];
+        $allegati = getAllegatiR($id_RAM,$tipo_veicolo,$progressivo);
+        var_dump($allegati);
+        foreach ($allegati as $a){
+          $a['id_RAM']= $a['id_ram'];
+         // var_dump($a);die; 
+          $res=getInfoVeiData($a);       
+            $a['tipo_documento'] = getTipDoc($a['tipo_documento']);           
+            $a['targa']=$res['targa'];
+            array_push($arr,$a);
+          }
+        }
+      echo json_encode($arr);
+    break;
+    case 'getTipoInt':
+      $id=$_REQUEST['tipo'];
+      $res =getTipoInt($id);
+
+      
+      
+      echo json_encode($res);
+    
+      break;
+
+    case 'newIntDett': 
+      $data = $_REQUEST;
+      $res = newIntDett($data);
+      echo json_encode($res);
+
+      break;
    }
