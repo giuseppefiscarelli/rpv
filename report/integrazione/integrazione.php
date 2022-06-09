@@ -39,7 +39,7 @@ try {
     $path = $pathReport;
     $html2pdf->writeHTML($content);
     $filename = $rep['id']."_".$rep['id_RAM']."_".time();
-    
+    ob_end_clean();
     //$html2pdf->createIndex('Sommaire', 30, 12, false, true, 2, null, '10mm');
     if($tipo =="P"){
        
