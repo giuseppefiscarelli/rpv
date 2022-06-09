@@ -29,9 +29,9 @@ try {
     $html2pdf->pdf->SetDisplayMode('fullpage');
     $html2pdf->pdf->SetProtection(array('print','copy'));
     $html2pdf->setDefaultFont('times', 'serif');
-    $html2pdf = new Html2Pdf();
+    
     ob_start();
-    include dirname(__FILE__).'/res/test.php';
+    include dirname(__FILE__).'/res/integrazione.php';
     
      
     
