@@ -19,7 +19,11 @@ $user = getIstanza($rep['id_RAM']);
 $dettagli = getDettReport($_GET['id']);
 $tipo = $_GET['tipo'];
 $tipo_istanza= getTipoIstanza($user['tipo_istanza']);
-
+var_dump($rep);
+var_dump($dettagli);
+var_dump($tipo);
+var_dump($tipo_istanza);
+var_dump($user);die;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
