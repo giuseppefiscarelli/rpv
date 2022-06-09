@@ -35,7 +35,7 @@ try {
      
     
     $content = ob_get_clean();
-    $path = $pathReport;
+   // $path = $pathReport;
     $html2pdf->writeHTML($content);
     $filename = $rep['id']."_".$rep['id_RAM']."_".time();
     
