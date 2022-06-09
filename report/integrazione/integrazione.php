@@ -14,13 +14,13 @@ require_once  '../../vendor/autoload.php';
 require_once  '../../model/istanze.php';
 require_once  '../../functions.php';
 
-$rep = getReportId($_GET['id']);
-$user = getIstanza($rep['id_RAM']);
-$dettagli = getDettReport($_GET['id']);
+//$rep = getReportId($_GET['id']);
+//$user = getIstanza($rep['id_RAM']);
+//$dettagli = getDettReport($_GET['id']);
 $tipo = $_GET['tipo'];
-$tipo_istanza= getTipoIstanza($user['tipo_istanza']);
-echo 'rep';
-var_dump($rep);
+//$tipo_istanza= getTipoIstanza($user['tipo_istanza']);
+
+var_dump($tipo);
 die;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
