@@ -132,6 +132,7 @@ try {
     $filename = $rep['id']."_".$rep['id_RAM']."_".time();
     //$html2pdf->createIndex('Sommaire', 30, 12, false, true, 2, null, '10mm');
     //$html2pdf->output($path.$filename.".pdf",'FI');
+    ob_end_clean();
     if($tipo =="P"){
         $html2pdf->output($filename.".pdf",'I');
     }

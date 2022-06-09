@@ -56,7 +56,7 @@ try {
     //$html2pdf->addFont($family, $style, $file);
     $filename = $rep['id']."_".$rep['id_RAM']."_".time();
     //$html2pdf->createIndex('Sommaire', 30, 12, false, true, 2, null, '10mm');
-    
+    ob_end_clean();
     if($tipo =="P"){
         $html2pdf->output($filename.".pdf",'I');
     }

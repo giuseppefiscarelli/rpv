@@ -17,10 +17,6 @@ $rep = getReportId($_GET['id']);
 $user = getIstanza($rep['id_RAM']);
 $data_RAM = getistanzaView($rep['id_RAM']);
 $tipo_istanza= getTipoIstanza($user['tipo_istanza']);
-var_dump($rep);
-var_dump($data_RAM);
-var_dump($tipo_istanza);
-var_dump($user);die;
 $dettagli = getDettReport($_GET['id']);
 $tipo = $_GET['tipo'];
 
@@ -43,7 +39,7 @@ try {
     $html2pdf->writeHTML($content);
     $filename = $rep['id']."_".$rep['id_RAM']."_".time();
     //$html2pdf->createIndex('Sommaire', 30, 12, false, true, 2, null, '10mm');
-    
+    ob_end_clean();
     if($tipo =="P"){
         $html2pdf->output($filename.".pdf",'I');
     }
