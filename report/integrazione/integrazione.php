@@ -14,11 +14,11 @@ require_once  '../../vendor/autoload.php';
 require_once  '../../model/istanze.php';
 require_once  '../../functions.php';
 
-//$rep = getReportId($_GET['id']);
-//$user = getIstanza($rep['id_RAM']);
-///$dettagli = getDettReport($_GET['id']);
+$rep = getReportId($_GET['id']);
+$user = getIstanza($rep['id_RAM']);
+$dettagli = getDettReport($_GET['id']);
 $tipo = $_GET['tipo'];
-//$tipo_istanza= getTipoIstanza($user['tipo_istanza']);
+$tipo_istanza= getTipoIstanza($user['tipo_istanza']);
 
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
@@ -30,13 +30,13 @@ try {
     $html2pdf->pdf->SetProtection(array('print','copy'));
     $html2pdf->setDefaultFont('times', 'serif');
     ob_start();
-    //include dirname(__FILE__).'/res/test.php';
+    include dirname(__FILE__).'/res/test.php';
     
      
     
-    //$content = ob_get_clean();
-    //$path = $pathReport;
-    //$html2pdf->writeHTML($content);
+    $content = ob_get_clean();
+    $path = $pathReport;
+    $html2pdf->writeHTML($content);
     $filename = $rep['id']."_".$rep['id_RAM']."_".time();
     
     //$html2pdf->createIndex('Sommaire', 30, 12, false, true, 2, null, '10mm');
