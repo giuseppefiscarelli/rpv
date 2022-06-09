@@ -14,23 +14,21 @@ require_once  '../../vendor/autoload.php';
 require_once  '../../model/istanze.php';
 require_once  '../../functions.php';
 
-//$rep = getReportId($_GET['id']);
-//$user = getIstanza($rep['id_RAM']);
-//$dettagli = getDettReport($_GET['id']);
+$rep = getReportId($_GET['id']);
+$user = getIstanza($rep['id_RAM']);
+$dettagli = getDettReport($_GET['id']);
 $tipo = $_GET['tipo'];
-//$tipo_istanza= getTipoIstanza($user['tipo_istanza']);
+$tipo_istanza= getTipoIstanza($user['tipo_istanza']);
 
-var_dump($tipo);
-die;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 try {
-    //$html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 2),true);
-    //$html2pdf->pdf->SetDisplayMode('fullpage');
-    //$html2pdf->pdf->SetProtection(array('print','copy'));
-    //$html2pdf->setDefaultFont('times', 'serif');
+    $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 2),true);
+    $html2pdf->pdf->SetDisplayMode('fullpage');
+    $html2pdf->pdf->SetProtection(array('print','copy'));
+    $html2pdf->setDefaultFont('times', 'serif');
     $html2pdf = new Html2Pdf();
     ob_start();
     include dirname(__FILE__).'/res/test.php';
@@ -38,9 +36,9 @@ try {
      
     
     $content = ob_get_clean();
-    //$path = $pathReport;
+    $path = $pathReport;
     $html2pdf->writeHTML($content);
-    //$filename = $rep['id']."_".$rep['id_RAM']."_".time();
+    $filename = $rep['id']."_".$rep['id_RAM']."_".time();
     
     //$html2pdf->createIndex('Sommaire', 30, 12, false, true, 2, null, '10mm');
     if($tipo =="P"){
