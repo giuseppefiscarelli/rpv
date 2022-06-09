@@ -2313,3 +2313,71 @@ function newInt($data){
 
 
 }
+function getDettReport($id){
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+
+  $sql = "SELECT * FROM dettaglio_report where id_report =$id";
+  
+  
+  $records = [];
+
+  $res = $conn->query($sql);
+  if($res) {
+
+    while( $row = $res->fetch_assoc()) {
+        $records[] = $row;
+        
+    }
+
+  }
+
+ return $records;
+}
+
+function getIstanzaView(int $id_RAM){
+
+  /**
+   * @var $conn mysqli
+   */
+
+    $conn = $GLOBALS['mysqli'];
+      $result=[];
+      $sql ='SELECT * FROM istanze_view WHERE id_RAM = '.$id_RAM;
+      //echo $sql;
+      $res = $conn->query($sql);
+      
+      if($res && $res->num_rows){
+        $result = $res->fetch_assoc();
+        
+      }
+    return $result;
+  
+  
+}
+function reportAmmissione($id_RAM){
+  
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+  $records=[];
+  $sql ="select  art_dm,count(art_dm) as qta, sum(valore_contr) as contributo, sum(pmi_istr) as pmi_contr, sum(rete_istr) as rete_contr from veicolo inner join tipo_veicolo on tipo_veicolo = tpvc_codice where id_ram = $id_RAM and stato_admin = 'B' group by art_dm order by art_dm";
+  //echo $sql;
+  $res = $conn->query($sql);
+        
+       
+  if($res) {
+
+    while( $row = $res->fetch_assoc()) {
+        $records[] = $row;
+        
+    }
+
+  }
+  return $records;
+}

@@ -82,6 +82,9 @@
   function isUserSuadmin(){
     return getUserRole() === 'suadmin';
   }
+  function getEnablePec(){
+    return $_SESSION['userData']['pec_enable'] ?? '';
+  }
   function isUserUser(){
     return getUserRole() === 'user';
   } 

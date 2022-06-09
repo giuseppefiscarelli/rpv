@@ -105,6 +105,7 @@ $pecSend = getReport($params);
 $params['search1']='A';
 $conv= countReport($params);
 $pecConv = getReport($params);
+//var_dump($pecConv);
 $tipiReport=getTipireport();
 $userIns= getUserIns();
 $edizioni = getTipiIstanza();

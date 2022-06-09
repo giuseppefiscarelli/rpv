@@ -12,6 +12,7 @@ switch ($action){
       $file=$_FILES['upload1'];
       $data=$_POST;    
       $updatereport = upReportConfMail($data); 
+     
       if ($file['size'] > 0) {
         $docu_nome_file_origine =  $file['name'];
         $path_parts = pathinfo($docu_nome_file_origine);
@@ -24,11 +25,13 @@ switch ($action){
       }else{
         $res = convMail($data);
       }
+    
       echo json_encode($res);
     break;
     case 'upAllegatoPec':
       $data=$_POST;
       $res = upReportConfMail($data); 
+      
       echo json_encode($res);
     break;
     case 'testSendMail':
@@ -54,7 +57,8 @@ switch ($action){
         'body' => $bodymod,
         'pecData' => $pecData
       );
-     
+      //var_dump($envProd);
+      //var_dump($envProd); die;
       if($envProd){
         $res = sendMail($data);
       }else{
