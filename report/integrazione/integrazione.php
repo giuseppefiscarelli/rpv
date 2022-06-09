@@ -20,7 +20,7 @@ $dettagli = getDettReport($_GET['id']);
 $tipo = $_GET['tipo'];
 $tipo_istanza= getTipoIstanza($user['tipo_istanza']);
 echo 'rep';
-echo $rep;
+var_dump($rep);
 die;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
