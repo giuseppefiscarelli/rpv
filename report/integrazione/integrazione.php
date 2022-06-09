@@ -25,8 +25,8 @@ use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 try {
-    $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 2),true);
-    $html2pdf->pdf->SetDisplayMode('fullpage');
+    //$html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 2),true);
+    //$html2pdf->pdf->SetDisplayMode('fullpage');
     //$html2pdf->pdf->SetProtection(array('print','copy'));
     //$html2pdf->setDefaultFont('times', 'serif');
     ob_start();
@@ -41,7 +41,7 @@ try {
     
     //$html2pdf->createIndex('Sommaire', 30, 12, false, true, 2, null, '10mm');
     if($tipo =="P"){
-        $html2pdf->writeHTML('<h1>HelloWorld</h1>This is my first test');
+       
         $html2pdf->output($filename.".pdf",'I');
     }
     if($tipo =="D"){
