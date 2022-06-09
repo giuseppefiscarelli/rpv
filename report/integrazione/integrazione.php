@@ -17,7 +17,7 @@ require_once  '../../functions.php';
 //$rep = getReportId($_GET['id']);
 //$user = getIstanza($rep['id_RAM']);
 ///$dettagli = getDettReport($_GET['id']);
-//$tipo = $_GET['tipo'];
+$tipo = $_GET['tipo'];
 //$tipo_istanza= getTipoIstanza($user['tipo_istanza']);
 
 use Spipu\Html2Pdf\Html2Pdf;
