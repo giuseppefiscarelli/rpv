@@ -157,6 +157,10 @@
       <!--end card-->
     </div>
 </div>
+<?php if($status['aperta']!=1){
+    require "alleistanza3.php";
+}
+?>
 <div class="row">
 <?php
    // require "alleistanza3.php";

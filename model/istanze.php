@@ -1617,6 +1617,8 @@ function closeRend($id_ram){
         $log['message']="Chiusura";
         $log['success']=true;
         writelog($log);
+        $sql2 = "INSERT INTO  istanza_check (id, id_ram) values(null, $id_ram)";
+        $res2 = $conn->query($sql2);
   }else{
     $result -1;  
   }
@@ -2380,4 +2382,231 @@ function reportAmmissione($id_RAM){
 
   }
   return $records;
+}function findCheckIstanza($id_ram){
+  
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+  $result=[];
+  $result['id']=0;
+  $sql ='SELECT id FROM istanza_check WHERE id_ram = '.$id_ram;
+  //echo $sql;
+  $res = $conn->query($sql);
+  
+  if($res && $res->num_rows){
+    $result = $res->fetch_assoc();
+  
+  }
+  return $result['id'];
+
+}
+function  upCheckIstanza($id_ram,$tipo_impresa,$tipo,$stato){
+ /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+  $result=0;
+  //var_dump($stato);
+  is_null($stato)? $stato = 'NULL': $stato; 
+  $sql ='UPDATE istanza_check SET ';
+  $sql .= "$tipo = $stato ";
+  $sql .=' WHERE id_ram = '.$id_ram;
+  //print_r($data);
+  //echo $sql;die;
+  $res = $conn->query($sql);
+  
+  if($res ){
+    $result =  $conn->affected_rows;
+    
+  }else{
+    $result -1;  
+  }
+  return $result;
+}
+function  newCheckIstanza($id_ram,$tipo_impresa,$tipo,$stato){
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+  $result=0;
+  $sql ="INSERT INTO istanza_check (id,id_ram,$tipo) ";
+  $sql .= "VALUES (NULL,$id_ram,$stato)  ";
+  
+ // echo $sql;die;
+  $res = $conn->query($sql);
+  
+  if($res ){
+    $result =  $conn->affected_rows;
+    $last_id= mysqli_insert_id($conn);
+    
+  }else{
+    $last_id=0;  
+  }
+  return $last_id;
+}
+function  newCheckIstanzaB($id_ram){
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+  $result=0;
+  $sql ="INSERT INTO istanza_check (id,id_ram) ";
+  $sql .= "VALUES (NULL,$id_ram)  ";
+  
+ // echo $sql;die;
+  $res = $conn->query($sql);
+  
+  if($res ){
+    $result =  $conn->affected_rows;
+    $last_id= mysqli_insert_id($conn);
+    
+  }else{
+    $last_id=0;  
+  }
+  return $last_id;
+}
+function  upCert($data){
+  /**
+    * @var $conn mysqli
+    */
+ 
+   $conn = $GLOBALS['mysqli'];
+   $result=0;
+   $user_mod = $_SESSION['userData']['email'];
+   $id_ram = $data['id_ram'];
+   $tipo = $data['tipo'];
+   $note = $data['note']?addslashes($data['note']):'';
+   $campo_note = 'note_'.$tipo;
+   $check = $data['tipo'];
+   $data_mod= date("Y-m-d H:i:s");
+   if($tipo == 'dim_impresa'){
+     $select = $data['select'];
+   }else{
+    if($data['select']=="A"){
+      $select = 'NULL';
+    }
+    if($data['select']=="B"){
+      $select = 1;
+      }
+      if($data['select']=="C"){
+        $select = 0;
+      }
+    }
+   
+   $sql ='UPDATE istanza_check SET ';
+   $sql .= "$tipo = $select, $campo_note = '$note', user_mod = '$user_mod', data_mod = '$data_mod' ";
+   $sql .=' WHERE id_ram = '.$id_ram;
+   //print_r($data);
+   //echo $sql;die;
+   $res = $conn->query($sql);
+   
+   if($res ){
+     $result =  $conn->affected_rows;
+     
+   }else{
+     $result -1;  
+   }
+   return $result;
+}
+function upContributo($data){
+
+      /**
+          * @var $conn mysqli
+      */
+
+    $conn = $GLOBALS['mysqli'];
+    $result=0;
+    
+    $id_ram = $data['id_RAM'];
+    
+    $tot_contributo = $data['tot_contributo'];
+    
+    $sql ='UPDATE istanza_check SET ';
+    $sql .= "tot_contributo = $tot_contributo ";
+    $sql .=' WHERE id_ram = '.$id_ram;
+    //print_r($data);
+   // echo $sql;
+    
+    $res = $conn->query($sql);
+    
+    if($res ){
+      $result =  $conn->affected_rows;
+      
+    }else{
+      $result -1;  
+    }
+    return $result;
+
+}
+ function getcheckIstanza($data){
+  
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+  $result=[];
+  $id_ram = $data['id_ram'];
+  $sql ='SELECT * FROM istanza_check WHERE id_ram = '.$id_ram;
+  //echo $sql;die;
+  $res = $conn->query($sql);
+  
+  if($res && $res->num_rows){
+    $result = $res->fetch_assoc();
+   
+  
+  }
+  return $result;
+
+  
+
+}
+function annullaIstanza($data){
+
+  /**
+   * @var $conn mysqli
+   */
+
+  $conn = $GLOBALS['mysqli'];
+  $id_RAM = $data['id_RAM'];
+  $note = $data['note_annullamento']?addslashes($data['note_annullamento']):'';
+  $check = checkRend($id_RAM);
+  $today = date("Y-m-d H:i:s");
+  if($check){
+   
+  $sql ='UPDATE rendicontazione SET ';
+  $sql .= "data_annullamento = '$today', note_annullamento='$note', aperta = 0";
+  $sql .=' WHERE id_RAM = '.$id_RAM;
+  
+  
+
+  }else{
+    $sql ='INSERT INTO rendicontazione (id, id_RAM, data_annullamento,note_annullamento,aperta) ';
+    $sql .= "VALUES (NULL, $id_RAM, '$today','$note',0) ";
+  }
+  $res = $conn->query($sql);
+
+  if($res){
+    $sql2 ='UPDATE istanza SET ';
+    $sql2 .= "eliminata = '2'";
+    $sql2 .=' WHERE id_RAM = '.$id_RAM;
+  }
+  
+  $res2 = $conn->query($sql2);
+
+  if($res&&$res2){
+    $log=[];
+        $log['user']['email']=$_SESSION['userData']['email'];
+        $log['log_funzione']="Annullamento Istanza";
+        $log['message']="Istanza idRAM ".$id_RAM;
+        $log['success']=true;
+        writelog($log);
+   
+    return true;
+  }
 }

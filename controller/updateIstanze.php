@@ -670,4 +670,76 @@ switch ($action){
       echo json_encode($res);
 
       break;
+    case 'checkCert':
+      $data = $_REQUEST;
+      $res = checkIstanza($data['id_ram']);
+      //var_dump($res);
+      if($res){
+        $tipo = $data['tipo'];
+        $note =  $res['note_'.$tipo]?$res['note_'.$tipo]:'';
+        $sel = $res[$tipo];
+        if(is_null($sel)){
+          $select = "A";
+        }
+        if($sel==1){
+          $select = "B";
+        }
+        if($sel=='0'){
+          $select = "C";
+        }
+        $json = array(
+          "note" => $note,
+          "select" => $select
+        );
+      }else{
+        $json = array(
+          "note" => '',
+          "select" => ''
+        );
+      }
+      
+      echo json_encode($json);
+      break;
+      case 'upCert':
+        $data = $_REQUEST;
+        $findInstanza = findCheckIstanza($data['id_ram']);
+       
+        $find = $findInstanza?$findInstanza:0;
+          if($find){
+            $res= upCert($data);
+            
+          }else{
+            $istanza = getIstanza($data['id_ram']);
+          
+            $res = newCheckIstanzaB($data['id_ram']);
+          }
+         
+        $res= upCert($data);
+        
+        
+          $c = getcheckIstanza($data);
+        
+          $n = $c['note_'.$data['tipo']];
+          $tipo = $c[$data['tipo']];
+          //var_dump($tipo);die;
+          $stato_tipo='';
+          if(is_null($tipo)){
+            $stato_tipo ='<span class="badge badge-warning" >In Lavorazione</span>';
+          }
+          if ($tipo==1){
+            $stato_tipo ='<span class="badge badge-success" >Accettato</span>';
+          }
+          if($tipo =='0'){
+            $stato_tipo ='<span class="badge badge-danger" >Respinto</span>';
+          }
+          $json = array(
+  
+            "note"=> $n,
+            "stato_tipo"=>$stato_tipo,
+            "tipo"=> $data['tipo']
+          );
+          echo json_encode($json);
+        
+       
+        break;  
    }

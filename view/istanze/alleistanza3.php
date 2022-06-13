@@ -22,7 +22,7 @@ $calcContributo=calcolaContributo($testData);
 //var_dump($allerete);
 //var_dump($alleampl);
 
-
+//var_dump($i);
 ?>
         <div class="row"  style="margin-bottom:10px;">
             <div class="col-12">
@@ -39,92 +39,11 @@ $calcContributo=calcolaContributo($testData);
                             <div class="collapse-body">
                                 <div class="row">
                                     <div class=" col-12">
-                                        <table class="table table-borderless table-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width:65%">Tipo</th>
-                                                    <th style="width:10%">Data Caricamento</th>
-                                                    <th style="width:10%">Stato</th>
-                                                    <th style="width:15%"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody style="font-size:15px;">
-                                            <?php
-                                         
-
-                                                
-                                                    if($i['pmi']=="Yes"){
-                                                        $descrizione=$pmidoc;
-                                                        $alle=0;
-                                                        $file=0;
-                                                        $tipo="pmi";
-                                                        $tipo_doc= $pmi;
-                                                        if($allepmi){
-                                                            
-                                                            $alle=$allepmi;
-                                                            $data_alle = date("d/m/Y",strtotime($alle['data_agg']));
-                                                            $file = file_exists($pathAlle.$alle['docu_id_file_archivio']);
-                                                            //var_dump($file);
-                                                        }
-                                                        $checkFile='';
-                                                        if($file==0){ $checkFile='Documento non caricato';};
-                                                        
-                                                        
-                                                        require "allegatoistanza2.php";
-
-                                                   
-                                                    }
-                                                    if($i['rete']=="Yes"){
-                                                        $descrizione=$retedoc;
-                                                        $alle=0;
-                                                        $file=0;
-                                                        $tipo="rete";
-                                                        $tipo_doc= $rete;
-                                                        if($allerete){
-                                                      
-                                                            $alle=$allerete;
-                                                            $data_alle = date("d/m/Y",strtotime($alle['data_agg']));
-                                                            $file = file_exists($pathAlle.$alle['docu_id_file_archivio']);
-                                                        }
-                                                        $checkFile='';
-                                                        if($file==0){ $checkFile='Documento non caricato';};
-                                                        require "allegatoistanza2.php";
-                                                   
-                                                    }
-                                                    if($i['nr_1']>0||$i['nr_2']>0){
-                                                        $descrizione=$ampldoc;
-                                                        $alle=0;
-                                                        $file=0;
-                                                        $tipo="ampl";
-                                                        $tipo_doc= $ampl;
-                                                        if($alleampl){
-                                                          
-                                                            $alle=$alleampl;
-                                                            $data_alle = date("d/m/Y",strtotime($alle['data_agg']));
-                                                            $file = file_exists($pathAlle.$alle['docu_id_file_archivio']);
-                                                        }
-                                                        $checkFile='';
-                                                        if($file==0){ $checkFile='Documento non caricato';};
-                                                        require "allegatoistanza2.php";
-                                                                                                      
-                                                    }
-                                                
-
-                                                    ?>
-                                          
-                                           
-
-                                            
-                                              
-
-
-                                            </tbody>
-
-                                        </table>
+                                    
                                         <?php
 
                                                     $c_i = checkIstanza($i['id_RAM']);
-                                                    
+                                                    //var_dump($c_i);
                                                     if(!$c_i){
                                                       $c_i = [
                                                         'pec'=>null,
@@ -369,9 +288,98 @@ $calcContributo=calcolaContributo($testData);
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary btn-sm" data-dismiss="modal" type="button">Chiudi</button>
-                <button class="btn btn-primary btn-sm" id="btnSaveCert" onclick="saveCert();" type="button">Salva Modifichce</button>
+                <button class="btn btn-primary btn-sm" id="btnSaveCert"  type="button">Salva Modifichce</button>
                 
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+<script>
+    function infoCert(idRam,tipo,title){
+        $('#note_check_cert').val('');
+                if(tipo == 'dim_impresa'){
+                    $('#select_dim_impresa').show();
+                    $('#select_all').hide()
+                }else{
+                    $('#select_dim_impresa').hide();
+                    $('#select_all').show()
+                }
+            
+                $('#certModal')
+                .find('.modal-title').text(title).end()  
+                .modal('toggle');
+                $.ajax({
+                    type: "POST",
+                    url: "controller/updateIstanze.php?action=checkCert",
+                    data: {id_ram:idRam,tipo:tipo},
+                    dataType: "json",
+                    success: function(data){
+
+                            console.log(data.note);
+                            $('#tipo_cert').val(tipo)
+                            $('textarea#note_check_cert').val(data.note)
+                            if(tipo == 'dim_impresa'){
+                                $('#sel_dim_impresa').val(data.select);
+                                $('#sel_dim_impresa').selectpicker('render');
+                            }else{
+                                $('#stato_check_cert').val(data.select);
+                                $('#stato_check_cert').selectpicker('render');
+                            }
+                        
+                            $('#btnSaveCert').attr('onclick','saveCert('+idRam+',\''+tipo+'\');')
+                            
+                    
+                                
+                            
+                            
+
+                            
+                            
+                    }
+                })
+    }
+    function saveCert(idRam,tipo){
+    
+        if(tipo == 'dim_impresa'){
+            
+            select=$('#sel_dim_impresa option:selected').val() 
+                }else{
+                    select=$('#stato_check_cert option:selected').val() 
+                }
+
+        note = $('#note_check_cert').val()
+
+        $.ajax({
+            type: "POST",
+            url: "controller/updateIstanze.php?action=upCert",
+            data: {id_ram:idRam,tipo:tipo,select:select,note:note},
+            dataType: "json",
+            success: function(data){
+                   
+                    if(tipo == 'dim_impresa'){
+                        if(select == 1){text = 'Piccola'}
+                        if(select == 2){text = 'Media'}
+                        if(select == 3){text = 'Grande'}
+                        html = '<span class="badge badge-success" >'+text+'</span>';
+                    }else{
+                        html  = data.stato_tipo;
+                    }
+                    $('#note_'+tipo).html(data.note)
+                    $('#stato_'+tipo).html(html)
+                
+                    if(data){
+                        $('#certModal').modal('toggle')
+
+                    }
+            
+            }
+        })
+
+
+    }
+
+</script>
