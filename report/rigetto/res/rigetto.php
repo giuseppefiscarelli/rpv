@@ -91,15 +91,15 @@ Protocollo Istanza Rpv <?=$user['id_RAM']?>/<?=$tipo_istanza['anno']?> Informati
     </table>
     <table>
         <tr><td style="text-align:justify;">In riferimento alla domanda di ammissione agli incentivi di cui al D.M.
-                                                                        14 agosto 2020 n. 2355 acquisita in data <?=date("d/m/Y", strtotime($data_RAM['data_invio']))?> con prot. n.<?=$user['id_RAM']?>/<?=$tipo_istanza['anno']?> si comunica che, sulla base delle risultanze
+                                                                        14 agosto 2020 n. 355 acquisita in data <?=date("d/m/Y", strtotime($data_RAM['data_invio']))?> con prot. n.<?=$user['id_RAM']?>/<?=$tipo_istanza['anno']?> si comunica che, sulla base delle risultanze
         dell'istruttoria effettuata dalla società RAM S.p.A e della valutazione di questa Commissione, l'istanza di ammissione al finanziamento degli investimenti di cui all'art. 1 del D.I.
         14 agosto 2020 n.355, destinato alle imprese di autotrasporti merci, è risultata</td></tr>
     </table>
     <h5 style="text-align:center">INAMMISSIBILE</h5>
-    <table style="margin-left:50px;">
+    <table style="margin-left:25px;">
                     <tr><td >Per la/le seguente/i motivazione/i:</td></tr>
     </table>                
-    <div class="row"style="height:250px;margin-top:20px;margin-left:50px;">               
+    <div class="row"style="height:250px;margin-top:20px;">               
     <table>
         <?php
         //var_dump($dettagli);
