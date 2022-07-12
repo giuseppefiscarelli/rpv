@@ -742,4 +742,12 @@ switch ($action){
         
        
         break;  
+
+        case 'annIstanza':
+          $data = $_REQUEST;
+  
+          $res=annullaIstanza($data);
+          echo json_encode($res);
+  
+        break;  
    }
