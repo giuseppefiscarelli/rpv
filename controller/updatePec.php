@@ -62,6 +62,7 @@ switch ($action){
       if($envProd){
         $res = sendMail($data);
       }else{
+      //  var_dump($data);die;
         $res = sendMail2($data);
       }
       if($res){

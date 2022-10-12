@@ -418,29 +418,30 @@ function sendMail2($data){
   $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
   try {
       //Server settings
-      //$mail->SMTPDebug = 2;                                 // Enable verbose debug output
+      //$mail->SMTPDebug = 2;   
+     // $mail->SMTPDebug = 2;                              // Enable verbose debug output
       $mail->isSMTP();                                      // Set mailer to use SMTP
-      $mail->Host = $data['pecData']['host'];//'smtp.gmail.com';  // Specify main and backup SMTP servers
+      $mail->Host = 'sendm.cert.legalmail.it';//'smtp.gmail.com';  // Specify main and backup SMTP servers
       $mail->SMTPAuth = true;                               // Enable SMTP authentication
-      $mail->Username = $data['pecData']['user'];//'fiscarelli.giu@gmail.com';                 // SMTP username
-      $mail->Password = $data['pecData']['pass'];//'01735583';                           // SMTP password
+      $mail->Username = 'ram.investimenti2020@legalmail.it';//'fiscarelli.giu@gmail.com';                 // SMTP username
+      $mail->Password = 'Pec@20201nv';//'01735583';                           // SMTP password
       $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-      $mail->Port = $data['pecData']['port'];                                    // TCP port to connect to
+      $mail->Port = 465;                                    // TCP port to connect to
 
       //Recipients
-      $mail->setFrom($data['pecData']['user']);
+      $mail->setFrom('ram.investimenti2020@legalmail.it');
       //$mail->addAddress($data['to']);
       $mail->addAddress('n.salvatore@gmail.com');     // Add a recipient
       $mail->addAddress('fiscarelli.giu@gmail.com');               // Name is optional
     
 
       //Attachments
-      $mail->addAttachment($data['file']);         // Add attachments
+     // $mail->addAttachment($data['file']);         // Add attachments
       
       //Content
-      $mail->isHTML(true);                                  // Set email format to HTML
+       $mail->isHTML(true);                                  // Set email format to HTML
       $mail->Subject = $data['Subject'];
-      $mail->Body    = $data['body'];
+      $mail->Body    = $data['body']; 
       //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
       $mail->send();
