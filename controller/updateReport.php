@@ -25,7 +25,7 @@ switch ($action){
                 'type' => $tipo,
                 'istanza' => $istanza,
                 'attr'=> $attr,
-                'info' => 'In '.$res['id_RAM'].'/'.$tipo_istanza['anno']
+                'info' => 'Rpv '.$res['id_RAM'].'/'.$tipo_istanza['anno']
             ];
             
             echo json_encode($json);
