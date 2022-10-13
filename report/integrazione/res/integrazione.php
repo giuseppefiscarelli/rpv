@@ -116,7 +116,7 @@
     </table>
 
     <table style="width:70%;margin-right:50mm">
-        <tr><td style="font-weight:bold;text-align:justify;vertical-align:top;">Oggetto:</td><td style="width:150mm;font-weight:bold;text-align:justify;">Contributi ai sensi del D.D. 21 ottobre 2020 n.187 per le finalità di cui al D.L.
+        <tr><td style="font-weight:bold;text-align:justify;vertical-align:top;">Oggetto:</td><td style="width:150mm;font-weight:bold;text-align:justify;">Contributi ai sensi del D.D. 21 ottobre 2020 n.187 per le finalità di cui al D.I.
                                                                         14 agosto 2020 n. 355 - &quot;Incentivi agli investimenti nel settore dell&#39;autotrasporto&quot;.</td></tr>
     </table>
     <table>
