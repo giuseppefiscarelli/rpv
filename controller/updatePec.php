@@ -53,7 +53,7 @@ switch ($action){
       $data = array(
         'To'=> $istanza['pec'],
         'file' =>  $pathReport.$report['nome_file'],
-        'Subject' =>$tipo_report['object'].' In '.$id_RAM.'/'.$tipo_istanza['anno'].' - rif#'.$time,
+        'Subject' =>$tipo_report['object'].' Rpv '.$id_RAM.'/'.$tipo_istanza['anno'].' - rif#'.$time,
         'body' => $bodymod,
         'pecData' => $pecData
       );
