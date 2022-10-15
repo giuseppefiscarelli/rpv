@@ -1,49 +1,119 @@
 <?php
- $activeIst = true;
-if(date("Y-m-d",strtotime($tipo_istanza['data_rendicontazione_fine']))<date("Y-m-d")){
-  $span='<span class="badge badge-success">In Istruttoria</span><br>Termine per la rendicondazione scaduti il '.date("d/m/Y",strtotime($tipo_istanza['data_rendicontazione_fine']));
-  $activeIst = false;
+
+$status= checkRend($i['id_RAM']);
+
+if($tipo_istanza['data_rendicontazione_fine']<date("Y-m-d")){
+
+  if($status){
+    if($status['aperta']==1){
+      $stato= getStatoIstanza('C');
+      $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span>';
+     
+    }elseif($status['aperta']==0){
+      $stato= getStatoIstanza('D');
+      $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Rendicondazione chiusa il '.date("d/m/Y",strtotime($status['data_chiusura']));
+      $activeIst = false;
+    }
+    if($status['data_annullamento']){
+      $stato= getStatoIstanza('B');
+      $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Annullata da Impresa ';
   
-
-}else{
- $status= checkRend($i['id_RAM']);
- 
- if($status){
-
-  if($status['aperta']==1){
-    $stato= getStatoIstanza('C');
-    $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span>';
+      $activeIst = false;
+    }
+    if(($tipo_istanza['data_rendicontazione_fine']<date("Y-m-d H:i:s")&&$status['aperta']==1)){
+      $stato= getStatoIstanza('E');
+      $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Termini di rendicontazione scaduti il '.date("d/m/Y",strtotime($tipo_istanza['data_rendicontazione_fine']));
+      $activeIst = false;
+    }
+  }else{
    
-  }elseif($status['aperta']==0){
-    $stato= getStatoIstanza('D');
-    $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Rendicondazione chiusa il '.date("d/m/Y",strtotime($status['data_chiusura']));
-    $activeIst = false;
+    $span='<span class="badge badge-warning">Attiva</span>';
+    $activeIst = true;
   }
-  if($status['data_annullamento']){
-    $stato= getStatoIstanza('B');
-    $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Annullata da Impresa ';
-
-    $activeIst = false;
-  }
-  if(($tipo_istanza['data_rendicontazione_fine']<date("Y-m-d H:i:s")&&$status['aperta']==1)){
-    $stato= getStatoIstanza('E');
-    $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Tempi di rendicontazione scaduti il '.date("d/m/Y",strtotime($tipo_istanza['data_rendicontazione_fine']));
-    $activeIst = false;
-  } 
 }else{
-  $span='<span class="badge badge-warning">Attiva</span>';
+  if($status){
+    if($status['aperta']==1){
+      $stato= getStatoIstanza('C');
+      $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span>';
+     
+    }elseif($status['aperta']==0){
+      $stato= getStatoIstanza('D');
+      $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Rendicondazione chiusa il '.date("d/m/Y",strtotime($status['data_chiusura']));
+      $activeIst = false;
+    }
+    if($status['data_annullamento']){
+      $stato= getStatoIstanza('B');
+      $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Annullata da Impresa ';
+  
+      $activeIst = false;
+    }
+    if(($tipo_istanza['data_rendicontazione_fine']<date("Y-m-d H:i:s")&&$status['aperta']==1)){
+      $stato= getStatoIstanza('E');
+      $span='<span class="badge badge-'.$stato['style'].'">'.$stato['des'].'</span><br>Termini di rendicontazione scaduti il '.date("d/m/Y",strtotime($tipo_istanza['data_rendicontazione_fine']));
+      $activeIst = false;
+    }
+  }else{
+   
+    $span='<span class="badge badge-warning">Attiva</span>';
+    $activeIst = true;
+  }
 }
-}
+$status_integrazione=false;
+$status_istr= getStatusIstruttoria_full($i['id_RAM']);
 
+if($status_istr && $status_istr['id'] && $status_istr['data_invio']){
+  $add_span='';
+  if($status_istr['tipo_report'] === '1'){
+      $text_istr = 'Integrazione';
+      $type_istr = 'warning';
+      $date_scad =  date("d/m/Y", strtotime($status_istr['data_invio'].' + '.$daysOpenRend.' days'));
+      $add_span = '<br>Inviare documentazione entro e non oltre il '.$date_scad;
+      $today = date("Y-m-d H:i:s");
+      $scad= date("Y-m-d 23:59:59", strtotime($status_istr['data_invio'].' + '.$daysOpenRend.' days'));
+     
+      if($today < $scad){
+        $status_integrazione=true;
+      }
+     
+  }
+  if($status_istr['tipo_report'] === '3'){
+    $text_istr = 'Ammessa';
+    $type_istr = 'success';
+ 
+   
+  }
+  if($status_istr['tipo_report'] === '2'){
+    $text_istr = 'Preavviso di rigetto';
+    $type_istr = 'warning';
+   
+  }
+  if($status_istr['tipo_report'] === '4'){
+    $text_istr = 'Rigettata';
+    $type_istr = 'danger';
+  }
+  $span_istr='<span class="badge badge-'.$type_istr.'">'.$text_istr.'</span><br>Pec inviata il '.date("d/m/Y",strtotime($status_istr['data_invio'])).$add_span;
+   }?>
 
-
-
-
-?>
-<h3 class="card-title">Istanza n° <?=$i['id_RAM']?>/<?=$tipo_istanza['anno']?> - <span style="font-size:17px;"><?=$i['ragione_sociale']?></span></h3>Stato Istanza <?=$span?>
-
-<h4><?=$tipo_istanza['des']?></h4>
-
+<div id="loadSpin">
+  <div class="d-flex justify-content-center" >
+      <p style="position:absolute;"><strong>Caricamento in corso...</strong></p>
+        <div class="progress-spinner progress-spinner-active" style="margin-top:30px;">
+        <span class="sr-only">Caricamento...</span>
+        </div>
+  </div>  
+</div>
+<div id="istanza_container" style="display: none;">
+    <h3 class="card-title">Istanza n° <?=$i['id_RAM']?>/<?=$tipo_istanza['anno']?> - <span style="font-size:17px;"><?=$i['ragione_sociale']?></span></h3>
+    <div class="row">
+        <div class="col-lg-4 col-12">
+        Stato Istanza <?=$span?>
+        </div>
+      <?php if($status_istr && $status_istr['data_invio']){?>
+        <div class="col-lg-4 col-12">
+          Stato Istruttoria <?=$span_istr?>
+        </div>
+      <?php }?>
+    </div>
 
 
   <nav>

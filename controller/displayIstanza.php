@@ -25,15 +25,16 @@
   //var_dump($rend);die;
   if(!$rend){
     createSrtructure($i);
+    $rend = checkRend($i['id_RAM']);
   } 
-  $rend = checkRend($i['id_RAM']);
+ 
   //var_dump($i['eliminata']);
   if(isUserAdmin()){
     
     require_once 'view/istanze/istanzaAdmin.php';
     //require_once 'view/istanze/istanza_page.php';
   }else{
-  
+
  // var_dump(count($notifiche));
  $_SESSION['userData']['check_ram'] = $i['id_RAM'];
   require_once 'view/istanze/istanza_page.php';

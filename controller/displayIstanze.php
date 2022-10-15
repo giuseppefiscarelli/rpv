@@ -36,14 +36,14 @@ if(!empty($_SESSION['message'])){
           $tipi_istanze = getTipiIstanza();
           $stati_istanze = getStatiIstanza();
           $stati_istruttoria = getStatiIstruttoria();
-         
-          //var_dump($users);
+       
          
          if(isUserUser()){
             $params['search1']= $_SESSION['userData']['email'];
             $totalUsers= countIstanze($params);
             $numPages= ceil($totalUsers/$recordsPerPage);
             $ist =[];
+           //var_dump($params); die;
             $ist = getIstanzeUser($params);
           require_once 'view/istanze/istanze_listUser.php';
          }else{
