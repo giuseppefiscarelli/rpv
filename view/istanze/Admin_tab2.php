@@ -382,7 +382,7 @@ $tipiveicolo = getTipiVeicolo();
                                     <th>Note</th>
                                     <th>Stato</th>
                                     <th>Note Admin</th>
-                                    <th>Action</th>
+                                    <th style="min-width:150px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

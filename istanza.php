@@ -17,7 +17,13 @@ require_once 'headerInclude.php';
 .it-datepicker-wrapper {
     position: relative;
     margin-top: 50px;
-}</style>
+}
+
+.modal {
+  overflow-y:auto;
+}
+
+</style>
 <div class="container my-4" style="max-width:90%">
  
 
@@ -44,6 +50,7 @@ require_once 'headerInclude.php';
                   outputFormat: 'dd/MM/yyyy',
                   
             });
+           
             $('#loadSpin').fadeOut();
   $('#istanza_container').fadeIn();
       
