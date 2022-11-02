@@ -56,8 +56,12 @@
 </style>
     
     <page_header> 
-        <table width="75%" style="margin:30px;text-align:center;">
-        <tr><td style="text-align:center;"><img style="width:300px;display:inline;"  src="../../images/intest.png"></td></tr>
+        <table width="75%" style="margin:30px;text-align:left;">
+        <tr><td style="text-align:center;"><img style="width:300px;display:inline;"  src="../../images/intest_new.png"></td></tr>
+        <tr><td style="text-align:center;font-weight:bold;">Dipartimento per la Mobilità Sostenibile</td></tr>
+        <tr style="max-width:250px;font-weight:bold;"><td style="text-align:center;">Commissione per la valutazione degli investimenti</td></tr>
+        <tr style="max-width:250px;font-weight:bold;"><td style="text-align:center;">per il rinnovo del parco veicolare da cui al Dl 355/2020</td></tr>
+        <tr style="max-width:250px;font-weight:bold;"><td style="text-align:center;"> di cui al D.I. 355/2020</td></tr>
         
 
         </table>
@@ -84,13 +88,13 @@
      <table style="width:70%;margin-right:50mm">
         <tr><td style="font-weight:bold;text-align:justify;vertical-align:top;">Oggetto:</td>
         <td style="width:150mm;font-weight:bold;text-align:justify;">Contributi ai sensi del D.D. 21 ottobre 2020 n.187 per le finalità di cui al D.I.
-                                                                        14 agosto 2020 n. 355 - &quot;Incentivi agli investimenti nel settore dell&#39;autotrasporto&quot;.<br>
+                                                                        14 agosto 2020 n. 355 - &quot;Incentivi per il rinnovo del parco veicolare.<br>
 Protocollo Istanza Rpv <?=$user['id_RAM']?>/<?=$tipo_istanza['anno']?> Informativa ai sensi dell'art.10-bis legge 241/90</td>
 </tr>
 
     </table>
     <table>
-        <tr><td style="text-align:justify;">In riferimento alla domanda di ammissione agli incentivi di cui al D.M.
+        <tr><td style="text-align:justify;">In riferimento alla domanda di ammissione agli incentivi di cui al D.I.
                                                                         14 agosto 2020 n. 355 acquisita in data <?=date("d/m/Y", strtotime($data_RAM['data_invio']))?> con prot. n.<?=$user['id_RAM']?>/<?=$tipo_istanza['anno']?> si comunica che, sulla base delle risultanze
         dell'istruttoria effettuata dalla società RAM S.p.A e della valutazione di questa Commissione, l'istanza di ammissione al finanziamento degli investimenti di cui all'art. 1 del D.I.
         14 agosto 2020 n.355, destinato alle imprese di autotrasporti merci, è risultata</td></tr>
@@ -99,12 +103,12 @@ Protocollo Istanza Rpv <?=$user['id_RAM']?>/<?=$tipo_istanza['anno']?> Informati
     <table style="margin-left:25px;">
                     <tr><td >Per la/le seguente/i motivazione/i:</td></tr>
     </table>                
-    <div class="row"style="height:250px;margin-top:20px;">               
+    <div class="row"style="max-height:250px;margin-top:20px;">               
     <table>
         <?php
         //var_dump($dettagli);
         foreach($dettagli as $d){?>
-        <tr><td style="text-align:justify;font-weight:bold;">- <?=$d['descrizione']?></td></tr>
+        <tr><td style="text-align:justify;">-  <?=$d['descrizione']?></td></tr>
        <?php } ?>     
     </table>                   
     </div> 
@@ -114,7 +118,7 @@ Protocollo Istanza Rpv <?=$user['id_RAM']?>/<?=$tipo_istanza['anno']?> Informati
         ricezione della presente per produrre per iscritto le proprie eventuali osservazioni, corredate se del caso, da idonea documentazione che  
         <u style="font-weight:bold;">dovrà essere inviata alla RAM S.p.A., esclusivamente presso il seguente indirizzo di posta elettronica certificata: ram.rinnovoparcoveicolare@pec.it</u></td></tr>               
     </table>
-    <table style="margin-left:400px;margin-top:20px;text-align:center">
+    <table style="margin-left:400px;margin-top:20px;text-align:center;">
         <tr><td>Il Presidente</td></tr>
         <tr><td>(Dott.ssa Monica Macioce)</td></tr>
 
