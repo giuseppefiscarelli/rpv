@@ -60,7 +60,7 @@
         <tr><td style="text-align:center;"><img style="width:300px;display:inline;"  src="../../images/intest_new.png"></td></tr>
         <tr><td style="text-align:center;font-weight:bold;">Dipartimento per la Mobilità Sostenibile</td></tr>
         <tr style="max-width:250px;font-weight:bold;"><td style="text-align:center;">Commissione per la valutazione degli investimenti</td></tr>
-        <tr style="max-width:250px;font-weight:bold;"><td style="text-align:center;">per il rinnovo del parco veicolare da cui al Dl 355/2020</td></tr>
+        <tr style="max-width:250px;font-weight:bold;"><td style="text-align:center;">per il rinnovo del parco veicolare</td></tr>
         <tr style="max-width:250px;font-weight:bold;"><td style="text-align:center;"> di cui al D.I. 355/2020</td></tr>
         
 
