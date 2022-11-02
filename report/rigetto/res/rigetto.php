@@ -109,11 +109,11 @@ Protocollo Istanza Rpv <?=$user['id_RAM']?>/<?=$tipo_istanza['anno']?> Informati
         //var_dump($dettagli);
         foreach($dettagli as $d){?>
         <tr><td style="text-align:justify;">-  <?=$d['descrizione']?></td></tr>
-       <?php } ?>     
+       <?php } ?>   
     </table>                   
     </div> 
     <div>
-    <table >
+    <table style="margin-top: 20px;" >
         <tr><td style="text-align:justify;">Si comunica che, ai sensi dell'art. 10-bis, comma 1, della legge n. 241/1990, l'impresa in indirizzo ha tempo 10 giorni dalla 
         ricezione della presente per produrre per iscritto le proprie eventuali osservazioni, corredate se del caso, da idonea documentazione che  
         <u style="font-weight:bold;">dovrà essere inviata alla RAM S.p.A., esclusivamente presso il seguente indirizzo di posta elettronica certificata: ram.rinnovoparcoveicolare@pec.it</u></td></tr>               
