@@ -73,7 +73,7 @@
     
     <table style="margin-top:45px;">
     <tr><td>Roma li,</td><td><?=date("d/m/Y",strtotime($rep['data_ins']))?></td></tr>
-        <tr><td>Prot n°</td><td  style="font-weight:bold;"> <?=$rep['prot_RAM']?></td></tr></table>
+        <tr><td>Prot n°</td><td  style="font-weight:bold;"> <?=$rep['prot_RAM'] !== '00'?$rep['prot_RMA']:'' ?></td></tr></table>
         
     <table style="margin-left:400px;">
         <tr><td>All'impresa</td><td ></td><td></td></tr>
