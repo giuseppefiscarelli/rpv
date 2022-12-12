@@ -35,7 +35,19 @@ switch ($action){
     break;
     case 'upDettaglioReport':
         $data = $_REQUEST;
-        $res = upDettaglioReport($data);
+        //var_dump($data);die;
+        if($data['data_verbale_id']){
+            $data['id'] = $data['data_verbale_id'];
+            $data['des'] =  $data['data_verbale_des'];
+            $res = upDettaglioReport($data);
+        }
+        if($data['data_prot_id']){
+            $data['id'] = $data['data_prot_id'];
+            $data['des'] =  $data['data_prot_des'];
+            $res = upDettaglioReport($data);
+        }
+
+       
         echo json_encode($res);
     break;
 }

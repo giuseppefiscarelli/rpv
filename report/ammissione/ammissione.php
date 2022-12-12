@@ -28,23 +28,23 @@ $data_doc='';
 
     foreach($dettagli as $dett){
 
-        if($dett['tipo']=='1'){
+        if($dett['tipo']==='1'){
             $prot_amm = $dett['descrizione'];
         }
-        if($dett['tipo']==2){
+        if($dett['tipo']==='2'){
             $data_prot = $dett['descrizione'];
         }
-        if($dett['tipo']==3){
-            $data_prot = $dett['descrizione'];
-        }
-        if($dett['tipo']==4){
-            $prot = $dett['descrizione'];
-        }
-        if($dett['tipo']=='5'){
+        if($dett['tipo']==='3'){
             $data_verb = $dett['descrizione'];
         }
+        if($dett['tipo']==='4'){
+            $prot = $dett['descrizione'];
+        }
+        if($dett['tipo']==='5'){
+            $data_prot = $dett['descrizione'];
+        }
     }
-    
+//svar_dump($data_prot, $data_verb,$rep);die;    
 $data = reportAmmissione($rep['id_RAM']);
 //var_dump($data); die;
 

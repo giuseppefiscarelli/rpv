@@ -57,17 +57,16 @@
 </style>
     
 
-        <table style="width:50%;">
-        <tr><td style="text-align:center;"><img style="width:300px;display:inline;"  src="../../images/intest.png"></td></tr>
+<table style="width:50%;">
+        <tr><td style="text-align:center;"><img style="width:300px;display:inline;"  src="../../images/int_amm.png"></td></tr>
         
 
         </table>
         
-        
 	
 
     <table>
-    <tr><td>Roma li,</td><td><?=date("d/m/Y", strtotime($rep['data_prot']))?></td></tr>
+    <tr><td>Roma li,</td><td><?=$data_prot?></td></tr>
     <tr><td>Prot n°</td><td  style="font-weight:bold;"> <?=$rep['prot_RAM']?></td></tr>
 
     </table>
@@ -109,7 +108,7 @@
     </table>
     <h5 style="text-align:center">AMMISSIONE</h5>
     <table>
-        <tr><td style="text-align:justify;">per gli importi di seguito ripartiti secondo le categorie e sottocategorie di investimento di cui agli artt. 1 e 2 D.M. 14 agosto 2020 n. 203:</td></tr>
+        <tr><td style="text-align:justify;">per gli importi di seguito ripartiti secondo le categorie e sottocategorie di investimento di cui agli artt. 1 e 2 D.I. 14 agosto 2020 n. 355:</td></tr>
     </table>
 
 
@@ -231,9 +230,10 @@ identità del legale rappresentante dell’impresa)</b>, tramite posta elettroni
     </p>
     
 
-    <table style="margin-left:400px;margin-top:10px;">
-    <tr><td>Il Direttore Generale</td></tr>
-    <tr><td style="font-style:italic;">(Ing. Vito Di Santo)</td></tr>
+   
+    <table style="margin-left:350px;margin-top:10px;">
+   
+    <tr><td style="font-style:italic;"><img style="width:220px;display:inline;"  src="../../images/firma_disanto.png"></td></tr>
    
     </table>
     </page>

@@ -607,9 +607,9 @@ function upDettaglioReport($data){
   
   $sql ='UPDATE dettaglio_report SET ';
   $sql .= "descrizione = '$descrizione' ";
-  $sql .=" WHERE id = '$id' ";
+  $sql .=" WHERE id = $id ";
   //print_r($data);
-  echo $sql;die;
+  //echo $sql;
   $res = $conn->query($sql);
   
   if($res ){

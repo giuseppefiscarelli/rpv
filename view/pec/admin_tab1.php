@@ -227,6 +227,7 @@
   
                             <div class="it-datepicker-wrapper col-lg-6 col-12">
                                 <div class="form-group">
+                                <input type="hidden" id="data_prot_object_id" value="">
                                     <input form="form_allegato_pec" class="form-control it-date-datepicker" onkeypress="return event.charCode >= 47 && event.charCode <= 57" id="data_prot_object" name="data_prot" type="text" value="" placeholder="gg/mm/aaaa" >
                                     <label for="data_prot_object">Data Documento</label>
                                     <small class="form-text text-muted">inserisci la data in formato gg/mm/aaaa</small>
@@ -265,6 +266,8 @@
 
 
 }); 
+
+
     function msgModal(id,tipo){
        $('.dataverbale').hide()
         $.ajax({
@@ -291,17 +294,19 @@
                     $('.dataverbale').show()
                 
                     $.each(data.attr,function(k,v){
-                       
+                        console.log(v.tipo)
                         if(v.tipo === '3'){
-                            $('#data_prot_object').val(v.descrizione)
+                            $('#data_verbale_id').val(v.id)
+                            $('#data_verbale_object').val(v.descrizione)
+                         
                         }
                         if(v.tipo === '4'){
-                           
+                            $('#protRam_object_id').val(v.id)
                             $('#protRam_object').val(v.descrizione)
                         }
                         if(v.tipo === '5'){
-                            $('#data_verbale_id').val(v.id)
-                            $('#data_verbale_object').val(v.descrizione)
+                            $('#data_prot_object_id').val(v.id)
+                            $('#data_prot_object').val(v.descrizione)
                         }
                    } )
 
@@ -395,6 +400,8 @@
                 if(tipo ==3){
                     data_verbale_id = $('#data_verbale_id').val()
                     data_verbale_des = $('#data_verbale_object').val()
+                    data_prot_id =  $('#data_prot_object_id').val()
+                    data_prot_des = $('#data_prot_object').val()
                     $.ajax({
                         type: "POST",
                         url: "controller/updateIstanze.php?action=upContributo",
@@ -408,7 +415,10 @@
                     $.ajax({
                         type: "POST",
                         url: "controller/updateReport.php?action=upDettaglioReport",
-                        data: {data_verbale_id:data_verbale_id,data_verbale_des:data_verbale_des },
+                        data: {
+                            data_verbale_id:data_verbale_id,data_verbale_des:data_verbale_des,
+                            data_prot_id: data_prot_id,data_prot_des:data_prot_des
+                        },
                         dataType: "json",
                         success: function(data){
                         
@@ -428,6 +438,32 @@
             }
         })
         }else{
+            if(tipo ==3){
+                data_verbale_id = $('#data_verbale_id').val()
+                data_verbale_des = $('#data_verbale_object').val()
+                data_prot_id =  $('#data_prot_object_id').val()
+                    data_prot_des = $('#data_prot_object').val()
+                $.ajax({
+                    type: "POST",
+                    url: "controller/updateIstanze.php?action=upContributo",
+                    data: {idRAM:idRAM},
+                    dataType: "json",
+                    success: function(data){
+                    
+                        console.log(data)
+                    }
+                })
+                $.ajax({
+                    type: "POST",
+                    url: "controller/updateReport.php?action=upDettaglioReport",
+                    data: {data_verbale_id:data_verbale_id,data_verbale_des:data_verbale_des , data_prot_id: data_prot_id,data_prot_des:data_prot_des},
+                    dataType: "json",
+                    success: function(data){
+                    
+                        console.log(data)
+                    }
+                })
+            }
 
             $.ajax({
                     url: "controller/updatePec.php?action=upAllegatoPec",
@@ -465,38 +501,17 @@
                                 },
                                 success: function(data){
                                     
-                                    if(tipo ==3){
-                                        data_verbale_id = $('#data_verbale_id').val()
-                                        data_verbale_des = $('#data_verbale_object').val()
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "controller/updateIstanze.php?action=upContributo",
-                                            data: {idRAM:idRAM},
-                                            dataType: "json",
-                                            success: function(data){
-                                            
-                                                console.log(data)
-                                            }
-                                        })
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "controller/updateReport.php?action=upDettaglioReport",
-                                            data: {data_verbale_id:data_verbale_id,data_verbale_des:data_verbale_des },
-                                            dataType: "json",
-                                            success: function(data){
-                                            
-                                                console.log(data)
-                                            }
-                                        })
-                                    }
+                                    
                                     Swal.fire({
                                         title:"Operazione Completata!",
                                         html:"Allegato caricato correttamente.",
-                                        icon:"success"}).then((result) => {
-                                                                    if (result.isConfirmed) {
-                                                                                location.reload()
-                                                                    }
-                                                                    });
+                                        icon:"success"})
+                                        .then(
+                                        (result) => {
+                                            if (result.isConfirmed) {
+                                                location.reload()
+                                            }
+                                        });
                                 }
                             })
 
@@ -507,6 +522,7 @@
                     })
                 }
             })
+            
         }
     })
     $('#upload1').on('click', function(){
