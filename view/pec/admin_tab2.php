@@ -33,6 +33,11 @@
                                 <span class="text" style="font-size: 0.7em;"><em style="display:inline;">Convalidata da:</em> <?=$pa['user_conv']?> <?=date("d/m/Y H:i", strtotime($pa['data_conv']))?></span>
                                 <span class="text" style="font-size: 0.7em;"><em style="display:inline;">Inviata da:</em> <?=$pa['user_invio']?> <?=date("d/m/Y H:i", strtotime($pa['data_invio']))?></span>
                             </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-warning btn-sm" style="padding: 5px 12px;"onclick="window.open('allepec.php?id=<?=$pa['id']?>','_blank')"title="Anteprima Documento"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm" title="Scarica Documento"  style="padding: 5px 12px;" onclick="window.open('downpec.php?id=<?=$pa['id']?>','_blank')"><i class="fa fa-download" aria-hidden="true"></i></button>
+                            </div>
+
                             
 
                         </div>
