@@ -58,7 +58,7 @@
     
 
 <table style="width:50%;">
-        <tr><td style="text-align:center;"><img style="width:300px;display:inline;"  src="../../images/int_amm.png"></td></tr>
+        <tr><td style="text-align:center;"><img style="width:300px;display:inline;"  src="../../images/int_ammb.png"></td></tr>
         
 
         </table>
